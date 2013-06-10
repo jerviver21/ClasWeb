@@ -1,0 +1,14 @@
+
+
+.ui-datatable table {
+    font-size: 12px;
+}
+
+.ui-panelgrid td {
+    border-width: 0px;
+}
+
+.ui-panelgrid {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
