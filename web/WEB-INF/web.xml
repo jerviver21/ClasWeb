@@ -73,7 +73,10 @@
     <listener>
         <listener-class>com.vi.helpers.SessionMonitor</listener-class>
     </listener>
-    
+    <filter>
+        <filter-name>Character Encoding Filter</filter-name>
+        <filter-class>com.vi.comun.filters.CharacterEncodingFilter</filter-class>
+    </filter>
     <welcome-file-list>
         <welcome-file>/general/bienvenida.xhtml</welcome-file>
     </welcome-file-list>
