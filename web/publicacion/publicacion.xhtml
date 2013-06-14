@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
 
-<html  xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="#{applicationController.plantilla}">
+            <ui:define name="navegador">
+                <ui:include src="../menu.xhtml"/>
+            </ui:define>
+            <ui:define name="contenido">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <br/>
+                    <span class="titulo">Publique su Clasificado</span>
+                    <br/>
+                    
+                    <p:panelGrid columns="3">
+                        <h:outputLabel for="tipo" value="Tipo de Clasificado:" />
+                        <h:selectOneMenu id="tipo" value="#{publicacionController.tipo}" valueChangeListener="#{publicacionController.seleccionarSubtipos}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{publicacionController.tipos}"/>
+                        </h:selectOneMenu>
+                        <p:message for="tipo"/>
+                    </p:panelGrid>
+                    
+                </h:form>
+            </ui:define>
+            <ui:define name="pie">
+                <ui:include src="../piepag.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
 </html>

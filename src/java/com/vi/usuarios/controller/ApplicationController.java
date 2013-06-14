@@ -24,11 +24,12 @@ public class ApplicationController {
     
     //Define la plantilla y layout de la aplicacion
 
-    private String p1 = "../plantilla1.xhtml";
-    private String p2 = "../plantilla2.xhtml";
-    private String p3 = "../plantilla3.xhtml";
-    private String plantilla = p3;
-    private String plantillaIndex = p3;
+    private String p1 = "principal1";
+    private String p2 = "principal2";
+    private String p3 = "principal3";
+    private String estilo = getP3();
+    private String plantilla = "../plantilla.xhtml";
+    private String plantillaI = "plantillaI.xhtml";
     private Map<String, String> themes; 
     private String theme = "bluesky";
     private String url;
@@ -64,7 +65,6 @@ public class ApplicationController {
     
     
     public void cambiarTema(ValueChangeEvent event){
-        System.out.println("Nuevo tema: "+event.getNewValue());
         theme = (String)event.getNewValue();
     }
     
@@ -158,16 +158,6 @@ public class ApplicationController {
         this.theme = theme;
     }
 
-    /**
-     * @param plantillaIndex the plantillaIndex to set
-     */
-    public void setPlantillaIndex(String plantillaIndex) {
-        this.plantillaIndex = plantillaIndex;
-    }
-    
-    public String getPlantillaIndex() {
-        return plantilla.replaceAll("(.*plantilla)(\\d.xhtml)", "$1I$2");
-    }
 
     /**
      * @return the url
@@ -181,6 +171,48 @@ public class ApplicationController {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * @return the estilo
+     */
+    public String getEstilo() {
+        return estilo;
+    }
+
+    /**
+     * @param estilo the estilo to set
+     */
+    public void setEstilo(String estilo) {
+        this.estilo = estilo;
+    }
+
+    /**
+     * @return the p3
+     */
+    public String getP3() {
+        return p3;
+    }
+
+    /**
+     * @param p3 the p3 to set
+     */
+    public void setP3(String p3) {
+        this.p3 = p3;
+    }
+
+    /**
+     * @return the plantillaI
+     */
+    public String getPlantillaI() {
+        return plantillaI;
+    }
+
+    /**
+     * @param plantillaI the plantillaI to set
+     */
+    public void setPlantillaI(String plantillaI) {
+        this.plantillaI = plantillaI;
     }
 
 }

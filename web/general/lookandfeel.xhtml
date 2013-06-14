@@ -13,11 +13,11 @@
         <h:form id="form">
             <p:panelGrid columns="2">
                 <p:outputLabel value="Decoración"/>
-                <p:selectOneMenu id="contratista" value="#{applicationController.plantilla}">
+                <p:selectOneMenu id="contratista" value="#{applicationController.estilo}">
                     <p:ajax update="@form"/>
-                    <f:selectItem itemLabel="ORANGE" itemValue="../plantilla1.xhtml"  />
-                    <f:selectItem itemLabel="GREEN" itemValue="../plantilla2.xhtml"  />
-                    <f:selectItem itemLabel="BLUE" itemValue="../plantilla3.xhtml"  />
+                    <f:selectItem itemLabel="ORANGE" itemValue="#{applicationController.p1}"  />
+                    <f:selectItem itemLabel="GREEN" itemValue="#{applicationController.p2}"  />
+                    <f:selectItem itemLabel="BLUE" itemValue="#{applicationController.p3}"  />
                 </p:selectOneMenu>
                 <p:outputLabel value="Tema"/>
                 <p:themeSwitcher style="width:165px" id="defaultSwitcher" value="#{applicationController.theme}" valueChangeListener="#{applicationController.cambiarTema}">  

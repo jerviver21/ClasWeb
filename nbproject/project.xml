@@ -15,10 +15,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="100">
-                    <file>${reference.ClasService.dist}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="100">
                     <file>${reference.ReporteServices.dist}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -224,6 +220,10 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.spring-security-web-3.0.5.RELEASE.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="100">
+                    <file>${reference.ClasService.dist}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

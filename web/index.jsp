@@ -2,7 +2,7 @@
 <html>
     <head>
         <title id="title">Paideia Software</title>
-        <link href="styles/principalI1.css" rel="stylesheet" type="text/css" />
+        <link href="styles/principal1I.css" rel="stylesheet" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script lang="JavaScript" type="text/JavaScript" src="scripts/funciones.js"></script>
     </head>

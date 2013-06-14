@@ -6,8 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <f:view>
         <ui:composition>
-            <p:tieredMenu id="menubar1" model="#{sessionController.model}" rendered="#{applicationController.plantilla ne applicationController.p1}"/>
-            <p:menubar id="menubar2" model="#{sessionController.model}" rendered="#{applicationController.plantilla eq applicationController.p1}"/>
+            <p:tieredMenu id="menubar1" model="#{sessionController.model}"/>
         </ui:composition>
     </f:view>
 </html>
