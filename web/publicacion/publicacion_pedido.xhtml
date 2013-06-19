@@ -1,0 +1,51 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="#{applicationController.plantilla}">
+            <ui:define name="navegador">
+                <ui:include src="../menu.xhtml"/>
+            </ui:define>
+            <ui:define name="contenido">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <br/>
+                    <span class="titulo">Datos de los Clasificados que se Publicaran:</span>
+                    <br/>
+                    
+                    <p:dataTable value="#{publicacionController.pedido}" var="item" 
+                                paginator="true"
+                                paginatorAlwaysVisible="false"
+                                rows="30"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                paginatorPosition="bottom">
+                        
+                        <p:column headerText="Medio de Publicación">
+                            <h:outputText value="#{item.tipoPublicacion.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Tipo de Clasificado">
+                            <h:outputText value="#{item.tipo.dato}"/> 
+                        </p:column>
+                        <p:column headerText="Clasificado">
+                            <p:outputLabel value="#{item.clasificado}" />
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{item.precio}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+            <ui:define name="pie">
+                <ui:include src="../piepag.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

@@ -1,0 +1,106 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="#{applicationController.plantilla}">
+            <ui:define name="navegador">
+                <ui:include src="../menu.xhtml"/>
+            </ui:define>
+            <ui:define name="contenido">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <h:link outcome="/publicacion/publicacion_clasificado.xhtml" value="Publicar"/>
+                    <br/>
+                    <span class="titulo">Precios de publicación::</span>
+                    <br/>
+                    <p:fieldset legend="Normal">  
+                        <p:panelGrid columns="2">  
+                            <p:graphicImage value="/images/clasificado1.jpg" />  
+                            <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    <p:outputLabel value="DIA"/>
+                                    <p:outputLabel value="PRECIO"/>
+                                </f:facet>
+                                <p:outputLabel value="Semanal"/>
+                                <p:outputLabel value="0.40 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Dominical"/>
+                                <p:outputLabel value="0.50 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Festivo"/>
+                                <p:outputLabel value="0.60 s./ por palabra"/>
+                            </p:panelGrid> 
+                        </p:panelGrid>  
+                    </p:fieldset>  
+                    <br/>
+                    <p:fieldset legend="Económico">  
+                        <p:panelGrid columns="2">  
+                            <p:graphicImage value="/images/clasificado2.jpg" /> 
+                            <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    <p:outputLabel value="DIA"/>
+                                    <p:outputLabel value="PRECIO"/>
+                                </f:facet>
+                                <p:outputLabel value="Semanal"/>
+                                <p:outputLabel value="0.30 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Dominical"/>
+                                <p:outputLabel value="0.40 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Festivo"/>
+                                <p:outputLabel value="0.50 s./ por palabra"/>
+                            </p:panelGrid> 
+                        </p:panelGrid>  
+                    </p:fieldset>  
+                    <br/>
+                    <p:fieldset legend="Super Económico">  
+                        <p:panelGrid columns="2">  
+                            <p:graphicImage value="/images/clasificado3.jpg" /> 
+                            <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    <p:outputLabel value="DIA"/>
+                                    <p:outputLabel value="PRECIO"/>
+                                </f:facet>
+                                <p:outputLabel value="Semanal"/>
+                                <p:outputLabel value="0.20 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Dominical"/>
+                                <p:outputLabel value="0.30 s./ por palabra"/>
+                                
+                                <p:outputLabel value="Festivo"/>
+                                <p:outputLabel value="0.50 s./ por palabra"/>
+                            </p:panelGrid> 
+                        </p:panelGrid>  
+                    </p:fieldset>  
+                    <br/>
+                    <p:fieldset legend="WEB">  
+                        <p:panelGrid columns="2">  
+                            <p:graphicImage value="/images/web.png" width="350px" />  
+                            <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    <p:outputLabel value="DIA"/>
+                                    <p:outputLabel value="PRECIO"/>
+                                </f:facet>
+                                <p:outputLabel value="Cualquier día"/>
+                                <p:outputLabel value="2 s./ por todo el clasificado"/>
+                            </p:panelGrid> 
+                        </p:panelGrid>  
+                    </p:fieldset>  
+                    
+                    
+                </h:form>
+            </ui:define>
+            <ui:define name="pie">
+                <ui:include src="../piepag.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

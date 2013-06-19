@@ -1,0 +1,129 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="#{applicationController.plantilla}">
+            <ui:define name="navegador">
+                <ui:include src="../menu.xhtml"/>
+            </ui:define>
+            <ui:define name="contenido">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <br/>
+                    <span class="titulo">Publique su Clasificado</span>
+                    <br/>
+                    
+                    <p:panelGrid style="margin-top:20px">
+                        <p:row>
+                            <p:column><h:outputLabel  value="Tipo de Clasificado:" /></p:column>
+                            <p:column><h:selectOneMenu id="tipo" value="#{publicacionController.clasificado.tipo.id}" valueChangeListener="#{publicacionController.cambiarTipo}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{publicacionController.tipos}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo1}">
+                            <p:column><h:outputLabel  value="#{publicacionController.nsubtipo1}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub1" value="#{publicacionController.clasificado.subtipo1.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{publicacionController.subtipos1}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo2}">
+                            <p:column><h:outputLabel  value="#{publicacionController.nsubtipo2}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub2" value="#{publicacionController.clasificado.subtipo2.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{publicacionController.subtipos2}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo3}">
+                            <p:column><h:outputLabel  value="#{publicacionController.nsubtipo3}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub3" value="#{publicacionController.clasificado.subtipo3.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{publicacionController.subtipos3}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo4}">
+                            <p:column><h:outputLabel  value="#{publicacionController.nsubtipo4}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub4" value="#{publicacionController.clasificado.subtipo4.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{publicacionController.subtipos4}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo5}">
+                            <p:column><h:outputLabel  value="#{publicacionController.nsubtipo5}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub5" value="#{publicacionController.clasificado.subtipo5.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{publicacionController.subtipos5}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.precio}">
+                            <p:column><h:outputLabel  value="Precio: "/></p:column>
+                            <p:column><p:inputText id="precio"  value="#{publicacionController.clasificado.precioOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column><p:message for="precio"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.area}">
+                            <p:column><h:outputLabel  value="Area: "/></p:column>
+                            <p:column><p:inputText id="area" value="#{publicacionController.clasificado.areaOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column><p:message for="area"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.salario}">
+                            <p:column><h:outputLabel  value="Salario: "/></p:column>
+                            <p:column><p:inputText id="salario" value="#{publicacionController.clasificado.salarioOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column><p:message for="salario"/></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputLabel  value="Fecha Inicial de Publicación: "/></p:column>
+                            <p:column><p:calendar id="fechaini" value="#{publicacionController.clasificado.fechaIni}" size="40"><p:ajax event="dateSelect"/></p:calendar></p:column>
+                            <p:column><p:message for="fechaini"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="fechaini"/></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputLabel  value="Fecha Final de Publicación:  "/></p:column>
+                            <p:column><p:calendar id="fechafin" value="#{publicacionController.clasificado.fechaFin}" size="40"><p:ajax event="dateSelect"/></p:calendar></p:column>
+                            <p:column><p:message for="fechafin"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="fechafin"/></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputLabel  value="Clasificado: "/></p:column>
+                            <p:column><p:inputTextarea id="clasificado" value="#{publicacionController.clasificado.clasificado}" cols="40"><p:ajax/></p:inputTextarea></p:column>
+                            <p:column><p:message for="clasificado"/></p:column>
+                            <p:column><p:watermark value="Escriba exactamente lo que quiere que se imprima en el clasificado" for="clasificado"/></p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    
+                    <br/>
+                    <span class="titulo">Medios de Publicación</span>
+                    <p:panelGrid columns="1">
+                        <h:outputLabel  value="Seleccione los medios en que desea publicar: "/>
+                        <h:selectManyCheckbox id="tipopub" value="#{publicacionController.clasificado.opcionesPublicacion}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{publicacionController.tiposPublicacion}"/>
+                        </h:selectManyCheckbox>
+                    </p:panelGrid>
+                    <br/>
+                    <h:link outcome="/publicacion/publicacion_precios.xhtml" value="Ver Precios"/>
+                    <br/>
+                    <p:commandButton value="Calcular Precio" action="#{publicacionController.procesarClasificado}" ajax="false"/>
+                    
+                </h:form>
+            </ui:define>
+            <ui:define name="pie">
+                <ui:include src="../piepag.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

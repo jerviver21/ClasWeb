@@ -28,8 +28,8 @@ public class ApplicationController {
     private String p2 = "principal2";
     private String p3 = "principal3";
     private String estilo = getP3();
-    private String plantilla = "../plantilla.xhtml";
-    private String plantillaI = "plantillaI.xhtml";
+    private String plantilla = "../plantillaA1.xhtml";
+    private String plantillaI = "plantillaA1.xhtml";
     private Map<String, String> themes; 
     private String theme = "bluesky";
     private String url;

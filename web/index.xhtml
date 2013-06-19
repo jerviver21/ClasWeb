@@ -8,6 +8,7 @@
 <f:view>
     <ui:composition template="#{applicationController.plantillaI}">
     <ui:define name="contenido">
+        <div style="height: 450px">
         <h:form id="form0" prependId="false">
             <p:growl id="msgs"/>
             <h:outputLabel id="error_msg" value="#{loginController.mensaje} " style="color: red"  />
@@ -33,7 +34,7 @@
             <h:link id="link2" outcome="/registro/registro.xhtml" value="Regístrate"/>
 
         </h:form>
-
+        </div>
 
         </ui:define>
         <ui:define name="pie">

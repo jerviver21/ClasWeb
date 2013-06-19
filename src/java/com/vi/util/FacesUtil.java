@@ -65,7 +65,7 @@ public class FacesUtil {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public static List<SelectItem> getSelectsItem(Map<Object, Object> opciones){
+    public static List<SelectItem> getSelectsItem(Map opciones){
         List<SelectItem> items = new ArrayList<SelectItem>();
         Set<Object> pks = opciones.keySet();
         for(Object pk : pks ){

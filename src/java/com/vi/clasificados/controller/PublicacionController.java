@@ -2,8 +2,13 @@ package com.vi.clasificados.controller;
 
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.TipoClasificado;
+import com.vi.clasificados.dominio.TipoPublicacion;
+import com.vi.clasificados.services.ClasificadosServices;
 import com.vi.clasificados.services.TipoClasificadoService;
+import com.vi.clasificados.services.TiposPublicacionService;
+import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,65 +25,87 @@ import javax.faces.model.SelectItem;
 @ManagedBean(name="publicacionController")
 @SessionScoped
 public class PublicacionController {
+    //Objetos para procesar la información del clasificado
     private Clasificado clasificado;
+    private TipoClasificado tipoClasificado;
+    private List<Clasificado> pedido;
+    
+    //Objetos para guardar información de listas desplegables
     private List<SelectItem> tipos;
     private List<SelectItem> subtipos1;
     private List<SelectItem> subtipos2;
     private List<SelectItem> subtipos3;
     private List<SelectItem> subtipos4;
     private List<SelectItem> subtipos5;
+    private List<String> tiposPublicacion;
     
-    private Integer tipo;
-    private Integer subtipo1;
-    private Integer subtipo2;
-    private Integer subtipo3;
-    private Integer subtipo4;
-    private Integer subtipo5;
+    //Objetos para los titulos de los subtipos de cada tipo
+    private String nsubtipo1;
+    private String nsubtipo2;
+    private String nsubtipo3;
+    private String nsubtipo4;
+    private String nsubtipo5;
     
-    String nSubtipo1;
-    String nSubtipo2;
-    String nSubtipo3;
-    String nSubtipo4;
-    String nSubtipo5;
-    
-    //Permite precargar en memoria todos los subtipos para que sean rapidamente accedidos
+    //Variables de control permiten hacer un despliegue dinámico y precargar en memoria todos los subtipos y para que sean rapidamente accedidos
     //<TIPO,<SUBTIPO,List<Subtipos>>>
-    Map<Integer, Map<String, List<TipoClasificado>>> mapaTipos;
+    Map<Integer, Map<String, List<TipoClasificado>>> mapaSubtipos;
+    Map<Integer, TipoClasificado> mapaTipos;
+    boolean modoEdicion = false;
     
+    //Servicios
     @EJB
     TipoClasificadoService tipoService;
+    @EJB
+    TiposPublicacionService tipoPubService;
+    @EJB
+    ClasificadosServices clasificadosService;
+    
+    //Otros objetos necesarios
+    ComboLocator comboLocator;
     
     @PostConstruct
     public void init(){
-        setTipos(FacesUtil.getSelectsItem(tipoService.getTiposBase()));
-        mapaTipos = tipoService.getEstructuraConsulta();
+        comboLocator = ComboLocator.getInstance();
+        clasificado = new Clasificado();
+        mapaTipos = tipoService.getTiposBase();
+        mapaSubtipos = tipoService.getEstructuraConsulta();
+        seleccionarSubtipos(1);// 1 - Es el tipo: FINCA RAIZ 
+        tipos = FacesUtil.getSelectsItem(mapaTipos);
+        tiposPublicacion = tipoPubService.findAllNombresTipos();
+        pedido = new ArrayList<Clasificado>();
     }
     
-    public void seleccionarSubtipos(ValueChangeEvent event) {
-        Map<String, List<TipoClasificado>> subtipos = mapaTipos.get((Integer) event.getNewValue()); 
+    public void cambiarTipo(ValueChangeEvent event) {
+        Integer idTipo = (Integer) event.getNewValue();
+        seleccionarSubtipos(idTipo);
+    }
+    
+    public void seleccionarSubtipos(int idTipo) {
+        tipoClasificado = mapaTipos.get(idTipo);
+        Map<String, List<TipoClasificado>> subtipos = mapaSubtipos.get(idTipo); 
         Set<String> nSubs = subtipos.keySet();
         
         int indiceSubtipo = 1;
         for(String nombre : nSubs){
             switch(indiceSubtipo){
                 case 1:
-                    nSubtipo1 = nombre;
+                    setNsubtipo1(nombre);
                     subtipos1 = FacesUtil.getSelectsItem(subtipos.get(nombre));
                     break;
                 case 2:
-                    nSubtipo2 = nombre;
+                    nsubtipo2 = nombre;
                     subtipos2 = FacesUtil.getSelectsItem(subtipos.get(nombre));
                     break;
                 case 3:
-                    nSubtipo3 = nombre;
+                    nsubtipo3 = nombre;
                     subtipos3 = FacesUtil.getSelectsItem(subtipos.get(nombre));
                     break;
                 case 4:
-                    nSubtipo4 = nombre;
+                    nsubtipo4 = nombre;
                     subtipos4 = FacesUtil.getSelectsItem(subtipos.get(nombre));
                     break;
                 case 5:
-                    nSubtipo5 = nombre;
+                    nsubtipo5 = nombre;
                     subtipos5 = FacesUtil.getSelectsItem(subtipos.get(nombre));
                     break;
             }
@@ -87,17 +114,24 @@ public class PublicacionController {
         
         switch(indiceSubtipo){
             case 1:
-                nSubtipo1 = null;
+                nsubtipo1 = null;
             case 2:
-                nSubtipo2 = null;
+                nsubtipo2 = null;
             case 3:
-                nSubtipo3 = null;
+                nsubtipo3 = null;
             case 4:
-                nSubtipo4 = null;
+                nsubtipo4 = null;
             case 5:
-                nSubtipo5 = null;
+                nsubtipo5 = null;
         }
-        System.out.println(nSubtipo1+" - "+nSubtipo2+" - "+nSubtipo3);
+    }
+    
+    
+    public String procesarClasificado(){
+        System.out.println(clasificado.getClasificado());
+        List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
+        pedido.addAll(clasificados);
+        return "/publicacion/publicacion_pedido.xhtml";
     }
 
     /**
@@ -136,24 +170,10 @@ public class PublicacionController {
     }
 
     /**
-     * @param subtipos1 the subtipos1 to set
-     */
-    public void setSubtipos1(List<SelectItem> subtipos1) {
-        this.subtipos1 = subtipos1;
-    }
-
-    /**
      * @return the subtipos2
      */
     public List<SelectItem> getSubtipos2() {
         return subtipos2;
-    }
-
-    /**
-     * @param subtipos2 the subtipos2 to set
-     */
-    public void setSubtipos2(List<SelectItem> subtipos2) {
-        this.subtipos2 = subtipos2;
     }
 
     /**
@@ -163,12 +183,6 @@ public class PublicacionController {
         return subtipos3;
     }
 
-    /**
-     * @param subtipos3 the subtipos3 to set
-     */
-    public void setSubtipos3(List<SelectItem> subtipos3) {
-        this.subtipos3 = subtipos3;
-    }
 
     /**
      * @return the subtipos4
@@ -178,108 +192,90 @@ public class PublicacionController {
     }
 
     /**
-     * @param subtipos4 the subtipos4 to set
-     */
-    public void setSubtipos4(List<SelectItem> subtipos4) {
-        this.subtipos4 = subtipos4;
-    }
-
-    /**
      * @return the subtipos5
      */
     public List<SelectItem> getSubtipos5() {
         return subtipos5;
     }
 
+
     /**
-     * @param subtipos5 the subtipos5 to set
+     * @return the tipoClasificado
      */
-    public void setSubtipos5(List<SelectItem> subtipos5) {
-        this.subtipos5 = subtipos5;
+    public TipoClasificado getTipoClasificado() {
+        return tipoClasificado;
+    }
+
+
+    /**
+     * @return the nsubtipo1
+     */
+    public String getNsubtipo1() {
+        return nsubtipo1;
     }
 
     /**
-     * @return the tipo
+     * @param nsubtipo1 the nsubtipo1 to set
      */
-    public Integer getTipo() {
-        return tipo;
+    public void setNsubtipo1(String nsubtipo1) {
+        this.nsubtipo1 = nsubtipo1;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @return the nsubtipo2
      */
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public String getNsubtipo2() {
+        return nsubtipo2;
     }
 
     /**
-     * @return the subtipo1
+     * @return the nsubtipo3
      */
-    public Integer getSubtipo1() {
-        return subtipo1;
+    public String getNsubtipo3() {
+        return nsubtipo3;
     }
 
     /**
-     * @param subtipo1 the subtipo1 to set
+     * @return the nsubtipo4
      */
-    public void setSubtipo1(Integer subtipo1) {
-        this.subtipo1 = subtipo1;
+    public String getNsubtipo4() {
+        return nsubtipo4;
     }
 
     /**
-     * @return the subtipo2
+     * @return the nsubtipo5
      */
-    public Integer getSubtipo2() {
-        return subtipo2;
+    public String getNsubtipo5() {
+        return nsubtipo5;
+    }
+
+
+    /**
+     * @return the tiposPublicacion
+     */
+    public List<String> getTiposPublicacion() {
+        return tiposPublicacion;
     }
 
     /**
-     * @param subtipo2 the subtipo2 to set
+     * @param tiposPublicacion the tiposPublicacion to set
      */
-    public void setSubtipo2(Integer subtipo2) {
-        this.subtipo2 = subtipo2;
+    public void setTiposPublicacion(List<String> tiposPublicacion) {
+        this.tiposPublicacion = tiposPublicacion;
     }
 
     /**
-     * @return the subtipo3
+     * @return the clasificadosPedido
      */
-    public Integer getSubtipo3() {
-        return subtipo3;
+    public List<Clasificado> getPedido() {
+        return pedido;
     }
 
     /**
-     * @param subtipo3 the subtipo3 to set
+     * @param clasificadosPedido the clasificadosPedido to set
      */
-    public void setSubtipo3(Integer subtipo3) {
-        this.subtipo3 = subtipo3;
-    }
-
-    /**
-     * @return the subtipo4
-     */
-    public Integer getSubtipo4() {
-        return subtipo4;
-    }
-
-    /**
-     * @param subtipo4 the subtipo4 to set
-     */
-    public void setSubtipo4(Integer subtipo4) {
-        this.subtipo4 = subtipo4;
-    }
-
-    /**
-     * @return the subtipo5
-     */
-    public Integer getSubtipo5() {
-        return subtipo5;
-    }
-
-    /**
-     * @param subtipo5 the subtipo5 to set
-     */
-    public void setSubtipo5(Integer subtipo5) {
-        this.subtipo5 = subtipo5;
+    public void setPedido(List<Clasificado> clasificadosPedido) {
+        this.pedido = clasificadosPedido;
     }
     
 }
