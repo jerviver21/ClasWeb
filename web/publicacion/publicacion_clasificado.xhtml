@@ -71,34 +71,60 @@
                         </p:row>
                         <p:row rendered="#{publicacionController.tipoClasificado.campos.precio}">
                             <p:column><h:outputLabel  value="Precio: "/></p:column>
-                            <p:column><p:inputText id="precio"  value="#{publicacionController.clasificado.precioOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column>
+                                <p:inputText id="precio"  value="#{publicacionController.clasificado.precioOferta}" size="40">
+                                    <p:ajax/>
+                                </p:inputText>
+                            </p:column>
                             <p:column><p:message for="precio"/></p:column>
                         </p:row>
                         <p:row rendered="#{publicacionController.tipoClasificado.campos.area}">
                             <p:column><h:outputLabel  value="Area: "/></p:column>
-                            <p:column><p:inputText id="area" value="#{publicacionController.clasificado.areaOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column>
+                                <p:inputText id="area" value="#{publicacionController.clasificado.areaOferta}" size="40" >
+                                    <p:ajax/>
+                                </p:inputText>
+                            </p:column>
                             <p:column><p:message for="area"/></p:column>
                         </p:row>
                         <p:row rendered="#{publicacionController.tipoClasificado.campos.salario}">
                             <p:column><h:outputLabel  value="Salario: "/></p:column>
-                            <p:column><p:inputText id="salario" value="#{publicacionController.clasificado.salarioOferta}" size="40"><p:ajax/></p:inputText></p:column>
+                            <p:column>
+                                <p:inputText id="salario" value="#{publicacionController.clasificado.salarioOferta}" size="40">
+                                    <p:ajax/>
+                                </p:inputText>
+                            </p:column>
                             <p:column><p:message for="salario"/></p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputLabel  value="Fecha Inicial de Publicación: "/></p:column>
-                            <p:column><p:calendar id="fechaini" value="#{publicacionController.clasificado.fechaIni}" size="40"><p:ajax event="dateSelect"/></p:calendar></p:column>
+                            <p:column>
+                                <p:calendar id="fechaini" value="#{publicacionController.clasificado.fechaIni}" size="40" 
+                                            required="true" mindate="#{publicacionController.minDate}" pattern="yyyy-MM-dd">
+                                    <p:ajax event="dateSelect" update="@form"/>
+                                </p:calendar>
+                            </p:column>
                             <p:column><p:message for="fechaini"/></p:column>
                             <p:column><p:watermark value="Seleccione..." for="fechaini"/></p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputLabel  value="Fecha Final de Publicación:  "/></p:column>
-                            <p:column><p:calendar id="fechafin" value="#{publicacionController.clasificado.fechaFin}" size="40"><p:ajax event="dateSelect"/></p:calendar></p:column>
+                            <p:column>
+                                <p:calendar id="fechafin" value="#{publicacionController.clasificado.fechaFin}" size="40" 
+                                            required="true" mindate="#{publicacionController.clasificado.fechaIni}" pattern="yyyy-MM-dd">
+                                    <p:ajax event="dateSelect"/>
+                                </p:calendar>
+                            </p:column>
                             <p:column><p:message for="fechafin"/></p:column>
                             <p:column><p:watermark value="Seleccione..." for="fechafin"/></p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputLabel  value="Clasificado: "/></p:column>
-                            <p:column><p:inputTextarea id="clasificado" value="#{publicacionController.clasificado.clasificado}" cols="40"><p:ajax/></p:inputTextarea></p:column>
+                            <p:column>
+                                <p:inputTextarea id="clasificado" value="#{publicacionController.clasificado.clasificado}" cols="40" required="true">
+                                    <p:ajax update="@form"/>
+                                </p:inputTextarea>
+                            </p:column>
                             <p:column><p:message for="clasificado"/></p:column>
                             <p:column><p:watermark value="Escriba exactamente lo que quiere que se imprima en el clasificado" for="clasificado"/></p:column>
                         </p:row>
@@ -116,8 +142,14 @@
                     <br/>
                     <h:link outcome="/publicacion/publicacion_precios.xhtml" value="Ver Precios"/>
                     <br/>
-                    <p:commandButton value="Calcular Precio" action="#{publicacionController.procesarClasificado}" ajax="false"/>
+                    <p:commandButton value="Calcular Precio" type="button" onclick="confirmation.show()"/>
                     
+                    <p:confirmDialog id="confirm" message="#{publicacionController.clasificado}" severity="info"
+                                     header="Así se publicará su clasificado: "  widgetVar="confirmation" width="300"  >  
+                        <p:commandButton id="confirmbtn" value="Si, Estoy de acuerdo"  oncomplete="confirmation.hide()"  ajax="false"
+                                         action="#{publicacionController.procesarClasificado}" />  
+                        <p:commandButton id="declinebtn" value="No" onclick="confirmation.hide()" type="button" />  
+                    </p:confirmDialog>
                 </h:form>
             </ui:define>
             <ui:define name="pie">

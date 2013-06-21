@@ -14,6 +14,7 @@
                 <ui:include src="../menu.xhtml"/>
             </ui:define>
             <ui:define name="contenido">
+                <div style="height: 450px">
                 <h:form id="form" prependId="false">
                     <p:growl id="msgs" />
                     <br/>
@@ -30,17 +31,28 @@
                         <p:column headerText="Medio de Publicación">
                             <h:outputText value="#{item.tipoPublicacion.nombre}"/>
                         </p:column>
-                        <p:column headerText="Tipo de Clasificado">
-                            <h:outputText value="#{item.tipo.dato}"/> 
+                        <p:column headerText="Fecha Inicial">
+                            <h:outputText value="#{item.fechaIni}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Fecha Final">
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Nro. días">
+                            <h:outputText value="#{item.numDias}"/> 
                         </p:column>
                         <p:column headerText="Clasificado">
-                            <p:outputLabel value="#{item.clasificado}" />
+                            <p:commandLink action="#{publicacionController.editar(item)}" value="#{item.clasificadoFrac}"/>
                         </p:column>
-                        <p:column headerText="Precio">
+                        <p:column headerText="Precio" footerText="#{publicacionController.total}">
                             <h:outputText value="#{item.precio}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                </div>
             </ui:define>
             <ui:define name="pie">
                 <ui:include src="../piepag.xhtml"/>

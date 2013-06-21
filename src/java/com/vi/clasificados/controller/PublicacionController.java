@@ -2,16 +2,21 @@ package com.vi.clasificados.controller;
 
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.TipoClasificado;
-import com.vi.clasificados.dominio.TipoPublicacion;
 import com.vi.clasificados.services.ClasificadosServices;
 import com.vi.clasificados.services.TipoClasificadoService;
 import com.vi.clasificados.services.TiposPublicacionService;
+import com.vi.comun.util.FechaUtils;
+import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -51,6 +56,8 @@ public class PublicacionController {
     Map<Integer, Map<String, List<TipoClasificado>>> mapaSubtipos;
     Map<Integer, TipoClasificado> mapaTipos;
     boolean modoEdicion = false;
+    private Date minDate;
+    private BigDecimal total;
     
     //Servicios
     @EJB
@@ -73,6 +80,8 @@ public class PublicacionController {
         tipos = FacesUtil.getSelectsItem(mapaTipos);
         tiposPublicacion = tipoPubService.findAllNombresTipos();
         pedido = new ArrayList<Clasificado>();
+        minDate = FechaUtils.getFechaMasPeriodo(new Date(), 1, Calendar.DATE);
+        clasificado.setFechaIni(minDate);
     }
     
     public void cambiarTipo(ValueChangeEvent event) {
@@ -128,11 +137,32 @@ public class PublicacionController {
     
     
     public String procesarClasificado(){
-        System.out.println(clasificado.getClasificado());
-        List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
-        pedido.addAll(clasificados);
+        try {
+            if(clasificado.getOpcionesPublicacion().isEmpty()){
+                FacesUtil.addMessage(FacesUtil.ERROR, "Debe seleccionar al menos un medio de publicación");
+                return null;          
+            }
+            List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
+            total = clasificadosService.calcularTotalPedido(clasificados);
+            pedido.addAll(clasificados);
+        }catch (Exception e) {
+            FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
+        }
         return "/publicacion/publicacion_pedido.xhtml";
     }
+    
+    public String editarClasificado(){
+        return null;
+    }
+    
+    public String editar(Clasificado clasificado){
+        this.clasificado = clasificado;
+        modoEdicion = true;
+        return "/publicacion/publicacion_clasificado.xhtml";
+    }
+    
+    
 
     /**
      * @return the clasificado
@@ -276,6 +306,34 @@ public class PublicacionController {
      */
     public void setPedido(List<Clasificado> clasificadosPedido) {
         this.pedido = clasificadosPedido;
+    }
+
+    /**
+     * @return the minDate
+     */
+    public Date getMinDate() {
+        return minDate;
+    }
+
+    /**
+     * @param minDate the minDate to set
+     */
+    public void setMinDate(Date minDate) {
+        this.minDate = minDate;
+    }
+
+    /**
+     * @return the total
+     */
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
     
 }
