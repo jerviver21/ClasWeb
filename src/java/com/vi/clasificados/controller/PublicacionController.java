@@ -31,6 +31,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class PublicacionController {
     //Objetos para procesar la información del clasificado
+    private Clasificado clasificadoDetalle;
     private Clasificado clasificado;
     private TipoClasificado tipoClasificado;
     private List<Clasificado> pedido;
@@ -55,7 +56,7 @@ public class PublicacionController {
     //<TIPO,<SUBTIPO,List<Subtipos>>>
     Map<Integer, Map<String, List<TipoClasificado>>> mapaSubtipos;
     Map<Integer, TipoClasificado> mapaTipos;
-    boolean modoEdicion = false;
+    private boolean modoEdicion = false;
     private Date minDate;
     private BigDecimal total;
     
@@ -152,14 +153,51 @@ public class PublicacionController {
         return "/publicacion/publicacion_pedido.xhtml";
     }
     
-    public String editarClasificado(){
-        return null;
+    public String procesarEdicion(){
+        try {
+            clasificado = clasificadosService.editarClasificado(clasificado);
+            total = clasificadosService.calcularTotalPedido(pedido);
+            setModoEdicion(false);
+            clasificado = new Clasificado();
+        }catch (Exception e) {
+            FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
+        }
+        
+        return "/publicacion/publicacion_pedido.xhtml";
+    }
+    
+    //Eventos de la página publicacion_pedido.xhtml
+    public String verDetalle(Clasificado clasificado){
+        this.clasificadoDetalle = clasificado;
+        return "/publicacion/publicacion_detalle.xhtml";
     }
     
     public String editar(Clasificado clasificado){
         this.clasificado = clasificado;
-        modoEdicion = true;
+        setModoEdicion(true);
         return "/publicacion/publicacion_clasificado.xhtml";
+    }
+    
+    public String crearNuevo(){
+        this.clasificado = new Clasificado();
+        modoEdicion = false;
+        return "/publicacion/publicacion_clasificado.xhtml";
+    }
+    
+    public String borrar(Clasificado clasificado){
+        for(int i = 0; i < pedido.size() ; i++){
+            Clasificado c = pedido.get(i);
+            if(c.getTipoPublicacion().equals(clasificado.getTipoPublicacion()) 
+                    && c.getClasificado().equals(clasificado.getClasificado()) 
+                    && c.getFechaIni().equals(clasificado.getFechaIni())
+                    && c.getFechaFin().equals(clasificado.getFechaFin())
+                    && c.getTipo().equals(clasificado.getTipo())){//Es preferible hacer esto a guardar en base de datos antes de que el usuario este seguro de enviar todo el pedido
+                pedido.remove(i);
+                break;
+            }
+        }
+        return null;
     }
     
     
@@ -334,6 +372,34 @@ public class PublicacionController {
      */
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    /**
+     * @return the modoEdicion
+     */
+    public boolean isModoEdicion() {
+        return modoEdicion;
+    }
+
+    /**
+     * @param modoEdicion the modoEdicion to set
+     */
+    public void setModoEdicion(boolean modoEdicion) {
+        this.modoEdicion = modoEdicion;
+    }
+
+    /**
+     * @return the clasificadoDetalle
+     */
+    public Clasificado getClasificadoDetalle() {
+        return clasificadoDetalle;
+    }
+
+    /**
+     * @param clasificadoDetalle the clasificadoDetalle to set
+     */
+    public void setClasificadoDetalle(Clasificado clasificadoDetalle) {
+        this.clasificadoDetalle = clasificadoDetalle;
     }
     
 }

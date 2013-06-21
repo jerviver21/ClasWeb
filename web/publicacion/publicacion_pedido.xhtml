@@ -20,7 +20,7 @@
                     <br/>
                     <span class="titulo">Datos de los Clasificados que se Publicaran:</span>
                     <br/>
-                    
+                    <p:commandLink action="#{publicacionController.crearNuevo}" value="Agregar otro clasificado al pedido" style="text-align: left"/>
                     <p:dataTable value="#{publicacionController.pedido}" var="item" 
                                 paginator="true"
                                 paginatorAlwaysVisible="false"
@@ -44,11 +44,16 @@
                         <p:column headerText="Nro. días">
                             <h:outputText value="#{item.numDias}"/> 
                         </p:column>
-                        <p:column headerText="Clasificado">
-                            <p:commandLink action="#{publicacionController.editar(item)}" value="#{item.clasificadoFrac}"/>
+                        <p:column headerText="Clasificado" footerText="TOTAL:">
+                            <p:commandLink id="clasificado#{item.id}" action="#{publicacionController.editar(item)}" value="#{item.clasificadoFrac}"/>
+                            <p:tooltip for="clasificado#{item.id}" value="Click para editar el clasificado" showEffect="slide" hideEffect="slide" />  
                         </p:column>
                         <p:column headerText="Precio" footerText="#{publicacionController.total}">
-                            <h:outputText value="#{item.precio}" />
+                            <p:commandLink id="precio#{item.id}" action="#{publicacionController.verDetalle(item)}" value="#{item.precio}"/>
+                            <p:tooltip for="precio#{item.id}" value="Click para ver el detalle del precio" showEffect="slide" hideEffect="slide" /> 
+                        </p:column>
+                        <p:column headerText="Borrar">
+                            <p:commandButton update="@form" actionListener="#{publicacionController.borrar(item)}" icon="ui-icon-trash"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
