@@ -1,16 +1,16 @@
 package com.vi.clasificados.controller;
 
 import com.vi.clasificados.dominio.Clasificado; 
+import com.vi.clasificados.dominio.Pedido;
 import com.vi.clasificados.dominio.TipoClasificado;
 import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.TipoClasificadoService;
 import com.vi.clasificados.services.TiposPublicacionService;
 import com.vi.comun.util.FechaUtils;
 import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +34,7 @@ public class PublicacionController {
     private Clasificado clasificadoDetalle;
     private Clasificado clasificado;
     private TipoClasificado tipoClasificado;
-    private List<Clasificado> pedido;
+    private Pedido pedido;
     
     //Objetos para guardar información de listas desplegables
     private List<SelectItem> tipos;
@@ -43,6 +43,7 @@ public class PublicacionController {
     private List<SelectItem> subtipos3;
     private List<SelectItem> subtipos4;
     private List<SelectItem> subtipos5;
+    private List<SelectItem> entidades;
     private List<String> tiposPublicacion;
     
     //Objetos para los titulos de los subtipos de cada tipo
@@ -58,7 +59,7 @@ public class PublicacionController {
     Map<Integer, TipoClasificado> mapaTipos;
     private boolean modoEdicion = false;
     private Date minDate;
-    private BigDecimal total;
+
     
     //Servicios
     @EJB
@@ -67,6 +68,8 @@ public class PublicacionController {
     TiposPublicacionService tipoPubService;
     @EJB
     ClasificadosServices clasificadosService;
+    @EJB
+    PedidoService pedidoService;
     
     //Otros objetos necesarios
     ComboLocator comboLocator;
@@ -80,9 +83,10 @@ public class PublicacionController {
         seleccionarSubtipos(1);// 1 - Es el tipo: FINCA RAIZ 
         tipos = FacesUtil.getSelectsItem(mapaTipos);
         tiposPublicacion = tipoPubService.findAllNombresTipos();
-        pedido = new ArrayList<Clasificado>();
+        pedido = new Pedido(FacesUtil.getUsuario());
         minDate = FechaUtils.getFechaMasPeriodo(new Date(), 1, Calendar.DATE);
         clasificado.setFechaIni(minDate);
+        entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
     }
     
     public void cambiarTipo(ValueChangeEvent event) {
@@ -94,46 +98,39 @@ public class PublicacionController {
         tipoClasificado = mapaTipos.get(idTipo);
         Map<String, List<TipoClasificado>> subtipos = mapaSubtipos.get(idTipo); 
         Set<String> nSubs = subtipos.keySet();
-        
+        clasificado.resetSubtipos();
         int indiceSubtipo = 1;
         for(String nombre : nSubs){
             switch(indiceSubtipo){
                 case 1:
                     setNsubtipo1(nombre);
                     subtipos1 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    clasificado.setSubtipo1(new TipoClasificado());
                     break;
                 case 2:
                     nsubtipo2 = nombre;
                     subtipos2 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    clasificado.setSubtipo2(new TipoClasificado());
                     break;
                 case 3:
                     nsubtipo3 = nombre;
                     subtipos3 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    clasificado.setSubtipo3(new TipoClasificado());
                     break;
                 case 4:
                     nsubtipo4 = nombre;
                     subtipos4 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    clasificado.setSubtipo4(new TipoClasificado());
                     break;
                 case 5:
                     nsubtipo5 = nombre;
                     subtipos5 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    clasificado.setSubtipo5(new TipoClasificado());
                     break;
             }
             indiceSubtipo++;
         }
-        
-        switch(indiceSubtipo){
-            case 1:
-                nsubtipo1 = null;
-            case 2:
-                nsubtipo2 = null;
-            case 3:
-                nsubtipo3 = null;
-            case 4:
-                nsubtipo4 = null;
-            case 5:
-                nsubtipo5 = null;
-        }
+
     }
     
     
@@ -144,8 +141,9 @@ public class PublicacionController {
                 return null;          
             }
             List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
-            total = clasificadosService.calcularTotalPedido(clasificados);
-            pedido.addAll(clasificados);
+            pedido.getClasificados().addAll(clasificados);
+            pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
+            clasificado = new Clasificado();
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -156,7 +154,7 @@ public class PublicacionController {
     public String procesarEdicion(){
         try {
             clasificado = clasificadosService.editarClasificado(clasificado);
-            total = clasificadosService.calcularTotalPedido(pedido);
+            pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
             setModoEdicion(false);
             clasificado = new Clasificado();
         }catch (Exception e) {
@@ -180,22 +178,33 @@ public class PublicacionController {
     }
     
     public String crearNuevo(){
-        this.clasificado = new Clasificado();
         modoEdicion = false;
         return "/publicacion/publicacion_clasificado.xhtml";
     }
     
     public String borrar(Clasificado clasificado){
-        for(int i = 0; i < pedido.size() ; i++){
-            Clasificado c = pedido.get(i);
+        for(int i = 0; i < pedido.getClasificados().size() ; i++){
+            Clasificado c = pedido.getClasificados().get(i);
             if(c.getTipoPublicacion().equals(clasificado.getTipoPublicacion()) 
                     && c.getClasificado().equals(clasificado.getClasificado()) 
                     && c.getFechaIni().equals(clasificado.getFechaIni())
                     && c.getFechaFin().equals(clasificado.getFechaFin())
                     && c.getTipo().equals(clasificado.getTipo())){//Es preferible hacer esto a guardar en base de datos antes de que el usuario este seguro de enviar todo el pedido
-                pedido.remove(i);
+                pedido.getClasificados().remove(i);
                 break;
             }
+        }
+        pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
+        return null;
+    }
+    
+    public String generarCodigoPago(){
+         try {
+            pedido = pedidoService.save(pedido);
+            FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
+        }catch (Exception e) {
+            FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
         }
         return null;
     }
@@ -335,14 +344,14 @@ public class PublicacionController {
     /**
      * @return the clasificadosPedido
      */
-    public List<Clasificado> getPedido() {
+    public Pedido getPedido() {
         return pedido;
     }
 
     /**
      * @param clasificadosPedido the clasificadosPedido to set
      */
-    public void setPedido(List<Clasificado> clasificadosPedido) {
+    public void setPedido(Pedido clasificadosPedido) {
         this.pedido = clasificadosPedido;
     }
 
@@ -360,19 +369,6 @@ public class PublicacionController {
         this.minDate = minDate;
     }
 
-    /**
-     * @return the total
-     */
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    /**
-     * @param total the total to set
-     */
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
 
     /**
      * @return the modoEdicion
@@ -401,5 +397,14 @@ public class PublicacionController {
     public void setClasificadoDetalle(Clasificado clasificadoDetalle) {
         this.clasificadoDetalle = clasificadoDetalle;
     }
+
+    /**
+     * @return the entidadesPago
+     */
+    public List<SelectItem> getEntidades() {
+        return entidades;
+    }
+
+
     
 }

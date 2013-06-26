@@ -16,6 +16,11 @@
             <ui:define name="contenido">
                 <h:form id="form" prependId="false">
                     <p:growl id="msgs" />
+                    <span class="menu">
+                        <h:link outcome="/publicacion/publicacion_precios.xhtml" value="Ver Precios"/>
+                        <p:spacer width="10"/>
+                        <h:link outcome="/publicacion/publicacion_pedido.xhtml" value="Ver Pedido"/>
+                    </span>
                     <br/>
                     <span class="titulo">Publique su Clasificado</span>
                     <br/>
@@ -142,8 +147,6 @@
                             <f:selectItems  value="#{publicacionController.tiposPublicacion}"/>
                         </h:selectManyCheckbox>
                     </p:panelGrid>
-                    <br/>
-                    <h:link outcome="/publicacion/publicacion_precios.xhtml" value="Ver Precios"/>
                     <br/>
                     <p:commandButton value="Calcular Precio" type="button" onclick="confirmation.show()"/>
                     

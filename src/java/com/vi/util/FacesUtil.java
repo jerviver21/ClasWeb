@@ -21,6 +21,7 @@ import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
  * @author Jerson Viveros
@@ -41,6 +42,11 @@ public class FacesUtil {
     
     public static void restartBean (String bean){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
+    }
+    
+    public static String getUsuario(){
+        UsernamePasswordAuthenticationToken principal = (UsernamePasswordAuthenticationToken)FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        return principal.getName();
     }
 
     public static String getPaginaRequest(){

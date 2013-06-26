@@ -17,16 +17,21 @@
                 <div style="height: 450px">
                 <h:form id="form" prependId="false">
                     <p:growl id="msgs" />
+                    <span class="menu">
+                        <p:commandLink action="#{publicacionController.crearNuevo}" value="Agregar Clasificado"/>
+                    </span>
                     <br/>
-                    <span class="titulo">Datos de los Clasificados que se Publicaran:</span>
+                    <span class="titulo">Pedido</span>
                     <br/>
-                    <p:commandLink action="#{publicacionController.crearNuevo}" value="Agregar otro clasificado al pedido" style="text-align: left"/>
-                    <p:dataTable value="#{publicacionController.pedido}" var="item" 
+                    Datos de los Clasificados que se Publicaran:
+                    <br/>
+                    
+                    <p:dataTable value="#{publicacionController.pedido.clasificados}" var="item" 
                                 paginator="true"
                                 paginatorAlwaysVisible="false"
-                                rows="30"
+                                rows="8"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                paginatorPosition="bottom">
+                                paginatorPosition="top">
                         
                         <p:column headerText="Medio de Publicación">
                             <h:outputText value="#{item.tipoPublicacion.nombre}"/>
@@ -45,17 +50,28 @@
                             <h:outputText value="#{item.numDias}"/> 
                         </p:column>
                         <p:column headerText="Clasificado" footerText="TOTAL:">
-                            <p:commandLink id="clasificado#{item.id}" action="#{publicacionController.editar(item)}" value="#{item.clasificadoFrac}"/>
-                            <p:tooltip for="clasificado#{item.id}" value="Click para editar el clasificado" showEffect="slide" hideEffect="slide" />  
+                            <p:commandLink id="clasificado" action="#{publicacionController.editar(item)}" value="#{item.clasificadoFrac}"/>
+                            <p:tooltip for="clasificado" value="Click para editar el clasificado" showEffect="slide" hideEffect="slide" />  
                         </p:column>
-                        <p:column headerText="Precio" footerText="#{publicacionController.total}">
-                            <p:commandLink id="precio#{item.id}" action="#{publicacionController.verDetalle(item)}" value="#{item.precio}"/>
-                            <p:tooltip for="precio#{item.id}" value="Click para ver el detalle del precio" showEffect="slide" hideEffect="slide" /> 
+                        <p:column headerText="Precio" footerText="#{publicacionController.pedido.valorTotal}">
+                            <p:commandLink id="precio" action="#{publicacionController.verDetalle(item)}" value="#{item.precio}"/>
+                            <p:tooltip for="precio" value="Click para ver el detalle del precio" showEffect="slide" hideEffect="slide" /> 
                         </p:column>
                         <p:column headerText="Borrar">
                             <p:commandButton update="@form" actionListener="#{publicacionController.borrar(item)}" icon="ui-icon-trash"/>
                         </p:column>
                     </p:dataTable>
+                    <br/>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="Seleccione el medio de pago:"/>
+                        <h:selectOneMenu id="entidad_pago" value="#{publicacionController.pedido.entidad.id}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{publicacionController.entidades}"/>
+                        </h:selectOneMenu>
+                    </p:panelGrid>
+                    <br/>
+                    <br/>
+                    <p:commandButton value="Generar Código de Pago" action="#{publicacionController.generarCodigoPago}" ajax="false"/>
                 </h:form>
                 </div>
             </ui:define>

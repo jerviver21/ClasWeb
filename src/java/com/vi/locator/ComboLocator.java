@@ -19,7 +19,8 @@ public class ComboLocator {
     public static int COMB_ID_ROL = 3;
     public static int COMB_ID_TIPOID = 4;
     public static int COMB_ID_IDIOMA = 5;
-    public static int COMB_ID_TIPOPUB = 5;
+    public static int COMB_ID_TIPOPUB = 6;
+    public static int COMB_ID_ENTIDAD = 7;
     
 
     
@@ -72,6 +73,9 @@ public class ComboLocator {
                 getCache().put(TABLA, resultado);
             }else if(TABLA == COMB_ID_TIPOPUB){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM tipo_publicacion ");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_ENTIDAD){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM entidades_pago ");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == PARAMETROS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT nombre, valor FROM parametro");
