@@ -9,10 +9,8 @@
 
     <f:view>
 
-        <ui:composition template="#{applicationController.plantilla}">
-            <ui:define name="navegador">
-                <ui:include src="../menu.xhtml"/>
-            </ui:define>
+        <ui:composition template="../#{applicationController.plan2}">
+
             <ui:define name="contenido">
                 <div style="height: 450px">
                 <h:form id="form" prependId="false">
@@ -75,9 +73,7 @@
                 </h:form>
                 </div>
             </ui:define>
-            <ui:define name="pie">
-                <ui:include src="../piepag.xhtml"/>
-            </ui:define>
+
         </ui:composition>
     </f:view>
 

@@ -1,0 +1,57 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                    <h:form id="form" prependId="false">
+                        <p:growl id="msgs" />
+                        <span class="titulo">Pedidos</span>
+
+                        <p:dataTable value="#{pedidoController.pedidos}" var="item" 
+                                    paginator="true"
+                                    paginatorAlwaysVisible="false"
+                                    rows="15"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                    paginatorPosition="top">
+
+                            <p:column headerText="Código de Pago">
+                                <h:outputText value="#{item.codPago}"/>
+                            </p:column>
+                            <p:column headerText="Valor del Pedido">
+                                <h:outputText value="#{item.valorTotal}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Límite de Pago">
+                                <h:outputText value="#{item.fechaVencimiento}">
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                                </h:outputText> 
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{item.estado.nombre}"/> 
+                            </p:column>
+                            <p:column headerText="Fecha de Pago" >
+                                <h:outputText value="#{item.fechaHoraPago}">
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>  
+                            </p:column>
+                            <p:column headerText="Entidad de Pago" >
+                                <h:outputText value="#{item.entidad.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

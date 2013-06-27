@@ -8,24 +8,28 @@
 
     <h:head>
         <title id="title">Paideia Software</title>
-        <link href="#{labels.contexto}/styles/#{applicationController.estiloA1}" rel="stylesheet" type="text/css" />
+        <link href="#{labels.contexto}/styles/#{applicationController.estiloA2}" rel="stylesheet" type="text/css" />
         <script lang="JavaScript" type="text/JavaScript" src="#{labels.contexto}/scripts/funciones.js"></script>
         <f:view id="view1" locale="{generalController.locale}" />
      </h:head>
      <h:body>
         <div id="holder">																																																																																																																																																																																																																																																																											
             <!--Encabezado-->
-            <div id="top1">
-                
-            </div>
-            <div id="top2">
-                Periodico El Pueblo...
+            <div id="top">
+                <div id="name_part_1" >MEDICAL <span class="orange">H</span>ISTORY</div>	
+                <div id="name_part_2"><span class="green">S</span>ystem</div>
+                <div style="text-align: right">
+                  <!--<p:graphicImage value="images/logo1.png" />-->
+                  <sec:ifAnyGranted roles="ROLE_USER, MASTER">
+                    <a id="ref1" href="#{labels.contexto}/j_spring_security_logout">Cerrar Sesion</a>
+                  </sec:ifAnyGranted>  
+                </div>
             </div>
             <!-- Fin Encabezado -->
 
             <!--Contenido-->
             <div id="contenido">
-                <ui:insert id="nav" name="contenido"></ui:insert>
+                <ui:insert id="nav" name="contenido"></ui:insert>			
             </div>
             <!-- Fin Contenido -->
 

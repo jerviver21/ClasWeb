@@ -1,4 +1,10 @@
 
+@import url(general.css);
+
+@import url(common.css);
+
+@import url(comp_prime.css);
+
 a, a:hover {
 	text-decoration :underline;
 	color: #f47b33;

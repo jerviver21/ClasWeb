@@ -6,10 +6,8 @@
      xmlns:ui="http://java.sun.com/jsf/facelets"
      xmlns:sec="http://www.springframework.org/security/facelets/tags">
 <f:view>
-  <ui:composition template="#{applicationController.plantilla}">
-    <ui:define name="navegador">
-        <ui:include src="../menu.xhtml"/>
-    </ui:define>
+  <ui:composition template="../#{applicationController.plan3}">
+
     <ui:define name="contenido">
         
         <p>

@@ -5,8 +5,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
     <f:view>
-        <ui:composition>
-            <p:tieredMenu id="menubar1" model="#{sessionController.model}"/>
+        <ui:composition> 
+            <p:tieredMenu id="menubar1" model="#{sessionController.model}" rendered="#{tipo eq 'TIERED'}"/>
+            <p:menubar id="menubar2" model="#{sessionController.model}" rendered="#{tipo eq 'BAR'}"/>
         </ui:composition>
     </f:view>
 </html>

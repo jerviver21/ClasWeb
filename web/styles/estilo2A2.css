@@ -1,3 +1,8 @@
+@import url(general.css);
+
+@import url(common.css);
+
+@import url(comp_prime.css);
 
 a, a:hover {
 	text-decoration :underline;
@@ -16,6 +21,11 @@ text-decoration :none;
 }
 .green {
 	color:#8f9d4c;
+}
+.titulo{
+    color: #8f9d4c;
+    font: 22px Arial,Helvetica,sans-serif;
+    text-align: center;
 }
 
 #square {	
@@ -84,49 +94,34 @@ body {
 }
 
 #top {
-    height: 12%;
+    height: 13%;
     position: relative;
     background-image: url(../images/main_bg7.jpg);
     padding-top: 10px;
     padding-bottom: 5px;
-    float: left;
     width: 99%;
     margin: 0 auto;
 }
 
-#left_col {
-	width: 19%;
-        height: 75%;
-        margin: 0 auto;
-        background:#FFFFFF none repeat scroll 0%;
-        float: left;
-        position: relative;
-        padding-bottom: 25px;
-        
-}
-
-#right_col {
-	width: 80%;
-        height: 75%;
+#contenido {
+	width: 99%;
+        height: 60%;
         margin: 0 auto;
         background:#FFFFFF none repeat scroll 0%;
         padding-top: 25px;
-        float: right;
-        position: relative;
-        text-align: center;
         padding-bottom: 25px;
         overflow-y: scroll;
+        text-align: center;
 }
 
 #bottom{
-    height: 13%;
+    height: 20%;
     position: relative;
     background-image: url(../images/main_bg7.jpg);
     text-align: center;
     padding-top: 5px;
     padding-bottom: 10px;
-    float: left;
-    width: 99.5%;
+    width: 99%;
     margin: 0 auto;
 }
 
@@ -143,7 +138,7 @@ clear:both;
 
 #holder { 
     width: 1000px;
-    height: 640px;
+    height: 600px;
     margin: 0 auto;
     background-image: url(../images/main_bg7.jpg);
 }

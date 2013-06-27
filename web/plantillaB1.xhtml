@@ -8,7 +8,7 @@
 
     <h:head id="head1">
         <title id="title">Paideia Software</title>
-        <link href="#{labels.contexto}/styles/#{applicationController.estilo}.css" rel="stylesheet" type="text/css" />
+        <link href="#{labels.contexto}/styles/#{applicationController.estiloB1}" rel="stylesheet" type="text/css" />
         <script lang="JavaScript" type="text/JavaScript" src="#{labels.contexto}/scripts/funciones.js"></script>
         <f:view id="view1" locale="#{generalController.locale}" />
      </h:head>
@@ -32,7 +32,11 @@
             <div id="left_col">
                 <div class="clearboth"></div>												
                 <!-- Menu -->
-                <ui:insert id="nav" name="navegador"></ui:insert>
+                <ui:insert id="nav" name="navegador">
+                    <ui:include src="menu.xhtml">
+                        <ui:param name="tipo" value="TIERED" />
+                    </ui:include>
+                </ui:insert>
                 <!-- Menu end-->				
             </div>
             <!--Contenido-->
@@ -42,7 +46,9 @@
             <!--End contenido-->
             <!--Pie -->
             <div id="bottom">											
-                 <ui:insert id="nav" name="pie"></ui:insert>
+                 <ui:insert id="nav" name="pie">
+                     <ui:include src="piepag.xhtml"/>
+                 </ui:insert>
             </div>
             <!--End Pie-->
         </div>

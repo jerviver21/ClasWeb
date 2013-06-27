@@ -5,10 +5,8 @@
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view>
-  <ui:composition template="#{applicationController.plantilla}">
-    <ui:define name="navegador">
-        <ui:include src="../menu.xhtml"/>
-    </ui:define>
+  <ui:composition template="../#{applicationController.plan3}">
+
     <ui:define name="contenido">
         <h:form id="form">
             <p:growl id="msgs" />

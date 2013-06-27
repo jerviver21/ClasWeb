@@ -3,6 +3,10 @@ package com.vi.usuarios.controller;
 
 import com.vi.comun.locator.ParameterLocator;
 import com.vi.comun.services.CommonServicesLocal;
+import com.vi.util.FacesUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
@@ -10,6 +14,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Jerson Viveros
@@ -23,16 +28,23 @@ public class ApplicationController {
     private String ROL_MASTER;
     
     //Define la plantilla y layout de la aplicacion
-
-    private String p1 = "principal1";
-    private String p2 = "principal2";
-    private String p3 = "principal3";
-    private String estilo = getP3();
-    private String plantilla = "../plantillaA1.xhtml";
-    private String plantillaI = "plantillaA1.xhtml";
-    private Map<String, String> themes; 
+    private String estiloA1 = "estilo1A1.css";
+    private String estiloA2 = "estilo3A2.css";
+    private String estiloB1 = "estilo3B1.css";
+    private String estiloC1 = "estilo1A1.css";
+    private String plan1 = "plantillaA1.xhtml";
+    private String plan2 = "plantillaC1.xhtml";
+    private String plan3 = "plantillaB1.xhtml";
     private String theme = "bluesky";
     private String url;
+    
+    
+    
+    
+    private Map<String, String> themes; 
+    private List<SelectItem> plantillas;
+    private List<SelectItem> estilos;
+    
     
 
     @EJB
@@ -61,6 +73,17 @@ public class ApplicationController {
         themes.put("Cupertino", "cupertino"); 
         themes.put("Redmond", "redmond"); 
         themes.put("Glass-X", "glass-x"); 
+        
+        
+        Map mPlans = new HashMap();
+        mPlans.put("plantillaA1.xhtml", "Plantilla A1");
+        mPlans.put("plantillaA2.xhtml", "Plantilla A2");
+        mPlans.put("plantillaB1.xhtml", "Plantilla B1");
+        mPlans.put("plantillaC1.xhtml", "Plantilla C1");
+        plantillas = FacesUtil.getSelectsItem(mPlans);
+        
+       
+        
     }
     
     
@@ -84,49 +107,7 @@ public class ApplicationController {
         return ROL_MASTER;
     }   
 
-    /**
-     * @return the plantilla
-     */
-    public String getPlantilla() {
-        return plantilla;
-    }
-    
-    
-
-    /**
-     * @param plantilla the plantilla to set
-     */
-    public void setPlantilla(String plantilla) {
-        this.plantilla = plantilla;
-    }
-
-    /**
-     * @return the p1
-     */
-    public String getP1() {
-        return p1;
-    }
-
-    /**
-     * @param p1 the p1 to set
-     */
-    public void setP1(String p1) {
-        this.p1 = p1;
-    }
-
-    /**
-     * @return the p2
-     */
-    public String getP2() {
-        return p2;
-    }
-
-    /**
-     * @param p2 the p2 to set
-     */
-    public void setP2(String p2) {
-        this.p2 = p2;
-    }
+   
 
 
 
@@ -173,46 +154,136 @@ public class ApplicationController {
         this.url = url;
     }
 
+    
+
     /**
-     * @return the estilo
+     * @return the plan1
      */
-    public String getEstilo() {
-        return estilo;
+    public String getPlan1() {
+        return plan1;
     }
 
     /**
-     * @param estilo the estilo to set
+     * @param plan1 the plan1 to set
      */
-    public void setEstilo(String estilo) {
-        this.estilo = estilo;
+    public void setPlan1(String plan1) {
+        this.plan1 = plan1;
     }
 
     /**
-     * @return the p3
+     * @return the plan2
      */
-    public String getP3() {
-        return p3;
+    public String getPlan2() {
+        return plan2;
     }
 
     /**
-     * @param p3 the p3 to set
+     * @param plan2 the plan2 to set
      */
-    public void setP3(String p3) {
-        this.p3 = p3;
+    public void setPlan2(String plan2) {
+        this.plan2 = plan2;
     }
 
     /**
-     * @return the plantillaI
+     * @return the plan3
      */
-    public String getPlantillaI() {
-        return plantillaI;
+    public String getPlan3() {
+        return plan3;
     }
 
     /**
-     * @param plantillaI the plantillaI to set
+     * @param plan3 the plan3 to set
      */
-    public void setPlantillaI(String plantillaI) {
-        this.plantillaI = plantillaI;
+    public void setPlan3(String plan3) {
+        this.plan3 = plan3;
     }
+
+    /**
+     * @return the plantillas
+     */
+    public List<SelectItem> getPlantillas() {
+        return plantillas;
+    }
+
+    /**
+     * @param plantillas the plantillas to set
+     */
+    public void setPlantillas(List<SelectItem> plantillas) {
+        this.plantillas = plantillas;
+    }
+
+    /**
+     * @return the estilos
+     */
+    public List<SelectItem> getEstilos() {
+        return estilos;
+    }
+
+    /**
+     * @param estilos the estilos to set
+     */
+    public void setEstilos(List<SelectItem> estilos) {
+        this.estilos = estilos;
+    }
+
+    /**
+     * @return the estiloA1
+     */
+    public String getEstiloA1() {
+        return estiloA1;
+    }
+
+    /**
+     * @param estiloA1 the estiloA1 to set
+     */
+    public void setEstiloA1(String estiloA1) {
+        this.estiloA1 = estiloA1;
+    }
+
+    /**
+     * @return the estiloA2
+     */
+    public String getEstiloA2() {
+        return estiloA2;
+    }
+
+    /**
+     * @param estiloA2 the estiloA2 to set
+     */
+    public void setEstiloA2(String estiloA2) {
+        this.estiloA2 = estiloA2;
+    }
+
+    /**
+     * @return the estiloB1
+     */
+    public String getEstiloB1() {
+        return estiloB1;
+    }
+
+    /**
+     * @param estiloB1 the estiloB1 to set
+     */
+    public void setEstiloB1(String estiloB1) {
+        this.estiloB1 = estiloB1;
+    }
+
+    /**
+     * @return the estiloC1
+     */
+    public String getEstiloC1() {
+        return estiloC1;
+    }
+
+    /**
+     * @param estiloC1 the estiloC1 to set
+     */
+    public void setEstiloC1(String estiloC1) {
+        this.estiloC1 = estiloC1;
+    }
+
+
+
+    
 
 }

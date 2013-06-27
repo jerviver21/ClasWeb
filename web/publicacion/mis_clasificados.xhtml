@@ -1,0 +1,64 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <span class="titulo">Clasificados</span>
+                    <br/>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="Seleccione el Estado:"/>
+                        <h:selectOneMenu  value="#{clasificadoController.estado}" valueChangeListener="#{clasificadoController.cambiarEstado}">
+                            <p:ajax update="@form"/>
+                            <f:selectItem itemLabel="TODOS" itemValue="-1"  />
+                            <f:selectItems  value="#{clasificadoController.estados}"/>
+                        </h:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:dataTable value="#{clasificadoController.clasificados}" var="item" 
+                                paginator="true"
+                                paginatorAlwaysVisible="false"
+                                rows="8"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                paginatorPosition="top"
+                                filteredValue="#{clasificadoController.clasFiltro}">
+                        
+                        <p:column headerText="Medio de Publicación" filterBy="tipoPublicacion.nombre" 
+                                  filterOptions="#{clasificadoController.tiposPub}"  
+                                    filterMatchMode="exact">
+                            <h:outputText value="#{item.tipoPublicacion.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Inicial">
+                            <h:outputText value="#{item.fechaIni}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Fecha Final">
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Clasificado">
+                            <p:outputLabel id="clasificado" value="#{item.clasificadoFrac}"/> 
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
+</html>

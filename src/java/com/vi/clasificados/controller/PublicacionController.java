@@ -82,7 +82,7 @@ public class PublicacionController {
         mapaSubtipos = tipoService.getEstructuraConsulta();
         seleccionarSubtipos(1);// 1 - Es el tipo: FINCA RAIZ 
         tipos = FacesUtil.getSelectsItem(mapaTipos);
-        tiposPublicacion = tipoPubService.findAllNombresTipos();
+        tiposPublicacion = tipoPubService.findAll();
         pedido = new Pedido(FacesUtil.getUsuario());
         minDate = FechaUtils.getFechaMasPeriodo(new Date(), 1, Calendar.DATE);
         clasificado.setFechaIni(minDate);
