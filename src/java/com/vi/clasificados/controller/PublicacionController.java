@@ -209,7 +209,11 @@ public class PublicacionController {
         return null;
     }
     
-    
+    //Eventos desde otros beans
+    void agregarClasificadoVencidoAPedido(Clasificado clasificado) {
+        clasificado.setPedido(pedido);
+        pedido.getClasificados().add(clasificado);
+    }
 
     /**
      * @return the clasificado
@@ -404,6 +408,8 @@ public class PublicacionController {
     public List<SelectItem> getEntidades() {
         return entidades;
     }
+
+    
 
 
     

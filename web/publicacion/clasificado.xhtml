@@ -1,14 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                    <h:form id="form">
+                        <p:growl id="msgs" />
+                        <span class="titulo">Cambiar Estado</span>
+                        <br/>
+
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Clasificado: "/>
+                            <h:outputText value="#{clasificadoController.clasificado}"/>
+                            <p:outputLabel value="Estado:"/>
+                            <p:selectOneMenu  value="#{clasificadoController.clasificado.estado.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{clasificadoController.estadosEditables}"/>
+                            </p:selectOneMenu>
+                            <f:facet name="footer">
+                                <p:commandButton value="Cambiar Estado" type="button" onclick="confirmation.show()"/>
+                            </f:facet>
+                        </p:panelGrid>
+
+
+
+
+                        <p:confirmDialog id="confirm" message="¿Esta seguró que desea cambiar el estado de su clasificado?, al cancelarlo no saldrá publicado en Internet" severity="info"
+                                          widgetVar="confirmation" width="300"  >  
+                            <p:commandButton id="confirmbtn1" value="Si, Estoy de acuerdo"  oncomplete="confirmation.hide()"  ajax="false"
+                                             action="#{clasificadoController.guardarClasificado}"/> 
+                            <p:commandButton id="declinebtn" value="No" onclick="confirmation.hide()" type="button" />  
+                        </p:confirmDialog>
+                    </h:form>
+                </div>  
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
 </html>

@@ -8,6 +8,7 @@ import com.vi.clasificados.services.TiposPublicacionService;
 import com.vi.clasificados.utils.ClasificadoEstados;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -36,9 +37,11 @@ public class ClasificadosController {
     private List<Clasificado> clasificados;
     private List<Clasificado> clasFiltro;
     
+    private List<SelectItem> estadosEditables;
     private List<SelectItem> estados;
     private List<SelectItem> tiposPub;
     private Integer estado = 1;
+    private Integer tipo = 0;
 
     
     //Otros objetos necesarios
@@ -50,16 +53,50 @@ public class ClasificadosController {
         String usr = FacesUtil.getUsuario();
         setClasificados(clasificadosService.getClasificados(usr, ClasificadoEstados.PEDIDOXPAGAR));
         estados = FacesUtil.getSelectsItem(clasificadosService.getEstados());
-        setTiposPub(FacesUtil.getSelectsItem(tipoPubService.findAllTipos(), "getNombre","getNombre"));
+        estadosEditables = FacesUtil.getSelectsItem(clasificadosService.getEstadosEditables());
+        tiposPub =FacesUtil.getSelectsItem(tipoPubService.findAllTipos());
+        tiposPub.add(new SelectItem(0, "Select"));
+        clasFiltro = clasificados;
     }
     
     
     public void cambiarEstado(ValueChangeEvent event){
         estado = (Integer) event.getNewValue();
         setClasificados(clasificadosService.getClasificados(FacesUtil.getUsuario(), estado == -1 ? null : new EstadosClasificado(estado)));
-        
+        clasFiltro = clasificados;
+        tipo = 0;
+    }
+    
+    public void cambiarTipo(ValueChangeEvent event){
+        tipo = (Integer) event.getNewValue();
+        if(tipo == 0){
+           clasFiltro = clasificados; 
+        }else{
+           clasFiltro = new ArrayList<Clasificado>();
+        }
+        for(Clasificado clas:clasificados){
+            if(clas.getTipoPublicacion().getId() == tipo){
+                clasFiltro.add(clas);
+            }
+        }
     }
 
+    public String editar(Clasificado clasificado){
+        this.setClasificado(clasificado);
+        return "/publicacion/clasificado.xhtml";
+    }
+    
+    public String agregarPedido(Clasificado clasificado){
+        PublicacionController pc = (PublicacionController) FacesUtil.getManagedBean("#{publicacionController}");
+        pc.agregarClasificadoVencidoAPedido(clasificado);
+        return "/publicacion/publicacion_pedido.xhtml";
+    }
+    
+    public String guardarClasificado(){
+        clasificadosService.edit(clasificado);
+        return "/publicacion/mis_clasificados.xhtml";
+    }
+    
     /**
      * @return the clasificados
      */
@@ -117,10 +154,46 @@ public class ClasificadosController {
     }
 
     /**
-     * @param tiposPub the tiposPub to set
+     * @return the tipo
      */
-    public void setTiposPub(List<SelectItem> tiposPub) {
-        this.tiposPub = tiposPub;
+    public Integer getTipo() {
+        return tipo;
     }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the clasificado
+     */
+    public Clasificado getClasificado() {
+        return clasificado;
+    }
+
+    /**
+     * @param clasificado the clasificado to set
+     */
+    public void setClasificado(Clasificado clasificado) {
+        this.clasificado = clasificado;
+    }
+
+    /**
+     * @return the estadosEditables
+     */
+    public List<SelectItem> getEstadosEditables() {
+        return estadosEditables;
+    }
+
+    /**
+     * @param estadosEditables the estadosEditables to set
+     */
+    public void setEstadosEditables(List<SelectItem> estadosEditables) {
+        this.estadosEditables = estadosEditables;
+    }
+
 
 }

@@ -58,16 +58,18 @@
                         <p:column headerText="Borrar">
                             <p:commandButton update="@form" actionListener="#{publicacionController.borrar(item)}" icon="ui-icon-trash"/>
                         </p:column>
+                        
+                        <f:facet name="footer">  
+                            <p:outputPanel>  
+                                <h:outputLabel value="Seleccione el medio de pago:"/>
+                                <h:selectOneMenu id="entidad_pago" value="#{publicacionController.pedido.entidad.id}">
+                                    <p:ajax update="@form"/>
+                                    <f:selectItems  value="#{publicacionController.entidades}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>  
+                        </f:facet>  
                     </p:dataTable>
-                    <br/>
-                    <p:panelGrid columns="2">
-                        <h:outputLabel value="Seleccione el medio de pago:"/>
-                        <h:selectOneMenu id="entidad_pago" value="#{publicacionController.pedido.entidad.id}">
-                            <p:ajax update="@form"/>
-                            <f:selectItems  value="#{publicacionController.entidades}"/>
-                        </h:selectOneMenu>
-                    </p:panelGrid>
-                    <br/>
+
                     <br/>
                     <p:commandButton value="Generar Código de Pago" action="#{publicacionController.generarCodigoPago}" ajax="false"/>
                 </h:form>

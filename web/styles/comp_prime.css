@@ -6,6 +6,7 @@
 
 .ui-panelgrid td {
     border-width: 0px;
+    max-width: 350px;
 }
 
 .ui-panelgrid {
@@ -25,3 +26,5 @@
     max-width: 200px;
     overflow: hidden;
 }
+
+
