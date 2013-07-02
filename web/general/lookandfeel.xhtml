@@ -51,6 +51,12 @@
                     <f:selectItem itemLabel="Green" itemValue="estilo2B1.css" /> 
                 </p:selectOneMenu>
                 
+                <p:outputLabel value="Estilo Plantilla B2"/>
+                <p:selectOneMenu  value="#{applicationController.estiloB2}">
+                    <p:ajax update="@form"/>
+                    <f:selectItem itemLabel="Bluesky" itemValue="estilo1B2.css" />  
+                </p:selectOneMenu>
+                
                 <p:outputLabel value="Estilo Plantilla C1"/>
                 <p:selectOneMenu  value="#{applicationController.estiloC1}">
                     <p:ajax update="@form"/>

@@ -21,6 +21,9 @@ public class ComboLocator {
     public static int COMB_ID_IDIOMA = 5;
     public static int COMB_ID_TIPOPUB = 6;
     public static int COMB_ID_ENTIDAD = 7;
+    public static int COMB_ID_STEMPLEO = 8;
+    public static int COMB_ID_STAREAEMPLEO = 9;
+    public static int COMB_ID_STRANGOSAL = 10;
     
 
     
@@ -79,6 +82,15 @@ public class ComboLocator {
                 getCache().put(TABLA, resultado);
             }else if(TABLA == PARAMETROS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT nombre, valor FROM parametro");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STEMPLEO){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=2 AND subtipo = 1");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STAREAEMPLEO){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=2 AND subtipo = 2");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STRANGOSAL){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=2 AND subtipo = 3");
                 getCache().put(TABLA, resultado);
             }
         }

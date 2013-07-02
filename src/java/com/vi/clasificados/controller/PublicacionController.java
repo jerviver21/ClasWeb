@@ -143,7 +143,9 @@ public class PublicacionController {
             List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
             pedido.getClasificados().addAll(clasificados);
             pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
+            int idTipo = clasificado.getTipo().getId();
             clasificado = new Clasificado();
+            seleccionarSubtipos(idTipo);
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -156,7 +158,9 @@ public class PublicacionController {
             clasificado = clasificadosService.editarClasificado(clasificado);
             pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
             setModoEdicion(false);
+            int idTipo = clasificado.getTipo().getId();
             clasificado = new Clasificado();
+            seleccionarSubtipos(idTipo);
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);

@@ -71,33 +71,7 @@
                             </h:selectOneMenu></p:column>
                             <p:column><p:message for="tipo"/></p:column>
                         </p:row>
-                        <p:row rendered="#{publicacionController.tipoClasificado.campos.precio}">
-                            <p:column><h:outputLabel  value="Precio: "/></p:column>
-                            <p:column>
-                                <p:inputText id="precio"  value="#{publicacionController.clasificado.precioOferta}" size="40">
-                                    <p:ajax/>
-                                </p:inputText>
-                            </p:column>
-                            <p:column><p:message for="precio"/></p:column>
-                        </p:row>
-                        <p:row rendered="#{publicacionController.tipoClasificado.campos.area}">
-                            <p:column><h:outputLabel  value="Area: "/></p:column>
-                            <p:column>
-                                <p:inputText id="area" value="#{publicacionController.clasificado.areaOferta}" size="40" >
-                                    <p:ajax/>
-                                </p:inputText>
-                            </p:column>
-                            <p:column><p:message for="area"/></p:column>
-                        </p:row>
-                        <p:row rendered="#{publicacionController.tipoClasificado.campos.salario}">
-                            <p:column><h:outputLabel  value="Salario: "/></p:column>
-                            <p:column>
-                                <p:inputText id="salario" value="#{publicacionController.clasificado.salarioOferta}" size="40">
-                                    <p:ajax/>
-                                </p:inputText>
-                            </p:column>
-                            <p:column><p:message for="salario"/></p:column>
-                        </p:row>
+                        
                         <p:row>
                             <p:column><h:outputLabel  value="Fecha Inicial de Publicación: "/></p:column>
                             <p:column>

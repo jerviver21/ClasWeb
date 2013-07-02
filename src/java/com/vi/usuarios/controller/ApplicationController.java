@@ -31,10 +31,11 @@ public class ApplicationController {
     private String estiloA1 = "estilo1A1.css";
     private String estiloA2 = "estilo3A2.css";
     private String estiloB1 = "estilo3B1.css";
+    private String estiloB2 = "estilo1B2.css";
     private String estiloC1 = "estilo1A1.css";
     private String plan1 = "plantillaA1.xhtml";
     private String plan2 = "plantillaC1.xhtml";
-    private String plan3 = "plantillaB1.xhtml";
+    private String plan3 = "plantillaB2.xhtml";
     private String theme = "bluesky";
     private String url;
     
@@ -280,6 +281,20 @@ public class ApplicationController {
      */
     public void setEstiloC1(String estiloC1) {
         this.estiloC1 = estiloC1;
+    }
+
+    /**
+     * @return the estiloB2
+     */
+    public String getEstiloB2() {
+        return estiloB2;
+    }
+
+    /**
+     * @param estiloB2 the estiloB2 to set
+     */
+    public void setEstiloB2(String estiloB2) {
+        this.estiloB2 = estiloB2;
     }
 
 
