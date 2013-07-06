@@ -21,9 +21,22 @@ public class ComboLocator {
     public static int COMB_ID_IDIOMA = 5;
     public static int COMB_ID_TIPOPUB = 6;
     public static int COMB_ID_ENTIDAD = 7;
+    
     public static int COMB_ID_STEMPLEO = 8;
     public static int COMB_ID_STAREAEMPLEO = 9;
     public static int COMB_ID_STRANGOSAL = 10;
+    
+    public static int COMB_ID_STTIPOOFERIMB = 11;
+    public static int COMB_ID_STTIPOINM = 12;
+    public static int COMB_ID_STUBICACION = 13;
+    public static int COMB_ID_STAREASINM = 14;
+    public static int COMB_ID_STRANGOPRECIMB = 15;
+    
+    public static int COMB_ID_STTIPOSVEH = 16;
+    public static int COMB_ID_STMARCASVEH = 17;
+    public static int COMB_ID_STPRECIOSVEH = 18;
+    
+    public static int COMB_ID_STTIPOSVAR = 19;
     
 
     
@@ -91,6 +104,33 @@ public class ComboLocator {
                 getCache().put(TABLA, resultado);
             }else if(TABLA == COMB_ID_STRANGOSAL){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=2 AND subtipo = 3");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STTIPOOFERIMB){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 1");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STTIPOINM){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 2");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STUBICACION){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 3");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STAREASINM){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 4");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STRANGOPRECIMB){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 5");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STTIPOSVEH){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=3 AND subtipo = 1");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STMARCASVEH){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=3 AND subtipo = 2");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STPRECIOSVEH){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=3 AND subtipo = 3");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_STTIPOSVAR){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=4 AND subtipo = 1");
                 getCache().put(TABLA, resultado);
             }
         }

@@ -1,14 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+<ui:composition template="../#{applicationController.plan2}">
+    <ui:define name="contenido">
+        <h:form id="form" >
+            <p:panel header="Búsqueda">
+                <h:panelGrid columns="4">
+                    <p:selectOneMenu id="sub1" value="#{variosController.tipo}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="TIPO" itemValue="0"/>
+                        <f:selectItems  value="#{variosController.tipos}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="Buscar" action="#{variosController.cambiarFiltro}" update="@form"/>
+                </h:panelGrid>
+            </p:panel>
+            <p:spacer height="20"/>
+            <p:panel header="Resultados">
+                <p:dataTable var="clasificado" value="#{variosController.clasificados}"  
+                            rows="20" paginator="true" paginatorAlwaysVisible="false"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                            >  
+
+                    <p:column headerText="CLASIFICADO">
+                        <h:outputText value="#{clasificado.clasificado}"/>
+                    </p:column> 
+
+                </p:dataTable> 
+            </p:panel>
+        </h:form>
+   </ui:define>
+  </ui:composition>
+</f:view>
 </html>
+

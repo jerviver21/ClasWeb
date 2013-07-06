@@ -1,14 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+<ui:composition template="../#{applicationController.plan2}">
+    <ui:define name="contenido">
+        <h:form id="form" >
+            <p:panel header="Búsqueda">
+                <h:panelGrid columns="3">
+                    <p:selectOneMenu id="sub1" value="#{inmobiliarioController.tipoOferta}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="TIPO OFERTA" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposOfertas}"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu id="sub2" value="#{inmobiliarioController.tipoInmueble}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="TIPO INMUEBLE" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposInmuebles}"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu id="sub3" value="#{inmobiliarioController.ubicacion}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="UBICACIÓN" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.ubicaciones}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:selectOneMenu id="sub4" value="#{inmobiliarioController.area}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="AREA M2" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.areas}"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu id="sub5" value="#{inmobiliarioController.rangoPrecio}">
+                        <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="RANGO PRECIOS" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.rangosPrecios}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" update="@form"/>
+                </h:panelGrid>
+            </p:panel>
+            <p:spacer height="20"/>
+            <p:panel header="Resultados">
+                
+                <p:dataGrid var="clasificado" value="#{inmobiliarioController.clasificados}" columns="4"  
+                    rows="16" paginator="true"  
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="9,12,15"
+                    paginatorAlwaysVisible="false">  
+                    
+                    <p:panel header="#{clasificado.subtipo2.dato} - #{clasificado.subtipo3.dato}" style="width: 220px; height: 220px;">
+                        <p:outputPanel>
+                            <h:outputText value="#{clasificado.clasificado}"/>
+                        </p:outputPanel>
+                        <br/>
+                        <p:outputLabel value="#{clasificado.valorOferta}" style="color: blue;"/>
+                    </p:panel>
+
+                    
+
+                </p:dataGrid> 
+                
+                <!--<p:dataTable var="clasificado" value="{inmobiliarioController.clasificados}"  
+                            rows="20" paginator="true" paginatorAlwaysVisible="false"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                            >  
+
+                    <p:column headerText="UBICACIÓN">
+                        <h:outputText value="{clasificado.subtipo3.dato}"/>
+                    </p:column> 
+                    <p:column headerText="CLASIFICADO">
+                        <h:outputText value="{clasificado.clasificado}"/>
+                    </p:column> 
+                    <p:column headerText="PRECIO">
+                        <h:outputText value="{clasificado.valorOferta}"/>
+                    </p:column> 
+
+                </p:dataTable> -->
+            </p:panel>
+        </h:form>
+   </ui:define>
+  </ui:composition>
+</f:view>
 </html>
+

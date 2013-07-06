@@ -33,7 +33,7 @@
                         </p:row>
                         <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo1}">
                             <p:column><h:outputLabel  value="#{publicacionController.nsubtipo1}"/></p:column>
-                            <p:column><h:selectOneMenu id="sub1" value="#{publicacionController.clasificado.subtipo1.id}">
+                            <p:column><h:selectOneMenu id="sub1" value="#{publicacionController.clasificado.subtipo1.id}" valueChangeListener="#{publicacionController.cambiarSubtipo1}">
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{publicacionController.subtipos1}"/>
                             </h:selectOneMenu></p:column>
@@ -70,6 +70,30 @@
                                 <f:selectItems  value="#{publicacionController.subtipos5}"/>
                             </h:selectOneMenu></p:column>
                             <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        
+                        <p:row rendered="#{publicacionController.tipoClasificado.campos.valor}">
+                            <p:column>
+                                <h:outputLabel  value="PRECIO:" rendered="#{publicacionController.clasificado.tipo.id eq 1 or publicacionController.clasificado.tipo.id eq 3}"/>
+                                <h:outputLabel  value="SALARIO:" rendered="#{publicacionController.clasificado.tipo.id eq 2}" />
+                                <h:outputLabel  value="(En dolares)" rendered="#{publicacionController.valorEnDolares}" />
+                                <h:outputLabel  value="(En soles)" rendered="#{!publicacionController.valorEnDolares}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="valorof1" value="#{publicacionController.clasificado.valorOferta}" rendered="#{publicacionController.valorEnDolares}">
+                                    <p:ajax update="@form"/>
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </p:inputText>
+                                <p:inputText id="valorof2" value="#{publicacionController.clasificado.valorOferta}" rendered="#{!publicacionController.valorEnDolares}">
+                                    <p:ajax update="@form"/>
+                                    <f:convertNumber type="currency" currencySymbol="S/." />
+                                </p:inputText>
+                            </p:column>
+                            <p:column><p:message for="valorof1"/></p:column>
+                            <p:column>
+                                <p:watermark value="Digite el valor en Dolares" for="valorof1" rendered="#{publicacionController.valorEnDolares}"/>
+                                <p:watermark value="Digite el valor en Soles" for="valorof2" rendered="#{!publicacionController.valorEnDolares}"/>
+                            </p:column>
                         </p:row>
                         
                         <p:row>
@@ -111,8 +135,9 @@
                     <p:panelGrid columns="1" rendered="#{publicacionController.modoEdicion}">
                         <h:outputLabel  value="#{publicacionController.clasificado.tipoPublicacion.nombre}"/>
                     </p:panelGrid>
-                    <p:panelGrid columns="1" rendered="#{!publicacionController.modoEdicion}">
+                    <p:panelGrid columns="2" rendered="#{!publicacionController.modoEdicion}">
                         <h:outputLabel  value="Seleccione los medios en que desea publicar: "/>
+                        <p:spacer width="20" height="5"/>
                         <h:selectManyCheckbox id="tipopub" value="#{publicacionController.clasificado.opcionesPublicacion}">
                             <p:ajax update="@form"/>
                             <f:selectItems  value="#{publicacionController.tiposPublicacion}"/>

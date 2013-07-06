@@ -7,6 +7,7 @@ import com.vi.clasificados.services.ClasificadosServices;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.TipoClasificadoService;
 import com.vi.clasificados.services.TiposPublicacionService;
+import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.comun.util.FechaUtils;
 import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
@@ -55,9 +56,10 @@ public class PublicacionController {
     
     //Variables de control permiten hacer un despliegue dinámico y precargar en memoria todos los subtipos y para que sean rapidamente accedidos
     //<TIPO,<SUBTIPO,List<Subtipos>>>
-    Map<Integer, Map<String, List<TipoClasificado>>> mapaSubtipos;
+    Map<Integer, Map<Integer, List<TipoClasificado>>> mapaSubtipos;
     Map<Integer, TipoClasificado> mapaTipos;
     private boolean modoEdicion = false;
+    private boolean valorEnDolares = true;
     private Date minDate;
 
     
@@ -78,9 +80,10 @@ public class PublicacionController {
     public void init(){
         comboLocator = ComboLocator.getInstance();
         clasificado = new Clasificado();
+        
         mapaTipos = tipoService.getTiposBase();
         mapaSubtipos = tipoService.getEstructuraConsulta();
-        seleccionarSubtipos(1);// 1 - Es el tipo: FINCA RAIZ 
+        seleccionarSubtipos(clasificado.getTipo().getId());
         tipos = FacesUtil.getSelectsItem(mapaTipos);
         tiposPublicacion = tipoPubService.findAll();
         pedido = new Pedido(FacesUtil.getUsuario());
@@ -94,43 +97,54 @@ public class PublicacionController {
         seleccionarSubtipos(idTipo);
     }
     
+    public void cambiarSubtipo1(ValueChangeEvent event) {
+        if(clasificado.getTipo().equals(ClasificadosTipo.INMOBILIARIO) 
+                && ((Integer) event.getNewValue()) == 6){//6 es alquiler
+            setValorEnDolares(false);
+        }else{
+            setValorEnDolares(true);
+        }
+    }
+    
     public void seleccionarSubtipos(int idTipo) {
         tipoClasificado = mapaTipos.get(idTipo);
-        Map<String, List<TipoClasificado>> subtipos = mapaSubtipos.get(idTipo); 
-        Set<String> nSubs = subtipos.keySet();
+        Map<Integer, List<TipoClasificado>> subtipos = mapaSubtipos.get(idTipo); 
+        Set<Integer> nSubs = subtipos.keySet();
         clasificado.resetSubtipos();
-        int indiceSubtipo = 1;
-        for(String nombre : nSubs){
-            switch(indiceSubtipo){
+        for(Integer subtipo : nSubs){
+            switch(subtipo){
                 case 1:
-                    setNsubtipo1(nombre);
-                    subtipos1 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    subtipos1 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo1(new TipoClasificado());
+                    setNsubtipo1(subtipos.get(subtipo).get(0).getNombre());
                     break;
                 case 2:
-                    nsubtipo2 = nombre;
-                    subtipos2 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    nsubtipo2 = subtipos.get(subtipo).get(0).getNombre();
+                    subtipos2 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo2(new TipoClasificado());
                     break;
                 case 3:
-                    nsubtipo3 = nombre;
-                    subtipos3 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    nsubtipo3 = subtipos.get(subtipo).get(0).getNombre();
+                    subtipos3 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo3(new TipoClasificado());
                     break;
                 case 4:
-                    nsubtipo4 = nombre;
-                    subtipos4 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    nsubtipo4 = subtipos.get(subtipo).get(0).getNombre();
+                    subtipos4 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo4(new TipoClasificado());
                     break;
                 case 5:
-                    nsubtipo5 = nombre;
-                    subtipos5 = FacesUtil.getSelectsItem(subtipos.get(nombre));
+                    nsubtipo5 = subtipos.get(subtipo).get(0).getNombre();
+                    subtipos5 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo5(new TipoClasificado());
                     break;
             }
-            indiceSubtipo++;
         }
-
+        if(idTipo == ClasificadosTipo.EMPLEO.getId()){
+            setValorEnDolares(false);
+        }else{
+            setValorEnDolares(true);
+        }
     }
     
     
@@ -145,6 +159,7 @@ public class PublicacionController {
             pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
             int idTipo = clasificado.getTipo().getId();
             clasificado = new Clasificado();
+            clasificado.setTipo(new TipoClasificado(idTipo));
             seleccionarSubtipos(idTipo);
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
@@ -411,6 +426,20 @@ public class PublicacionController {
      */
     public List<SelectItem> getEntidades() {
         return entidades;
+    }
+
+    /**
+     * @return the valorEnDolares
+     */
+    public boolean isValorEnDolares() {
+        return valorEnDolares;
+    }
+
+    /**
+     * @param valorEnDolares the valorEnDolares to set
+     */
+    public void setValorEnDolares(boolean valorEnDolares) {
+        this.valorEnDolares = valorEnDolares;
     }
 
     
