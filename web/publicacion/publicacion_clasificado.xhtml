@@ -76,24 +76,20 @@
                             <p:column>
                                 <h:outputLabel  value="PRECIO:" rendered="#{publicacionController.clasificado.tipo.id eq 1 or publicacionController.clasificado.tipo.id eq 3}"/>
                                 <h:outputLabel  value="SALARIO:" rendered="#{publicacionController.clasificado.tipo.id eq 2}" />
-                                <h:outputLabel  value="(En dolares)" rendered="#{publicacionController.valorEnDolares}" />
-                                <h:outputLabel  value="(En soles)" rendered="#{!publicacionController.valorEnDolares}" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="valorof1" value="#{publicacionController.clasificado.valorOferta}" rendered="#{publicacionController.valorEnDolares}">
+                                <p:inputText id="valorof1" value="#{publicacionController.clasificado.valorOferta}">
                                     <p:ajax update="@form"/>
-                                    <f:convertNumber type="currency" currencySymbol="$" />
                                 </p:inputText>
-                                <p:inputText id="valorof2" value="#{publicacionController.clasificado.valorOferta}" rendered="#{!publicacionController.valorEnDolares}">
+                                <p:watermark value="Digite el entero sin signos, puntos, ni comas" for="valorof1"/>
+                            </p:column>
+                            <p:column>
+                                <h:selectOneMenu id="sub5" value="#{publicacionController.clasificado.moneda.id}">
                                     <p:ajax update="@form"/>
-                                    <f:convertNumber type="currency" currencySymbol="S/." />
-                                </p:inputText>
+                                    <f:selectItems  value="#{publicacionController.monedas}"/>
+                                </h:selectOneMenu>
                             </p:column>
                             <p:column><p:message for="valorof1"/></p:column>
-                            <p:column>
-                                <p:watermark value="Digite el valor en Dolares" for="valorof1" rendered="#{publicacionController.valorEnDolares}"/>
-                                <p:watermark value="Digite el valor en Soles" for="valorof2" rendered="#{!publicacionController.valorEnDolares}"/>
-                            </p:column>
                         </p:row>
                         
                         <p:row>

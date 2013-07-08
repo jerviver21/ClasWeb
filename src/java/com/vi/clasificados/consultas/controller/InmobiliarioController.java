@@ -4,17 +4,18 @@
  */
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.caching.ConsultasCache;
+import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -26,8 +27,8 @@ import javax.faces.model.SelectItem;
 public class InmobiliarioController {
     private List<Clasificado> clasificados;
     
-    private int tipoOferta = 0;
-    private int tipoInmueble = 0;
+    private int tipoOferta = ClasificadosTipo.IMBVENTA.getId();
+    private int tipoInmueble = ClasificadosTipo.IMBDEPARTAMENTO.getId();
     private int ubicacion = 0;
     private int area = 0;
     private int rangoPrecio = 0;
@@ -46,24 +47,27 @@ public class InmobiliarioController {
     
     //Otros objetos necesarios
     ComboLocator comboLocator;
-    ConsultasCache consultasCache;
     
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        consultasCache = ConsultasCache.getInstance();
-        clasificados = consultasCache.getFiltro(ConsultasCache.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
-        
-        tiposOfertas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STTIPOOFERIMB));
-        tiposInmuebles = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STTIPOINM));
-        ubicaciones = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STUBICACION));
-        areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STAREASINM));
-        rangosPrecios = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STRANGOPRECIMB));
+        clasificados = service.getFiltro(ClasificadosCachingLocator.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
 
+        tiposOfertas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TIPO));
+        tiposInmuebles = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLE));
+        ubicaciones = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_UBICACION));
+        areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_AREA));
+        rangosPrecios = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOV));
+    }
+    
+    public void cambiarRangoPrecios(ValueChangeEvent event) {
+        rangosPrecios = (((Integer) event.getNewValue()) == ClasificadosTipo.IMBALQUILER.getId()) ?
+                FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOA))
+                :FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOV));
     }
     
     public String cambiarFiltro() {
-        clasificados = consultasCache.getFiltro(ConsultasCache.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
+        clasificados = service.getFiltro(ClasificadosCachingLocator.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
         return null;
     }
 

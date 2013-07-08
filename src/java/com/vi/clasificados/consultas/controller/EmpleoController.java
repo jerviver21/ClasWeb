@@ -1,9 +1,10 @@
 
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.caching.ConsultasCache;
+import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.faces.model.SelectItem;
 public class EmpleoController {
     private List<Clasificado> clasificados;
     
-    private int tipoOferta = 0;
+    private int tipoOferta = ClasificadosTipo.EMPOFERTA.getId();
     private int area = 0;
     private int rangoSalarial = 0;
     
@@ -32,24 +33,19 @@ public class EmpleoController {
     
     //Otros objetos necesarios
     ComboLocator comboLocator;
-    ConsultasCache consultasCache;
     
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        consultasCache = ConsultasCache.getInstance();
-        clasificados = consultasCache.getFiltro(ConsultasCache.EMPLEO, tipoOferta, area, rangoSalarial);
-        if(clasificados == null){
-            consultasCache.setCache(service.getClasificadosActivos());
-        }
+        clasificados = service.getFiltro(ClasificadosCachingLocator.EMPLEO, tipoOferta, area, rangoSalarial);
         
-        tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STEMPLEO));
-        areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STAREAEMPLEO));
-        rangos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STRANGOSAL));
+        tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_TIPO));
+        areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_AREA));
+        rangos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_RANGO));
     }
     
     public String cambiarFiltro() {
-        clasificados = consultasCache.getFiltro(ConsultasCache.EMPLEO, tipoOferta, area, rangoSalarial);
+        clasificados = service.getFiltro(ClasificadosCachingLocator.EMPLEO, tipoOferta, area, rangoSalarial);
         return null;
     }
 

@@ -12,19 +12,18 @@
                 <h:panelGrid columns="4">
                     <p:selectOneMenu id="sub1" value="#{vehiculosController.tipo}">
                         <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TIPO" itemValue="0"/>
                         <f:selectItems  value="#{vehiculosController.tipos}"/>
                     </p:selectOneMenu>
 
                     <p:selectOneMenu id="sub2" value="#{vehiculosController.marca}">
                         <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODAS LAS ÁREAS" itemValue="0"/>
+                        <f:selectItem  itemLabel="TODAS LAS MARCAS" itemValue="0"/>
                         <f:selectItems  value="#{vehiculosController.marcas}"/>
                     </p:selectOneMenu>
 
                     <p:selectOneMenu id="sub3" value="#{vehiculosController.precio}">
                         <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODOS LOS SALARIOS" itemValue="0"/>
+                        <f:selectItem  itemLabel="TODOS LOS PRECIOS" itemValue="0"/>
                         <f:selectItems  value="#{vehiculosController.precios}"/>
                     </p:selectOneMenu>
                     

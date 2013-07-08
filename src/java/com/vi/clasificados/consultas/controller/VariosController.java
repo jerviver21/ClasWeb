@@ -1,7 +1,7 @@
 
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.caching.ConsultasCache;
+import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosServices;
 import com.vi.locator.ComboLocator;
@@ -29,20 +29,17 @@ public class VariosController {
     
     //Otros objetos necesarios
     ComboLocator comboLocator;
-    ConsultasCache consultasCache;
     
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        consultasCache = ConsultasCache.getInstance();
-        clasificados = consultasCache.getFiltro(ConsultasCache.VARIOS, getTipo());
-        
-        tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_STTIPOSVAR));
+        clasificados = service.getFiltro(ClasificadosCachingLocator.VARIOS, getTipo());
 
+        tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VAR_TIPO));
     }
     
     public String cambiarFiltro() {
-        clasificados = consultasCache.getFiltro(ConsultasCache.VARIOS, getTipo());
+        clasificados = service.getFiltro(ClasificadosCachingLocator.VARIOS, getTipo());
         return null;
     }
 

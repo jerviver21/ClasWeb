@@ -6,6 +6,7 @@ import com.vi.clasificados.dominio.EstadosClasificado;
 import com.vi.clasificados.services.ClasificadosServices;
 import com.vi.clasificados.services.TiposPublicacionService;
 import com.vi.clasificados.utils.ClasificadoEstados;
+import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.ArrayList;
@@ -52,8 +53,8 @@ public class ClasificadosController {
         comboLocator = ComboLocator.getInstance();
         String usr = FacesUtil.getUsuario();
         setClasificados(clasificadosService.getClasificados(usr, ClasificadoEstados.PEDIDOXPAGAR));
-        estados = FacesUtil.getSelectsItem(clasificadosService.getEstados());
-        estadosEditables = FacesUtil.getSelectsItem(clasificadosService.getEstadosEditables());
+        estados = FacesUtil.getSelectsItem(ClasificadoEstados.getEstados());
+        estadosEditables = FacesUtil.getSelectsItem(ClasificadoEstados.getEstadosEditables());
         tiposPub =FacesUtil.getSelectsItem(tipoPubService.findAllTipos());
         tiposPub.add(new SelectItem(0, "Select"));
         clasFiltro = clasificados;

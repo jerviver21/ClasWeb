@@ -1,5 +1,6 @@
 package com.vi.clasificados.controller;
 
+import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.Pedido;
 import com.vi.clasificados.dominio.TipoClasificado;
@@ -45,6 +46,7 @@ public class PublicacionController {
     private List<SelectItem> subtipos4;
     private List<SelectItem> subtipos5;
     private List<SelectItem> entidades;
+    private List<SelectItem> monedas;
     private List<String> tiposPublicacion;
     
     //Objetos para los titulos de los subtipos de cada tipo
@@ -54,12 +56,11 @@ public class PublicacionController {
     private String nsubtipo4;
     private String nsubtipo5;
     
-    //Variables de control permiten hacer un despliegue dinámico y precargar en memoria todos los subtipos y para que sean rapidamente accedidos
-    //<TIPO,<SUBTIPO,List<Subtipos>>>
+    //Variables de control permiten hacer un despliegue dinámico y precargar en memoria todos los subtipos, para que sean rapidamente accedidos
+    //<TIPO,<SUBTIPO,List<Subtipos>>>, por cada tipo hay varios subtipos
     Map<Integer, Map<Integer, List<TipoClasificado>>> mapaSubtipos;
     Map<Integer, TipoClasificado> mapaTipos;
     private boolean modoEdicion = false;
-    private boolean valorEnDolares = true;
     private Date minDate;
 
     
@@ -80,9 +81,10 @@ public class PublicacionController {
     public void init(){
         comboLocator = ComboLocator.getInstance();
         clasificado = new Clasificado();
+        mapaTipos = tipoService.getTipos();
+        mapaSubtipos = tipoService.getSubtipos();
         
-        mapaTipos = tipoService.getTiposBase();
-        mapaSubtipos = tipoService.getEstructuraConsulta();
+        
         seleccionarSubtipos(clasificado.getTipo().getId());
         tipos = FacesUtil.getSelectsItem(mapaTipos);
         tiposPublicacion = tipoPubService.findAll();
@@ -90,6 +92,7 @@ public class PublicacionController {
         minDate = FechaUtils.getFechaMasPeriodo(new Date(), 1, Calendar.DATE);
         clasificado.setFechaIni(minDate);
         entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
+        setMonedas(FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_MONEDAS)));
     }
     
     public void cambiarTipo(ValueChangeEvent event) {
@@ -97,14 +100,6 @@ public class PublicacionController {
         seleccionarSubtipos(idTipo);
     }
     
-    public void cambiarSubtipo1(ValueChangeEvent event) {
-        if(clasificado.getTipo().equals(ClasificadosTipo.INMOBILIARIO) 
-                && ((Integer) event.getNewValue()) == 6){//6 es alquiler
-            setValorEnDolares(false);
-        }else{
-            setValorEnDolares(true);
-        }
-    }
     
     public void seleccionarSubtipos(int idTipo) {
         tipoClasificado = mapaTipos.get(idTipo);
@@ -139,11 +134,6 @@ public class PublicacionController {
                     clasificado.setSubtipo5(new TipoClasificado());
                     break;
             }
-        }
-        if(idTipo == ClasificadosTipo.EMPLEO.getId()){
-            setValorEnDolares(false);
-        }else{
-            setValorEnDolares(true);
         }
     }
     
@@ -208,7 +198,8 @@ public class PublicacionController {
                     && c.getClasificado().equals(clasificado.getClasificado()) 
                     && c.getFechaIni().equals(clasificado.getFechaIni())
                     && c.getFechaFin().equals(clasificado.getFechaFin())
-                    && c.getTipo().equals(clasificado.getTipo())){//Es preferible hacer esto a guardar en base de datos antes de que el usuario este seguro de enviar todo el pedido
+                    && c.getTipo().equals(clasificado.getTipo())){
+                //Es preferible hacer esto a guardar en base de datos antes de que el usuario este seguro de enviar todo el pedido
                 pedido.getClasificados().remove(i);
                 break;
             }
@@ -429,20 +420,19 @@ public class PublicacionController {
     }
 
     /**
-     * @return the valorEnDolares
+     * @return the monedas
      */
-    public boolean isValorEnDolares() {
-        return valorEnDolares;
+    public List<SelectItem> getMonedas() {
+        return monedas;
     }
 
     /**
-     * @param valorEnDolares the valorEnDolares to set
+     * @param monedas the monedas to set
      */
-    public void setValorEnDolares(boolean valorEnDolares) {
-        this.valorEnDolares = valorEnDolares;
+    public void setMonedas(List<SelectItem> monedas) {
+        this.monedas = monedas;
     }
 
-    
 
 
     
