@@ -84,7 +84,7 @@
                                 <p:watermark value="Digite el entero sin signos, puntos, ni comas" for="valorof1"/>
                             </p:column>
                             <p:column>
-                                <h:selectOneMenu id="sub5" value="#{publicacionController.clasificado.moneda.id}">
+                                <h:selectOneMenu id="moneda" value="#{publicacionController.clasificado.moneda.id}">
                                     <p:ajax update="@form"/>
                                     <f:selectItems  value="#{publicacionController.monedas}"/>
                                 </h:selectOneMenu>
