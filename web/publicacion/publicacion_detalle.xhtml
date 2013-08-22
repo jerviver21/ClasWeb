@@ -27,10 +27,13 @@
                         <p:column headerText="Nro de días">
                             <h:outputText value="#{item.numDias}"/>
                         </p:column>
-                        <p:column headerText="Nro Palabras">
+                        <p:column headerText="Nro Palabras" rendered="#{publicacionController.clasificadoDetalle.tipoPublicacion.id ne 4}">
                             <h:outputText value="#{item.numPalabras}"/>
                         </p:column>
-                        <p:column headerText="Precio por Palabra por Dia">
+                        <p:column headerText="Precio por Palabra por Dia" rendered="#{publicacionController.clasificadoDetalle.tipoPublicacion.id ne 4}">
+                            <h:outputText value="#{item.precio.precio}"/> 
+                        </p:column>
+                        <p:column headerText="Precio por Dia" rendered="#{publicacionController.clasificadoDetalle.tipoPublicacion.id eq 4}">
                             <h:outputText value="#{item.precio.precio}"/> 
                         </p:column>
                         <p:column headerText="Total" footerText="#{publicacionController.clasificadoDetalle.precio}">

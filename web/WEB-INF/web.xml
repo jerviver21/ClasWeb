@@ -82,7 +82,7 @@
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
     <welcome-file-list>
-        <welcome-file>/general/bienvenida.xhtml</welcome-file>
+        <welcome-file>/consultas/inicio.xhtml</welcome-file>
     </welcome-file-list>
     
     <error-page>

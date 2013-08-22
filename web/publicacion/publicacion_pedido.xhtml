@@ -4,6 +4,7 @@
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:ui="http://java.sun.com/jsf/facelets"
      xmlns:p="http://primefaces.org/ui"
+     xmlns:sec="http://www.springframework.org/security/facelets/tags"
      >
 
 
@@ -60,18 +61,36 @@
                         </p:column>
                         
                         <f:facet name="footer">  
-                            <p:outputPanel>  
-                                <h:outputLabel value="Seleccione el medio de pago:"/>
-                                <h:selectOneMenu id="entidad_pago" value="#{publicacionController.pedido.entidad.id}">
-                                    <p:ajax update="@form"/>
-                                    <f:selectItems  value="#{publicacionController.entidades}"/>
-                                </h:selectOneMenu>
-                            </p:outputPanel>  
+                            <sec:ifAnyGranted roles="ROLE_USER">
+                                <p:outputPanel>  
+                                    <h:outputLabel value="Seleccione el medio de pago:"/>
+                                    <h:selectOneMenu id="entidad_pago" value="#{publicacionController.pedido.entidad.id}">
+                                        <p:ajax update="@form"/>
+                                        <f:selectItems  value="#{publicacionController.entidades}"/>
+                                    </h:selectOneMenu>
+                                </p:outputPanel>  
+                            </sec:ifAnyGranted>
                         </f:facet>  
                     </p:dataTable>
+                    
+                    <sec:ifAnyGranted roles="MASTER, ASESOR PAGOS">
+                        <p:panelGrid columns="3">  
+                            <h:outputLabel value="D.N.I. Cliente:"/>
+                            <p:inputText id="dni" value="#{publicacionController.pedido.dniCliente}" required="true" requiredMessage="Ingrese D.N.I. del Cliente"/>
+                            <p:message for="dni"/>
+                            <h:outputLabel value="Nombre Cliente:"/>
+                            <p:inputText id="nombre" value="#{publicacionController.pedido.nombreCliente}" required="true" requiredMessage="Ingrese Nombre del Cliente"/>
+                            <p:message for="nombre"/>
+                        </p:panelGrid>
+                    </sec:ifAnyGranted>
 
                     <br/>
-                    <p:commandButton value="Generar Código de Pago" action="#{publicacionController.generarCodigoPago}" ajax="false"/>
+                    <sec:ifAnyGranted roles="ROLE_USER">
+                        <p:commandButton value="Habilitar para Pago" action="#{publicacionController.habilitarPago}" ajax="false"/>
+                    </sec:ifAnyGranted>
+                    <sec:ifAnyGranted roles="MASTER, ASESOR PAGOS">
+                        <p:commandButton value="Guardar Pedido" action="#{publicacionController.guardarPedido}" ajax="false"/>
+                    </sec:ifAnyGranted>
                 </h:form>
                 </div>
             </ui:define>

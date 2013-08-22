@@ -1,0 +1,57 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <h:form>
+                    <p:growl id="msgs" />
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Código del Pago:"/>
+                        <p:inputText value="#{pagosController.codPago}" />
+                        <f:facet name="footer">
+                            <p:commandButton value="Consultar" action="#{pagosController.consultarPago}" update="@form"/>
+                        </f:facet>
+                    </p:panelGrid>
+                    
+                    <p:outputPanel rendered="#{pagosController.verDetalle}">
+                        <span class="titulo">Detalles del Pago</span>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código del Pago: "/>
+                            <p:outputLabel value="#{pagosController.pedido.codPago}"/>
+                            
+                            <p:outputLabel value="Usuario: "/>
+                            <p:outputLabel value="#{pagosController.pedido.usuario}"/>
+                            
+                            <p:outputLabel value="Nombre Cliente: "/>
+                            <p:outputLabel value="#{pagosController.usuario.nombre}"/>
+                            
+                            <p:outputLabel value="D.N.I. Cliente: "/>
+                            <p:outputLabel value="#{pagosController.usuario.nroUsuario}"/>
+                            
+                            <p:outputLabel value="Fecha de Vencimiento "/>
+                            <p:outputLabel value="#{pagosController.pedido.fechaVencimiento}"/>
+                            
+                            <p:outputLabel value="Valor a Pagar "/>
+                            <p:outputLabel value="#{pagosController.pedido.valorTotal}" style="color: green"/>
+                            
+                            <f:facet name="footer">
+                                <p:commandButton value="Realizar Pago" action="#{pagosController.realizarPago}" update="@form"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

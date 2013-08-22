@@ -1,6 +1,7 @@
 
 package com.vi.usuarios.controller;
 
+import com.vi.clasificados.services.ClasificadosService;
 import com.vi.comun.locator.ParameterLocator;
 import com.vi.comun.services.CommonServicesLocal;
 import com.vi.util.FacesUtil;
@@ -50,6 +51,8 @@ public class ApplicationController {
 
     @EJB
     private CommonServicesLocal commonServices;
+    @EJB
+    private ClasificadosService clasificadoServices;
     
 
     @PostConstruct
@@ -58,8 +61,8 @@ public class ApplicationController {
         System.out.println("Iniciando la aplicación MH System...");
         commonServices.updateEstructuraMenus();
         System.out.println("Menus actualizados...");
-        //licenciaServices.initTimer();
-        //System.out.println("Timer iniciado...");
+        clasificadoServices.initTimer();
+        System.out.println("Timer iniciado...");
         url = locator.getParameter("url");
 
         ROL_MASTER = locator.getParameter("rolMaster");

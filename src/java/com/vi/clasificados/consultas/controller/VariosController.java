@@ -3,7 +3,7 @@ package com.vi.clasificados.consultas.controller;
 
 import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
-import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.services.ClasificadosService;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.List;
@@ -25,7 +25,7 @@ public class VariosController {
     
     
     @EJB
-    ClasificadosServices service;
+    ClasificadosService service;
     
     //Otros objetos necesarios
     ComboLocator comboLocator;

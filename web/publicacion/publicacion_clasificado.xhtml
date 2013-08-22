@@ -16,7 +16,7 @@
                     <span class="menu">
                         <h:link outcome="/publicacion/publicacion_precios.xhtml" value="Ver Precios"/>
                         <p:spacer width="10"/>
-                        <h:link outcome="/publicacion/publicacion_pedido.xhtml" value="Ver Pedido"/>
+                        <p:commandLink action="#{publicacionController.verPedido}" value="Ver Pedido"/>
                     </span>
                     <br/>
                     <span class="titulo">Publique su Clasificado</span>
@@ -33,7 +33,7 @@
                         </p:row>
                         <p:row rendered="#{publicacionController.tipoClasificado.campos.subtipo1}">
                             <p:column><h:outputLabel  value="#{publicacionController.nsubtipo1}"/></p:column>
-                            <p:column><h:selectOneMenu id="sub1" value="#{publicacionController.clasificado.subtipo1.id}" valueChangeListener="#{publicacionController.cambiarSubtipo1}">
+                            <p:column><h:selectOneMenu id="sub1" value="#{publicacionController.clasificado.subtipo1.id}">
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{publicacionController.subtipos1}"/>
                             </h:selectOneMenu></p:column>
@@ -140,7 +140,8 @@
                         </h:selectManyCheckbox>
                     </p:panelGrid>
                     <br/>
-                    <p:commandButton value="Calcular Precio" type="button" onclick="confirmation.show()"/>
+                    <p:commandButton value="Agregar a Pedido" type="button" onclick="confirmation.show()" rendered="#{!publicacionController.modoEdicion}"/>
+                    <p:commandButton value="Guardar Cambios" type="button" onclick="confirmation.show()" rendered="#{publicacionController.modoEdicion}"/>
                     
                     <p:confirmDialog id="confirm" message="#{publicacionController.clasificado}" severity="info"
                                      header="Así se publicará su clasificado: "  widgetVar="confirmation" width="300"  >  

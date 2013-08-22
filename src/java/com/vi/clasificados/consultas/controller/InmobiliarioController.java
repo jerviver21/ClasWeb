@@ -6,7 +6,7 @@ package com.vi.clasificados.consultas.controller;
 
 import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
-import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.services.ClasificadosService;
 import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
@@ -43,7 +43,7 @@ public class InmobiliarioController {
     
     
     @EJB
-    ClasificadosServices service;
+    ClasificadosService service;
     
     //Otros objetos necesarios
     ComboLocator comboLocator;

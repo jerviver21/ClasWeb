@@ -10,14 +10,15 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
     <http auto-config="true" use-expressions="true" >
         <form-login login-page="/index.xhtml" authentication-failure-url="/index.xhtml"/>
         <intercept-url pattern="/index.xhtml" filters="none"/>
-        <intercept-url pattern="/registro.xhtml" filters="none"/>
+        <intercept-url pattern="/registro/*" filters="none"/>
+        <intercept-url pattern="/consultas/*" filters="none"/>
         <intercept-url pattern="/usuarios/olvida_clave.xhtml" filters="none"/>
         <intercept-url pattern="/usuarios/restaura_clave.xhtml" filters="none"/>
         <intercept-url pattern="/usuarios/*" access="hasAnyRole('ROLE_USER','MASTER')"/>
         <intercept-url pattern="/reportes/*" access="hasAnyRole('ROLE_USER','MASTER')"/>
-        <intercept-url pattern="/general/*" access="hasAnyRole('ROLE_USER','MASTER')"/>
-        <intercept-url pattern="/publicacion/*" access="hasAnyRole('ROLE_USER','MASTER')"/>
-        <intercept-url pattern="/*" access="hasAnyRole('ROLE_USER','MASTER')"/>
+        <intercept-url pattern="/general/*" access="hasAnyRole('ROLE_USER','MASTER', 'ASESOR PAGOS')"/>
+        <intercept-url pattern="/publicacion/*" access="hasAnyRole('ROLE_USER','MASTER', 'ASESOR PAGOS')"/>
+        <intercept-url pattern="/pagos/*" access="hasAnyRole('ROLE_USER','MASTER', 'ASESOR PAGOS')"/>
         <access-denied-handler error-page="/general/acceso_denegado.xhtml"/>
     </http>
 

@@ -1,0 +1,31 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <h:form id="formId">
+                    <p:growl id="msgs" />
+                    <span class="titulo">Simular Pago</span>
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Código del Pago:"/>
+                        <p:inputText value="#{pagosController.codPago}" />
+                        <f:facet name="footer">
+                            <p:commandButton value="#{labels.boton_enviar}" action="#{pagosController.simularPago}" update="@form"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

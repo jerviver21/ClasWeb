@@ -4,7 +4,7 @@ import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.Pedido;
 import com.vi.clasificados.dominio.TipoClasificado;
-import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.services.ClasificadosService;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.TipoClasificadoService;
 import com.vi.clasificados.services.TiposPublicacionService;
@@ -70,12 +70,13 @@ public class PublicacionController {
     @EJB
     TiposPublicacionService tipoPubService;
     @EJB
-    ClasificadosServices clasificadosService;
+    ClasificadosService clasificadosService;
     @EJB
     PedidoService pedidoService;
     
     //Otros objetos necesarios
     ComboLocator comboLocator;
+    
     
     @PostConstruct
     public void init(){
@@ -94,6 +95,19 @@ public class PublicacionController {
         entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
         setMonedas(FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_MONEDAS)));
     }
+    
+    public void iniciarPedido(){
+        pedido = new Pedido(FacesUtil.getUsuario());
+        iniciarClasificado();
+    }
+    
+    public void iniciarClasificado(){
+        int idTipo = clasificado.getTipo().getId();
+        clasificado = new Clasificado();
+        clasificado.setTipo(new TipoClasificado(idTipo));
+        seleccionarSubtipos(idTipo);
+    }
+    
     
     public void cambiarTipo(ValueChangeEvent event) {
         Integer idTipo = (Integer) event.getNewValue();
@@ -147,10 +161,7 @@ public class PublicacionController {
             List<Clasificado> clasificados = clasificadosService.procesarClasificado(clasificado);
             pedido.getClasificados().addAll(clasificados);
             pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
-            int idTipo = clasificado.getTipo().getId();
-            clasificado = new Clasificado();
-            clasificado.setTipo(new TipoClasificado(idTipo));
-            seleccionarSubtipos(idTipo);
+            iniciarClasificado();
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -160,12 +171,10 @@ public class PublicacionController {
     
     public String procesarEdicion(){
         try {
-            clasificado = clasificadosService.editarClasificado(clasificado);
+            clasificadosService.editarClasificado(clasificado);
             pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
             setModoEdicion(false);
-            int idTipo = clasificado.getTipo().getId();
-            clasificado = new Clasificado();
-            seleccionarSubtipos(idTipo);
+            iniciarClasificado();
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -180,7 +189,15 @@ public class PublicacionController {
         return "/publicacion/publicacion_detalle.xhtml";
     }
     
+    public String verPedido(){
+        if(modoEdicion){
+            iniciarClasificado();
+        }
+        return "/publicacion/publicacion_pedido.xhtml";
+    }
+    
     public String editar(Clasificado clasificado){
+        seleccionarSubtipos(clasificado.getTipo().getId());
         this.clasificado = clasificado;
         setModoEdicion(true);
         return "/publicacion/publicacion_clasificado.xhtml";
@@ -188,6 +205,7 @@ public class PublicacionController {
     
     public String crearNuevo(){
         modoEdicion = false;
+        iniciarClasificado();
         return "/publicacion/publicacion_clasificado.xhtml";
     }
     
@@ -208,10 +226,25 @@ public class PublicacionController {
         return null;
     }
     
-    public String generarCodigoPago(){
+    public String habilitarPago(){
          try {
-            pedido = pedidoService.save(pedido);
+            pedido = pedidoService.habilitarPago(pedido);
             FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
+            
+            iniciarPedido();
+        }catch (Exception e) {
+            FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
+        }
+        return null;
+    }
+    
+    public String guardarPedido(){
+         try {
+            pedido = pedidoService.guardarPedido(pedido);
+            FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
+            
+            iniciarPedido();
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -222,7 +255,13 @@ public class PublicacionController {
     //Eventos desde otros beans
     void agregarClasificadoVencidoAPedido(Clasificado clasificado) {
         clasificado.setPedido(pedido);
+        clasificado.setFechaIni(FechaUtils.getFechaMasPeriodo(new Date(), 1, Calendar.DATE));
+        if(clasificado.getFechaFin().before(clasificado.getFechaIni())){
+           clasificado.setFechaFin(clasificado.getFechaIni()); 
+        }
+        clasificadosService.editarClasificado(clasificado);
         pedido.getClasificados().add(clasificado);
+        pedido.setValorTotal(clasificadosService.calcularTotalPedido(pedido.getClasificados()));
     }
 
     /**
@@ -433,6 +472,7 @@ public class PublicacionController {
         this.monedas = monedas;
     }
 
+    
 
 
     

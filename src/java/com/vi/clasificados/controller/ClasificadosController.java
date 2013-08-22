@@ -3,7 +3,7 @@ package com.vi.clasificados.controller;
 
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.dominio.EstadosClasificado;
-import com.vi.clasificados.services.ClasificadosServices;
+import com.vi.clasificados.services.ClasificadosService;
 import com.vi.clasificados.services.TiposPublicacionService;
 import com.vi.clasificados.utils.ClasificadoEstados;
 import com.vi.clasificados.utils.ClasificadosTipo;
@@ -28,7 +28,7 @@ import javax.faces.model.SelectItem;
 public class ClasificadosController {
     
     @EJB
-    ClasificadosServices clasificadosService;
+    ClasificadosService clasificadosService;
     
     @EJB
     TiposPublicacionService tipoPubService;
@@ -70,6 +70,10 @@ public class ClasificadosController {
     
     public void cambiarTipo(ValueChangeEvent event){
         tipo = (Integer) event.getNewValue();
+        cambiarMedio(tipo);
+    }
+    
+    public void cambiarMedio(int tipo){
         if(tipo == 0){
            clasFiltro = clasificados; 
         }else{
@@ -95,6 +99,9 @@ public class ClasificadosController {
     
     public String guardarClasificado(){
         clasificadosService.edit(clasificado);
+        setClasificados(clasificadosService.getClasificados(FacesUtil.getUsuario(), estado == -1 ? null : new EstadosClasificado(estado)));
+        clasFiltro = clasificados;
+        cambiarMedio(tipo);
         return "/publicacion/mis_clasificados.xhtml";
     }
     

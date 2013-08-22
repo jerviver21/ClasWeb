@@ -22,9 +22,19 @@
                                     rows="15"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                     paginatorPosition="top">
+                            
+                            <f:facet name="header">  
+                                <p:panelGrid columns="2">  
+                                    <h:outputLabel value="Seleccione el Estado:"/>
+                                    <h:selectOneMenu  value="#{pedidoController.estado}" valueChangeListener="#{pedidoController.cambiarEstado}">
+                                        <p:ajax update="@form"/>
+                                        <f:selectItems  value="#{pedidoController.estados}"/>
+                                    </h:selectOneMenu>
+                                </p:panelGrid>  
+                            </f:facet> 
 
                             <p:column headerText="Código de Pago">
-                                <h:outputText value="#{item.codPago}"/>
+                                <p:commandLink value="#{item.codPago}" action="#{pedidoController.consultarClasificados(item)}" ajax="false"/>
                             </p:column>
                             <p:column headerText="Valor del Pedido">
                                 <h:outputText value="#{item.valorTotal}"/>

@@ -22,6 +22,7 @@ public class ComboLocator {
     public static int COMB_ID_TIPOPUB = 6;
     public static int COMB_ID_ENTIDAD = 7;
     public static int COMB_ID_MONEDAS = 20;
+    public static int COMB_ID_ESTADOS_PEDIDOS = 22;
     
     //Data - Combos para reportes.
     public static int ID_TIPOCLASIFICADO = 500;
@@ -151,6 +152,9 @@ public class ComboLocator {
                 getCache().put(TABLA, resultado);
             }else if(TABLA == ID_TIPOCLASIFICADO){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM tipo_publicacion WHERE id <> 4");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_ESTADOS_PEDIDOS){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM estados_pedido");
                 getCache().put(TABLA, resultado);
             }
         }
