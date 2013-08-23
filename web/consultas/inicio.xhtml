@@ -7,9 +7,24 @@
 <f:view>
 <ui:composition template="../#{applicationController.plan1}">
     <ui:define name="contenido">
-        <h:form id="form" >
-            
-        </h:form>
+        <div id="holder_contenido">
+            <h:form id="form" >
+                <div id="left_col">
+                    <h:panelGrid columns="3">
+                        <h:link outcome="/consultas/inmobiliario.xhtml" value="INMOBILIARIO"/>
+                        <p:spacer width="50"/>
+                        <h:link outcome="/consultas/empleo.xhtml" value="EMPLEO"/>
+                        <h:link outcome="/consultas/vehiculos.xhtml" value="VEHICULOS"/>
+                        <p:spacer width="50"/>
+                        <h:link outcome="/consultas/varios.xhtml" value="PRECIOS"/>
+                    </h:panelGrid>
+                </div>
+                <div id="right_col">
+                    <br/>Espacio para<br/>Publicidad<br/>
+                    <br/>Paute Fácil<br/>
+                </div>
+            </h:form>
+        </div>
    </ui:define>
   </ui:composition>
 </f:view>

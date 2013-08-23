@@ -7,7 +7,9 @@
 <f:view>
 <ui:composition template="../#{applicationController.plan1}">
     <ui:define name="contenido">
+        <div id="holder_contenido">
         <h:form id="form" >
+            <div id="left_col">
             <p:panel header="Búsqueda">
                 <h:panelGrid columns="4">
                     <p:selectOneMenu id="sub1" value="#{empleoController.tipoOferta}">
@@ -49,7 +51,13 @@
 
                 </p:dataTable> 
             </p:panel>
+            </div>
+            <div id="right_col">
+                <br/>Espacio para<br/>Publicidad<br/>
+                <br/>Paute Fácil<br/>
+            </div>
         </h:form>
+        </div>
    </ui:define>
   </ui:composition>
 </f:view>
