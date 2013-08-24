@@ -6,7 +6,7 @@
 
 a, a:hover {
 	text-decoration :underline;
-	color: green;
+	color: #f47b33;
 }
 a:hover {
 text-decoration :none;
@@ -135,28 +135,6 @@ body {
         padding-bottom: 25px;
 }
 
-#left_col {
-	width: 79%;
-        margin: 0 auto;
-        background:#FFFFFF none repeat 0%;
-        padding-top: 25px;
-        float: left;
-        position: relative;
-        text-align: center;
-        padding-bottom: 25px;
-        
-}
-
-#right_col {
-	width: 20%;
-        margin: 0 auto;
-        background:#FFFFFF none repeat 0%;
-        padding-top: 25px;
-        float: left;
-        position: relative;
-        text-align: center;
-        padding-bottom: 25px;
-}
 
 #bottom{
     position: relative;
@@ -177,4 +155,57 @@ body {
 
 #holder_contenido{
     height: 750px;
+}
+
+/* Los diferentes contenidos tienen diferentes presentaciones */
+#left_col1 {
+	width: 79%;
+        margin: 0 auto;
+        background:#FFFFFF none repeat 0%;
+        padding-top: 25px;
+        float: left;
+        position: relative;
+        text-align: center;
+        padding-bottom: 25px;
+        
+}
+
+#right_col1 {
+	width: 20%;
+        margin: 0 auto;
+        background:#FFFFFF none repeat 0%;
+        padding-top: 25px;
+        float: left;
+        position: relative;
+        text-align: center;
+        padding-bottom: 25px;
+}
+
+#left_col2 {
+	width: 24%;
+        margin: 0 auto;
+        background:#eaffed none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;  
+        padding-top: 25px;
+        padding-bottom: 25px;
+}
+
+#center_col2 {
+	width: 59%;
+        margin: 0 auto;
+        background:#FFFFFF none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;
+}
+
+#right_col2 {
+	width: 15%;
+        margin: 0 auto;
+        background:#FFFFFF none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;
 }

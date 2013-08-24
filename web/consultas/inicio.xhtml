@@ -9,17 +9,29 @@
     <ui:define name="contenido">
         <div id="holder_contenido">
             <h:form id="form" >
-                <div id="left_col">
-                    <h:panelGrid columns="3">
-                        <h:link outcome="/consultas/inmobiliario.xhtml" value="INMOBILIARIO"/>
-                        <p:spacer width="50"/>
-                        <h:link outcome="/consultas/empleo.xhtml" value="EMPLEO"/>
-                        <h:link outcome="/consultas/vehiculos.xhtml" value="VEHICULOS"/>
-                        <p:spacer width="50"/>
-                        <h:link outcome="/consultas/varios.xhtml" value="PRECIOS"/>
-                    </h:panelGrid>
+                <div id="left_col1">
+                    <br/>
+                    <span class="titulo">La mejor forma de encontrar lo que necesitas!!</span>
+                    <br/>
+                    <br/>
+                    
+                    <h:link outcome="/consultas/inmobiliario.xhtml">
+                        <p:graphicImage value="/images/vivienda2.png"/>
+                    </h:link>
+                    <p:spacer width="10"/>
+                    <h:link outcome="/consultas/empleo.xhtml">
+                        <p:graphicImage value="/images/empleo1.png"/>
+                    </h:link>
+                    <p:spacer width="10"/>
+                    <h:link outcome="/consultas/vehiculos.xhtml">
+                        <p:graphicImage value="/images/vehiculos1.png"/>
+                    </h:link>
+                    <p:spacer width="10"/>
+                    <h:link outcome="/consultas/varios.xhtml">
+                        <p:graphicImage value="/images/varios1.png"/>
+                    </h:link>
                 </div>
-                <div id="right_col">
+                <div id="right_col1">
                     <br/>Espacio para<br/>Publicidad<br/>
                     <br/>Paute Fácil<br/>
                 </div>
