@@ -31,6 +31,21 @@
                     </p:column>
                     <p:column><p:watermark for="nombre" value="Nombres y Apellidos"/></p:column>  
                     </p:row>
+                
+                    <p:row>
+                    <p:column>
+                    <p:outputLabel id="l_dni" value="D.N.I. *"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText  id="dni" size="22" value="#{registroController.usuarioRegistrar.numId}" required="true" validatorMessage="Sólo números">
+                        <f:validateRegex pattern="[\d]+"/>
+                    </p:inputText>
+                    </p:column>
+                    <p:column>
+                    <p:message id="m_dni" for="dni"/>
+                    </p:column>
+                    <p:column><p:watermark for="dni" value="Digite su D.N.I."/></p:column>  
+                    </p:row>
                     
                     
                     <p:row>
