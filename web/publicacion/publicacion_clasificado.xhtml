@@ -144,7 +144,7 @@
                     <p:commandButton value="Guardar Cambios" type="button" onclick="confirmation.show()" rendered="#{publicacionController.modoEdicion}"/>
                     
                     <p:confirmDialog id="confirm" message="#{publicacionController.clasificado}" severity="info"
-                                     header="Así se publicará su clasificado: "  widgetVar="confirmation" width="300"  >  
+                                     header="Así se publicará su clasificado: "  widgetVar="confirmation" width="400" height="100"  >  
                         <p:commandButton id="confirmbtn1" value="Si, Estoy de acuerdo"  oncomplete="confirmation.hide()"  ajax="false"
                                          action="#{publicacionController.procesarClasificado}" rendered="#{!publicacionController.modoEdicion}" /> 
                         <p:commandButton id="confirmbtn2" value="Si, Estoy de acuerdo"  oncomplete="confirmation.hide()"  ajax="false"

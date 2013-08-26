@@ -44,22 +44,24 @@
                 <span class="titulo">Resultados</span>
                 <br/>
 
-                <p:dataTable var="clasificado" value="#{empleoController.clasificados}"  
-                            rows="20" paginator="true" paginatorAlwaysVisible="false"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                            >  
+                <p:dataGrid var="clasificado" value="#{empleoController.clasificados}" columns="1"  
+                    rows="16" paginator="true"  
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="9,12,10"
+                    paginatorAlwaysVisible="false">  
+                    
+                    <p:panel header="#{clasificado.subtipo2.dato}" style="width: 98%; height: 100px;">
+                        <p:outputPanel>
+                            <h:outputText value="#{clasificado.clasificado}"/>
+                        </p:outputPanel>
+                        <br/>
+                        <p:outputLabel value="#{clasificado.moneda.simbolo}" style="color: blue;"/>
+                        <p:outputLabel value="#{clasificado.valorOferta}" style="color: blue;"/>
+                    </p:panel>
 
-                    <p:column headerText="SECTOR">
-                        <h:outputText value="#{clasificado.subtipo2.dato}"/>
-                    </p:column> 
-                    <p:column headerText="CLASIFICADO">
-                        <h:outputText value="#{clasificado.clasificado}"/>
-                    </p:column> 
-                    <p:column headerText="SALARIO">
-                        <h:outputText value="#{clasificado.subtipo3.dato}"/>
-                    </p:column> 
+                    
 
-                </p:dataTable> 
+                </p:dataGrid> 
             </div>
             <div id="right_col2">
                 <br/>Espacio para<br/>Publicidad<br/>

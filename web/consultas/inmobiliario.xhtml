@@ -58,40 +58,24 @@
                 <span class="titulo">Resultados</span>
                 <br/>
                 
-                <p:dataGrid var="clasificado" value="#{inmobiliarioController.clasificados}" columns="4"  
+                <p:dataGrid var="clasificado" value="#{inmobiliarioController.clasificados}" columns="1"  
                     rows="16" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     rowsPerPageTemplate="9,12,10"
                     paginatorAlwaysVisible="false">  
                     
-                    <p:panel header="#{clasificado.subtipo2.dato} - #{clasificado.subtipo3.dato}" style="width: 220px; height: 220px;">
+                    <p:panel header="#{clasificado.subtipo2.dato} - #{clasificado.subtipo3.dato}" style="width: 98%; height: 100px;">
                         <p:outputPanel>
                             <h:outputText value="#{clasificado.clasificado}"/>
                         </p:outputPanel>
                         <br/>
+                        <p:outputLabel value="#{clasificado.moneda.simbolo}" style="color: blue;"/>
                         <p:outputLabel value="#{clasificado.valorOferta}" style="color: blue;"/>
                     </p:panel>
 
                     
 
                 </p:dataGrid> 
-                
-                <!--<p:dataTable var="clasificado" value="{inmobiliarioController.clasificados}"  
-                            rows="20" paginator="true" paginatorAlwaysVisible="false"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                            >  
-
-                    <p:column headerText="UBICACIÓN">
-                        <h:outputText value="{clasificado.subtipo3.dato}"/>
-                    </p:column> 
-                    <p:column headerText="CLASIFICADO">
-                        <h:outputText value="{clasificado.clasificado}"/>
-                    </p:column> 
-                    <p:column headerText="PRECIO">
-                        <h:outputText value="{clasificado.valorOferta}"/>
-                    </p:column> 
-
-                </p:dataTable> -->
 
             </div>
             <div id="right_col2">
