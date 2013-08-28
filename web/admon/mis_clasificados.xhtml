@@ -62,7 +62,7 @@
                         </p:column>
                         <p:column headerText="Operaciones">
                             <p:commandLink value="Cambiar Estado" action="#{clasificadoController.editar(item)}" rendered="#{item.editarEstado}"/>
-                            <p:commandLink value="Agregar a Pedido Actual" action="#{clasificadoController.agregarPedido(item)}" rendered="#{item.agregarAPedido}"/>
+                            <p:commandLink value="Agregar a Pedido Actual" action="#{publicacionController.agregarClasificadoVencidoAPedido(item)}" rendered="#{item.agregarAPedido}"/>
                         </p:column>
 
                     </p:dataTable>

@@ -1,11 +1,10 @@
 
 package com.vi.usuarios.controller;
 
-import com.vi.clasificados.services.ClasificadosService;
+import com.vi.clasificados.timers.ClasificadosTimer;
 import com.vi.comun.locator.ParameterLocator;
 import com.vi.comun.services.CommonServicesLocal;
 import com.vi.util.FacesUtil;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class ApplicationController {
     @EJB
     private CommonServicesLocal commonServices;
     @EJB
-    private ClasificadosService clasificadoServices;
+    private ClasificadosTimer clasificadoTimer;
     
 
     @PostConstruct
@@ -61,7 +60,7 @@ public class ApplicationController {
         System.out.println("Iniciando la aplicación MH System...");
         commonServices.updateEstructuraMenus();
         System.out.println("Menus actualizados...");
-        clasificadoServices.initTimer();
+        clasificadoTimer.initTimer();
         System.out.println("Timer iniciado...");
         url = locator.getParameter("url");
 

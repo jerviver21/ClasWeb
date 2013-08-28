@@ -54,7 +54,7 @@ public class PedidoController {
     public String consultarClasificados(Pedido pedido){
         clasificados = pedidoService.getClasificados(pedido);
         this.pedido = pedido;
-        return "/publicacion/clasificados_pedido.xhtml";
+        return "/admon/clasificados_pedido.xhtml";
     }
 
     /**

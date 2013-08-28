@@ -6,7 +6,6 @@ import com.vi.clasificados.dominio.EstadosClasificado;
 import com.vi.clasificados.services.ClasificadosService;
 import com.vi.clasificados.services.TiposPublicacionService;
 import com.vi.clasificados.utils.ClasificadoEstados;
-import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class ClasificadosController {
     @EJB
     TiposPublicacionService tipoPubService;
 
-    
     private Clasificado clasificado;
     private List<Clasificado> clasificados;
     private List<Clasificado> clasFiltro;
@@ -44,7 +42,6 @@ public class ClasificadosController {
     private Integer estado = 1;
     private Integer tipo = 0;
 
-    
     //Otros objetos necesarios
     ComboLocator comboLocator;
     
@@ -88,21 +85,16 @@ public class ClasificadosController {
 
     public String editar(Clasificado clasificado){
         this.setClasificado(clasificado);
-        return "/publicacion/clasificado.xhtml";
+        return "/admon/clasificado.xhtml";
     }
     
-    public String agregarPedido(Clasificado clasificado){
-        PublicacionController pc = (PublicacionController) FacesUtil.getManagedBean("#{publicacionController}");
-        pc.agregarClasificadoVencidoAPedido(clasificado);
-        return "/publicacion/publicacion_pedido.xhtml";
-    }
     
     public String guardarClasificado(){
         clasificadosService.edit(clasificado);
         setClasificados(clasificadosService.getClasificados(FacesUtil.getUsuario(), estado == -1 ? null : new EstadosClasificado(estado)));
         clasFiltro = clasificados;
         cambiarMedio(tipo);
-        return "/publicacion/mis_clasificados.xhtml";
+        return "/admon/mis_clasificados.xhtml";
     }
     
     /**
