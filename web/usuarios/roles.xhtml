@@ -26,10 +26,8 @@
                                 columns="#{rolesController.gridColumnasRec}"
                                 rows="#{rolesController.gridFilasRec}">
                         <p:column>
-                            <h:panelGrid columns="2">
                                 <p:selectBooleanCheckbox value="#{rec.addRol}" />
                                 <h:outputText value="#{rec.nombre}"/>
-                            </h:panelGrid>
                         </p:column>
                     </p:dataGrid>
                     <p:message for="grupos_rol"/>
