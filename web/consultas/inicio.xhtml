@@ -22,7 +22,9 @@
                     <h:link outcome="/consultas/empleo.xhtml">
                         <p:graphicImage value="/images/empleo1.png"/>
                     </h:link>
-                    <p:spacer width="10"/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <h:link outcome="/consultas/vehiculos.xhtml">
                         <p:graphicImage value="/images/vehiculos1.png"/>
                     </h:link>
@@ -32,8 +34,18 @@
                     </h:link>
                 </div>
                 <div id="right_col1">
-                    <br/>Espacio para<br/>Publicidad<br/>
-                    <br/>Paute Fácil<br/>
+                    <p:outputPanel rendered="#{publicidadController.renderLD1Otr}">
+                        <p:graphicImage value="#{publicidadController.bannerLD1Otr.imagen.imagen}" width="#{publicidadController.bannerLD1Otr.width}" height="#{publicidadController.bannerLD1Otr.heigh}" rendered="#{publicidadController.bannerLD1Otr.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD1Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD1Otr.width}" height="#{publicidadController.bannerLD1Otr.heigh}" rendered="#{publicidadController.bannerLD1Otr.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD2Otr}">
+                        <p:graphicImage value="#{publicidadController.bannerLD2Otr.imagen.imagen}" width="#{publicidadController.bannerLD2Otr.width}" height="#{publicidadController.bannerLD2Otr.heigh}" rendered="#{publicidadController.bannerLD2Otr.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD2Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD2Otr.width}" height="#{publicidadController.bannerLD2Otr.heigh}" rendered="#{publicidadController.bannerLD2Otr.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD3Otr}">
+                        <p:graphicImage value="#{publicidadController.bannerLD3Otr.imagen.imagen}" width="#{publicidadController.bannerLD3Otr.width}" height="#{publicidadController.bannerLD3Otr.heigh}" rendered="#{publicidadController.bannerLD3Otr.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD3Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD3Otr.width}" height="#{publicidadController.bannerLD3Otr.heigh}" rendered="#{publicidadController.bannerLD3Otr.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
                 </div>
             </h:form>
         </div>

@@ -16,12 +16,19 @@
         <div id="holder">																																																																																																																																																																																																																																																																											
             <!--Encabezado-->
             <div id="top1">
-                <h:link outcome="/publicacion/publicacion.xhtml" value="Ingreso"/>
+                <h:link outcome="/general/bienvenida.xhtml" value="Ingreso"/>
                 <p:spacer width="10"/>
                 <h:link outcome="/registro/registro.xhtml" value="Registrese"/>
             </div>
             <div id="top2">
-                <p:graphicImage value="/images/tit2.png"/>
+                <p:graphicImage value="/images/tit3.png"/>
+                <p:spacer width="50" height="20"/>
+                <h:form>
+                    <p:outputPanel rendered="#{publicidadController.renderSuperior}">
+                        <p:graphicImage value="#{publicidadController.bannerSuperior.imagen.imagen}" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerSuperior.imagen.urlFuente}" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                </h:form>
             </div>
             <div id="top3">
                 <h:link outcome="/consultas/inicio.xhtml">
@@ -43,7 +50,6 @@
                 <h:link outcome="/publicacion/publicacion.xhtml">
                     <p:graphicImage value="/images/pub2.png"/>
                 </h:link>
-
             </div>
             <!-- Fin Encabezado -->
 

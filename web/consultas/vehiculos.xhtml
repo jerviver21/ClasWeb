@@ -37,6 +37,10 @@
                     <p:spacer height="10"/>
                     <p:commandButton value="Buscar" action="#{vehiculosController.cambiarFiltro}" update="@form"/>
                 </h:panelGrid>
+                <p:outputPanel rendered="#{publicidadController.renderLIVeh}">
+                    <p:graphicImage value="#{publicidadController.bannerLIVeh.imagen.imagen}" width="#{publicidadController.bannerLIVeh.width}" height="#{publicidadController.bannerLIVeh.heigh}" rendered="#{publicidadController.bannerLIVeh.imagen.tipoFuente.id eq 1}"/>
+                    <p:graphicImage value="#{publicidadController.bannerLIVeh.imagen.urlFuente}" width="#{publicidadController.bannerLIVeh.width}" height="#{publicidadController.bannerLIVeh.heigh}" rendered="#{publicidadController.bannerLIVeh.imagen.tipoFuente.id eq 2}"/>
+                </p:outputPanel>
             </div>
             <div id="center_col2">
                 
@@ -63,8 +67,18 @@
                 </p:dataGrid> 
             </div>
             <div id="right_col2">
-                <br/>Espacio para<br/>Publicidad<br/>
-                <br/>Paute Fácil<br/>
+                <p:outputPanel rendered="#{publicidadController.renderLD1Veh}">
+                        <p:graphicImage value="#{publicidadController.bannerLD1Veh.imagen.imagen}" width="#{publicidadController.bannerLD1Veh.width}" height="#{publicidadController.bannerLD1Veh.heigh}" rendered="#{publicidadController.bannerLD1Veh.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD1Veh.imagen.urlFuente}" width="#{publicidadController.bannerLD1Veh.width}" height="#{publicidadController.bannerLD1Veh.heigh}" rendered="#{publicidadController.bannerLD1Veh.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD2Veh}">
+                        <p:graphicImage value="#{publicidadController.bannerLD2Veh.imagen.imagen}" width="#{publicidadController.bannerLD2Veh.width}" height="#{publicidadController.bannerLD2Veh.heigh}" rendered="#{publicidadController.bannerLD2Veh.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD2Veh.imagen.urlFuente}" width="#{publicidadController.bannerLD2Veh.width}" height="#{publicidadController.bannerLD2Veh.heigh}" rendered="#{publicidadController.bannerLD2Veh.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD3Veh}">
+                        <p:graphicImage value="#{publicidadController.bannerLD3Veh.imagen.imagen}" width="#{publicidadController.bannerLD3Veh.width}" height="#{publicidadController.bannerLD3Veh.heigh}" rendered="#{publicidadController.bannerLD3Veh.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD3Veh.imagen.urlFuente}" width="#{publicidadController.bannerLD3Veh.width}" height="#{publicidadController.bannerLD3Veh.heigh}" rendered="#{publicidadController.bannerLD3Veh.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
             </div>
         </h:form>
         </div>

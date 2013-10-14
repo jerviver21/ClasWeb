@@ -16,16 +16,12 @@
         <div id="holder">																																																																																																																																																																																																																																																																											
             <!--Encabezado-->
             <div id="top1">
-                
-            </div>
-            <div id="top2">
-                Periodico El Pueblo...
-                <div style="text-align: right">
-                  <!--<p:graphicImage value="images/logo1.png" />-->
                   <sec:ifAnyGranted roles="ROLE_USER, MASTER">
                     <a id="ref1" href="#{labels.contexto}/j_spring_security_logout">Cerrar Sesion</a>
                   </sec:ifAnyGranted>  
-                </div>
+            </div>
+            <div id="top2">
+                <p:graphicImage value="/images/tit3.png"/>
             </div>
             <!-- Fin Encabezado -->
             <!--Menú-->

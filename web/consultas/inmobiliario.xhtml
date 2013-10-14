@@ -51,6 +51,11 @@
                     <p:spacer height="10"/>
                     <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" update="@form"/>
                 </h:panelGrid>
+                
+                <p:outputPanel rendered="#{publicidadController.renderLIImb}">
+                    <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.imagen}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 1}"/>
+                    <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 2}"/>
+                </p:outputPanel>
             </div>
             <div id="center_col2">
                 
@@ -79,8 +84,18 @@
 
             </div>
             <div id="right_col2">
-                <br/>Espacio para<br/>Publicidad<br/>
-                <br/>Paute Fácil<br/>
+                <p:outputPanel rendered="#{publicidadController.renderLD1Imb}">
+                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.imagen}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD2Imb}">
+                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.imagen}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
+                    <p:outputPanel rendered="#{publicidadController.renderLD3Imb}">
+                        <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.imagen}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 2}"/>
+                    </p:outputPanel>
             </div>
         </h:form>
         </div>

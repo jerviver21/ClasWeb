@@ -97,7 +97,7 @@ clear:both;
 body {
     font: 11px Verdana,Arial,sans-serif;
     color: #666666;
-    background: url("../images/bg.gif") repeat scroll 0 0 transparent;
+    background: url("../images/bg2.jpg") repeat scroll 0 0 transparent;
 }
 
 #top1 {
@@ -150,7 +150,7 @@ body {
     width: 1000px;
     height: 795px;
     margin: 0 auto;
-    background-image: url(../images/bgheader3.png);
+    background-color: white;
 }
 
 #holder_contenido{

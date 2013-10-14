@@ -3,16 +3,20 @@ package com.vi.clasificados.consultas.controller;
 
 import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
+import com.vi.clasificados.dominio.ImagenesPublicidad;
 import com.vi.clasificados.services.ClasificadosService;
+import com.vi.clasificados.services.PublicidadService;
 import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name="empleoController")
 @SessionScoped
@@ -48,6 +52,7 @@ public class EmpleoController {
         clasificados = service.getFiltro(ClasificadosCachingLocator.EMPLEO, tipoOferta, area, rangoSalarial);
         return null;
     }
+    
 
     /**
      * @return the tipoOferta
@@ -125,5 +130,6 @@ public class EmpleoController {
     public List<SelectItem> getRangos() {
         return rangos;
     }
-    
+
+  
 }
