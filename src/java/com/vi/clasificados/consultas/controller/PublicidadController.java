@@ -92,6 +92,10 @@ public class PublicidadController {
         renderLD3Veh = bannerLD3Veh!=null?true:false;
         renderLD3Otr = bannerLD3Otr!=null?true:false;
     }
+    
+    public String redirect(){
+        return "http://www.google.com?faces-redirect=true";
+    }
 
     /**
      * @return the bannerSuperior

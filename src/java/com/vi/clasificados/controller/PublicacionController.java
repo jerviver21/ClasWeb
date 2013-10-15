@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  * @author Jerson Viveros
@@ -61,6 +62,10 @@ public class PublicacionController {
     Map<Integer, TipoClasificado> mapaTipos;
     private boolean modoEdicion = false;
     private Date minDate;
+    
+    //Imagenes
+    private String img1Msg = "Imagen Cargada";
+    private boolean imgCargada = false;
 
     
     //Servicios
@@ -188,6 +193,18 @@ public class PublicacionController {
         }
         
         return "/publicacion/pedido.xhtml";
+    }
+    
+    //Carga de imagen, página publicacion.xhtml
+    public void cargarImg(FileUploadEvent event){
+        try {
+            clasificado.setImg1(event.getFile().getInputstream());
+            clasificado.setExtImg1(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
+            clasificado.setImgCargada(true);
+        } catch (Exception e) {
+            FacesUtil.addMessage(FacesUtil.ERROR, "Error al cargar el archivo");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
+        }  
     }
     
     //Eventos de la página pedido.xhtml
@@ -456,6 +473,34 @@ public class PublicacionController {
      */
     public List<SelectItem> getMonedas() {
         return monedas;
+    }
+
+    /**
+     * @return the img1Msg
+     */
+    public String getImg1Msg() {
+        return img1Msg;
+    }
+
+    /**
+     * @param img1Msg the img1Msg to set
+     */
+    public void setImg1Msg(String img1Msg) {
+        this.img1Msg = img1Msg;
+    }
+
+    /**
+     * @return the imgCargada
+     */
+    public boolean isImgCargada() {
+        return imgCargada;
+    }
+
+    /**
+     * @param imgCargada the imgCargada to set
+     */
+    public void setImgCargada(boolean imgCargada) {
+        this.imgCargada = imgCargada;
     }
 
     

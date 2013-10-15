@@ -50,11 +50,16 @@
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
                     <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" update="@form"/>
+                    <p:spacer height="25"/>
                 </h:panelGrid>
                 
                 <p:outputPanel rendered="#{publicidadController.renderLIImb}">
-                    <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.imagen}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 1}"/>
-                    <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 2}"/>
+                    <h:outputLink value="#{publicidadController.bannerLIImb.imagen.urlAterrizaje}">
+                        <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 1}"/>
+                    </h:outputLink>
+                    <p:media player="flash"  value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 2}">
+                        <!--<f:param name="flashvars" value="clickTag=http://ads.us.e-planning.net/ei/3/8ba9/0877bd56502f0323%3fct%3d1%26pb%3dac7fc9212b18d00a%26fi%3d5702a9097d561726%26rnd%3d481213130652&amp;bannerId=691245" /> -->
+                    </p:media>
                 </p:outputPanel>
             </div>
             <div id="center_col2">
@@ -85,17 +90,25 @@
             </div>
             <div id="right_col2">
                 <p:outputPanel rendered="#{publicidadController.renderLD1Imb}">
-                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.imagen}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
-                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 2}"/>
-                    </p:outputPanel>
-                    <p:outputPanel rendered="#{publicidadController.renderLD2Imb}">
-                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.imagen}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 1}"/>
-                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 2}"/>
-                    </p:outputPanel>
-                    <p:outputPanel rendered="#{publicidadController.renderLD3Imb}">
-                        <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.imagen}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 1}"/>
-                        <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 2}"/>
-                    </p:outputPanel>
+                    <h:outputLink value="#{publicidadController.bannerLD1Imb.imagen.urlAterrizaje}">
+                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:media player="flash"  value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 2}"/>
+                    </h:outputLink>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+                <p:outputPanel rendered="#{publicidadController.renderLD2Imb}">
+                    <h:outputLink value="#{publicidadController.bannerLD2Imb.imagen.urlAterrizaje}">
+                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:media player="flash"  value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 2}"/>
+                    </h:outputLink>
+                </p:outputPanel>
+                <p:spacer height="25"/>
+                <p:outputPanel rendered="#{publicidadController.renderLD3Imb}">
+                    <h:outputLink value="#{publicidadController.bannerLD3Imb.imagen.urlAterrizaje}">
+                    <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 1}"/>
+                    <p:media player="flash"  value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 2}"/>
+                    </h:outputLink>
+                </p:outputPanel>
             </div>
         </h:form>
         </div>

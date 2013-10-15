@@ -21,13 +21,14 @@
                 <h:link outcome="/registro/registro.xhtml" value="Registrese"/>
             </div>
             <div id="top2">
-                <p:graphicImage value="/images/tit3.png"/>
-                <p:spacer width="50" height="20"/>
                 <h:form>
-                    <p:outputPanel rendered="#{publicidadController.renderSuperior}">
-                        <p:graphicImage value="#{publicidadController.bannerSuperior.imagen.imagen}" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 1}"/>
-                        <p:graphicImage value="#{publicidadController.bannerSuperior.imagen.urlFuente}" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 2}"/>
-                    </p:outputPanel>
+                    <h:panelGrid columns="3" >
+                        <p:graphicImage value="/images/tit3.png"/>
+                        <h:outputLink value="#{publicidadController.bannerSuperior.imagen.urlAterrizaje}" rendered="#{publicidadController.renderSuperior}">
+                            <p:graphicImage value="#{publicidadController.bannerSuperior.imagen.urlFuente}" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 1}"/>
+                            <p:media value="#{publicidadController.bannerSuperior.imagen.urlFuente}" player="flash" width="#{publicidadController.bannerSuperior.width}" height="#{publicidadController.bannerSuperior.heigh}" rendered="#{publicidadController.bannerSuperior.imagen.tipoFuente.id eq 2}"/>
+                        </h:outputLink>
+                    </h:panelGrid>
                 </h:form>
             </div>
             <div id="top3">

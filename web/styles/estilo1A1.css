@@ -109,7 +109,7 @@ body {
 }
 
 #top2 {
-    height: 60px;
+    height: 80px;
     position: relative;
     width: 99%;
     margin: 0 auto;
@@ -148,7 +148,7 @@ body {
 
 #holder { 
     width: 1000px;
-    height: 795px;
+    height: 750px;
     margin: 0 auto;
     background-color: white;
 }
@@ -193,7 +193,7 @@ body {
 }
 
 #center_col2 {
-	width: 59%;
+	width: 54%;
         margin: 0 auto;
         background:#FFFFFF none repeat 0%;
         float: left;
@@ -202,7 +202,7 @@ body {
 }
 
 #right_col2 {
-	width: 15%;
+	width: 20%;
         margin: 0 auto;
         background:#FFFFFF none repeat 0%;
         float: left;
