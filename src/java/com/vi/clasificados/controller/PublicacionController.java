@@ -159,6 +159,7 @@ public class PublicacionController {
                     subtipos5 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo5(new TipoClasificado());
                     break;
+
             }
         }
     }
@@ -170,6 +171,7 @@ public class PublicacionController {
                 FacesUtil.addMessage(FacesUtil.ERROR, "Debe seleccionar al menos un medio de publicación");
                 return null;          
             }
+            System.out.println("---> "+clasificado.getExtImg1()+" - "+clasificado.getImg1());
             List<Clasificado> clasificados = publicacionService.procesarClasificado(clasificado);
             pedido.getClasificados().addAll(clasificados);
             pedido.setValorTotal(publicacionService.calcularTotalPedido(pedido.getClasificados()));

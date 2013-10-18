@@ -40,13 +40,13 @@
                 <span class="titulo">Resultados</span>
                 <br/>
                 <p:dataGrid var="clasificado" value="#{variosController.clasificados}" columns="1"  
-                    rows="16" paginator="true"  
+                    rows="5" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    rowsPerPageTemplate="9,12,10"
                     paginatorAlwaysVisible="false">  
                     
                     <p:panel header="#{clasificado.subtipo1.dato}" style="width: 98%; height: 100px; overflow-y: auto">
                         <p:outputPanel>
+                            <!--<p:graphicImage width="100" height="100" rendered="{clasificado.imagenes ne null}" value="{clasificado.imagenes.imagen}"/> -->
                             <h:outputText value="#{clasificado.clasificado}"/>
                         </p:outputPanel>
                     </p:panel>

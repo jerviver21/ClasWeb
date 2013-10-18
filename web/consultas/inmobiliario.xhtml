@@ -69,7 +69,7 @@
                 <br/>
                 
                 <p:dataGrid var="clasificado" value="#{inmobiliarioController.clasificados}" columns="1"  
-                    rows="16" paginator="true"  
+                    rows="6" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     rowsPerPageTemplate="9,12,10"
                     paginatorAlwaysVisible="false">  
@@ -91,7 +91,7 @@
             <div id="right_col2">
                 <p:outputPanel rendered="#{publicidadController.renderLD1Imb}">
                     <h:outputLink value="#{publicidadController.bannerLD1Imb.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
+                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.imagen}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
                         <p:media player="flash"  value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 2}"/>
                     </h:outputLink>
                 </p:outputPanel>
