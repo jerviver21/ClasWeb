@@ -6,16 +6,20 @@ import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosService;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name="variosController")
-@SessionScoped
+@RequestScoped
 public class VariosController {
     private List<Clasificado> clasificados;
     
@@ -41,6 +45,21 @@ public class VariosController {
     public String cambiarFiltro() {
         clasificados = service.getFiltro(ClasificadosCachingLocator.VARIOS, getTipo());
         return null;
+    }
+    
+    
+    public StreamedContent getImage(){
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        InputStream inputStream = contextClassLoader.getResourceAsStream("images/a0.png");
+        StreamedContent defaultFileContent = new DefaultStreamedContent(inputStream, "image/png");
+        
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String imageID = externalContext.getRequestParameterMap().get("id");
+        if(imageID == null){
+            return defaultFileContent;
+        }
+        System.out.println("---> "+imageID);
+        return service.find(Long.parseLong(imageID)).getImagenes().getImagen();
     }
 
     /**

@@ -125,14 +125,14 @@
                             <p:column><p:message for="clasificado"/></p:column>
                             <p:column><p:watermark value="Escriba exactamente lo que quiere que se imprima en el clasificado" for="clasificado"/></p:column>
                         </p:row>
-                        <!--<p:row id="rimg">
+                        <p:row id="rimg">
                             <p:column><h:outputLabel  value="Cargar Imagen: "/></p:column>
                             <p:column>
                                 <p:commandButton id="img1" title="Cargar" value="Cargar" icon="ui-icon-arrowthickstop-1-n" oncomplete="dlg_img.show()"/>
                             </p:column>
-                            <p:column><p:outputLabel value="{publicacionController.img1Msg}" rendered="{publicacionController.clasificado.imgCargada}"/></p:column>
+                            <p:column><p:outputLabel value="#{publicacionController.img1Msg}" rendered="#{publicacionController.clasificado.imgCargada}"/></p:column>
                             <p:column><p:message for="img1"/></p:column>
-                        </p:row>-->
+                        </p:row>
                     </p:panelGrid>
                     
                     <br/>
