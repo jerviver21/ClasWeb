@@ -21,6 +21,7 @@ public class ComboLocator {
     public static int COMB_ID_IDIOMA = 5;
     public static int COMB_ID_TIPOPUB = 6;
     public static int COMB_ID_ENTIDAD = 7;
+    public static int COMB_ID_TIPOPUBIMP = 23;
     public static int COMB_ID_MONEDAS = 20;
     public static int COMB_ID_ESTADOS_PEDIDOS = 22;
     
@@ -108,6 +109,9 @@ public class ComboLocator {
             }else if(TABLA == COMB_ID_MONEDAS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM currencies ");
                 getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_TIPOPUBIMP){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM tipo_publicacion WHERE id <= 3 ");
+                getCache().put(TABLA, resultado);
             }else if(TABLA == PARAMETROS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT nombre, valor FROM parametro");
                 getCache().put(TABLA, resultado);
@@ -133,10 +137,10 @@ public class ComboLocator {
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 4");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == IMB_RANGOV){
-                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 5");
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND nombre = 'RANGO PRECIOS'");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == IMB_RANGOA){
-                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 6");
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND nombre = 'RANGO PRECIOS ALQUILER'");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == VEH_TIPOV){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=3 AND subtipo = 1");

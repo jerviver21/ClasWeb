@@ -1,4 +1,4 @@
-package com.vi.clasificados.controller;
+package com.vi.clasificados.publicacion.controller;
 
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.Pedido;
@@ -29,9 +29,19 @@ import org.primefaces.event.FileUploadEvent;
 /**
  * @author Jerson Viveros
  */
-@ManagedBean(name="publicacionController")
+@ManagedBean(name="pubWebController")
 @SessionScoped
-public class PublicacionController {
+public class PubWebController {
+    //Tipos de clasificados WEB
+    private static final int TIPOGRATIS = 1;
+    private static final int TIPO15 = 2;
+    private static final int TIPO25 = 3;
+    private int tipoWeb = TIPOGRATIS;
+    
+
+    
+    
+    
     //Objetos para procesar la información del clasificado
     private Clasificado clasificadoDetalle;
     private Clasificado clasificado;
@@ -105,6 +115,7 @@ public class PublicacionController {
     
     public void iniciarPedido(){
         pedido = new Pedido(FacesUtil.getUsuario());
+        pedido.setTipoPedido("CLASIFICADOS WEB");
         iniciarClasificado();
     }
     
@@ -113,6 +124,12 @@ public class PublicacionController {
         clasificado = new Clasificado();
         clasificado.setTipo(new TipoClasificado(idTipo));
         seleccionarSubtipos(idTipo);
+    }
+    
+    //Eventos de la página tipoWeb.xhtml
+    public String seleccionarTipoWeb(int tipo){
+        tipoWeb = tipo;
+        return "/publicacion/pubweb.xhtml";
     }
     
     
@@ -505,5 +522,24 @@ public class PublicacionController {
         this.imgCargada = imgCargada;
     }
 
-    
+    /**
+     * @return the TIPOGRATIS
+     */
+    public static int getTIPOGRATIS() {
+        return TIPOGRATIS;
+    }
+
+    /**
+     * @return the TIPO15
+     */
+    public static int getTIPO15() {
+        return TIPO15;
+    }
+
+    /**
+     * @return the TIPO25
+     */
+    public static int getTIPO25() {
+        return TIPO25;
+    }
 }

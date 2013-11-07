@@ -36,6 +36,9 @@
                             <p:column headerText="Código de Pago">
                                 <p:commandLink value="#{item.codPago}" action="#{pedidoController.consultarClasificados(item)}" ajax="false"/>
                             </p:column>
+                            <p:column headerText="Tipo Pedido">
+                                <h:outputText value="#{item.tipoPedido}"/>
+                            </p:column>
                             <p:column headerText="Valor del Pedido">
                                 <h:outputText value="#{item.valorTotal}"/>
                             </p:column>

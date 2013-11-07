@@ -1,0 +1,29 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form">
+                    <p:commandLink action="#{pubWebController.seleccionarTipoWeb(pubWebController.TIPOGRATIS)}" value="Gratis, Hasta 1 foto de 1 MB, 8 días y baja prioridad"/>
+                    <p:spacer width="50" height="20"/>
+                    <p:commandLink action="#{pubWebController.seleccionarTipoWeb(pubWebController.TIPO15)}" value="15 S/., Hasta 4 fotos de 1 MB, 15 días y prioridad media"/>
+                    <p:spacer width="50" height="20"/>
+                    <p:commandLink action="#{pubWebController.seleccionarTipoWeb(pubWebController.TIPO25)}" value="25 S/., Hasta 4 fotos de 1 MB, 30 días y prioridad máxima"/>
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
+</html>
