@@ -1,14 +1,80 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:sec="http://www.springframework.org/security/facelets/tags"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <span class="titulo">Pedido</span>
+                    <br/>
+                    Datos de los Clasificados que se Publicaran:
+                    <br/>
+                    
+                    <p:dataTable value="#{pubWebController.pedido.clasificados}" var="item">
+                        <p:column headerText="Fecha Inicial">
+                            <h:outputText value="#{item.fechaIni}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Fecha Final">
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Nro. imagenes">
+                            <h:outputText value="#{fn:length(item.imagenes)}"/> 
+                        </p:column>
+                        <p:column headerText="Clasificado" footerText="TOTAL:">
+                            <p:commandLink id="clasificado" action="#{pubWebController.editar(item)}" value="#{item.clasificadoFrac}"/>
+                            <p:tooltip for="clasificado" value="Click para editar el clasificado" showEffect="slide" hideEffect="slide" />  
+                        </p:column>
+                        <p:column headerText="Precio" footerText="#{pubWebController.pedido.valorTotal}">
+                            <h:outputText id="precio" value="#{item.precio}"/> 
+                        </p:column>
+
+                        <f:facet name="footer">  
+                            <sec:ifAnyGranted roles="ROLE_USER">
+                                <p:outputPanel>  
+                                    <h:outputLabel value="Seleccione el medio de pago:"/>
+                                    <h:selectOneMenu id="entidad_pago" value="#{pubWebController.pedido.entidad.id}">
+                                        <p:ajax update="@form"/>
+                                        <f:selectItems  value="#{pubWebController.entidades}"/>
+                                    </h:selectOneMenu>
+                                </p:outputPanel>  
+                            </sec:ifAnyGranted>
+                        </f:facet>  
+                    </p:dataTable>
+                    
+                    <sec:ifAnyGranted roles="MASTER, ASESOR PAGOS">
+                        <p:panelGrid columns="3">  
+                            <h:outputLabel value="D.N.I. Cliente:"/>
+                            <p:inputText id="dni" value="#{pubWebController.pedido.dniCliente}" required="true" requiredMessage="Ingrese D.N.I. del Cliente"/>
+                            <p:message for="dni"/>
+                            <h:outputLabel value="Nombre Cliente:"/>
+                            <p:inputText id="nombre" value="#{pubWebController.pedido.nombreCliente}" required="true" requiredMessage="Ingrese Nombre del Cliente"/>
+                            <p:message for="nombre"/>
+                        </p:panelGrid>
+                    </sec:ifAnyGranted>
+
+                    <br/>
+                    <p:commandButton value="Guardar Pedido" action="#{pubWebController.guardarPedido}" ajax="false"/>
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
 </html>

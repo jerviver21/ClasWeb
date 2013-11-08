@@ -30,7 +30,7 @@ import javax.faces.model.SelectItem;
 @ManagedBean(name="pubImpresoController")
 @SessionScoped
 public class PubImpresoController {
-    //Objetos para procesar la información del clasificado
+    //Objetos para procesarImpreso la información del clasificado
     private List<DetallePrecioClasificado> detallePrecio;
     private Clasificado clasificado;
     private TipoClasificado tipoClasificado;
@@ -151,7 +151,7 @@ public class PubImpresoController {
     
     public String procesar(){
         try {
-            publicacionService.procesar(clasificado);
+            publicacionService.procesarImpreso(clasificado);
             if(!modoEdicion){
                 pedido.getClasificados().add(clasificado);
             }
@@ -203,24 +203,6 @@ public class PubImpresoController {
         return null;
     }
     
-    /*
-     * Este método se ejecuta cuando es un usuario normal, que debe realizar el pago en el banco o ir a pagar a la sede del periodico
-     */
-    public String habilitarPago(){
-         try {
-            pedido = pedidoService.habilitarPago(pedido);
-            FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
-            iniciarPedido();
-        }catch (Exception e) {
-            FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
-            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
-        }
-        return "/publicacion/informacion.xhtml";
-    }
-    
-    /*
-     * Este método se ejecuta cuando es un usuario especial que diligencia el aviso del usuario y recibe el pago en caja.
-     */
     public String guardarPedido(){
          try {
             pedido = pedidoService.guardarPedido(pedido);

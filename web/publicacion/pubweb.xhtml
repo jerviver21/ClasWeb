@@ -1,14 +1,150 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     >
+    <f:view>
+        <ui:composition template="../#{applicationController.plan2}">
+            <ui:define name="contenido">
+                <br/>
+                <span class="titulo">Publique su Clasificado</span>
+                <br/>
+               <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />   
+                    <p:panelGrid style="margin-top:20px">
+                        <p:row>
+                            <p:column><h:outputLabel  value="Tipo de Clasificado:" /></p:column>
+                            <p:column><h:selectOneMenu id="tipo" value="#{pubWebController.clasificado.tipo.id}" valueChangeListener="#{pubWebController.cambiarTipo}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{pubWebController.tipos}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo1}">
+                            <p:column><h:outputLabel  value="#{pubWebController.nsubtipo1}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub1" value="#{pubWebController.clasificado.subtipo1.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{pubWebController.subtipos1}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo2}">
+                            <p:column><h:outputLabel  value="#{pubWebController.nsubtipo2}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub2" value="#{pubWebController.clasificado.subtipo2.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{pubWebController.subtipos2}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo3}">
+                            <p:column><h:outputLabel  value="#{pubWebController.nsubtipo3}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub3" value="#{pubWebController.clasificado.subtipo3.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{pubWebController.subtipos3}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo4}">
+                            <p:column><h:outputLabel  value="#{pubWebController.nsubtipo4}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub4" value="#{pubWebController.clasificado.subtipo4.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{pubWebController.subtipos4}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo5}">
+                            <p:column><h:outputLabel  value="#{pubWebController.nsubtipo5}"/></p:column>
+                            <p:column><h:selectOneMenu id="sub5" value="#{pubWebController.clasificado.subtipo5.id}">
+                                <p:ajax update="@form"/>
+                                <f:selectItems  value="#{pubWebController.subtipos5}"/>
+                            </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
+                        </p:row>
+                        
+                        <p:row rendered="#{pubWebController.tipoClasificado.campos.valor}">
+                            <p:column>
+                                <h:outputLabel  value="PRECIO:" rendered="#{pubWebController.clasificado.tipo.id eq 1 or pubWebController.clasificado.tipo.id eq 3}"/>
+                                <h:outputLabel  value="SALARIO:" rendered="#{pubWebController.clasificado.tipo.id eq 2}" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="valorof1" value="#{pubWebController.clasificado.valorOferta}">
+                                    <p:ajax update="@form"/>
+                                </p:inputText>
+                                <p:watermark value="Digite el entero sin signos, puntos, ni comas" for="valorof1"/>
+                            </p:column>
+                            <p:column>
+                                <h:selectOneMenu id="moneda" value="#{pubWebController.clasificado.moneda.id}">
+                                    <p:ajax update="@form"/>
+                                    <f:selectItems  value="#{pubWebController.monedas}"/>
+                                </h:selectOneMenu>
+                            </p:column>
+                            <p:column><p:message for="valorof1"/></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputLabel  value="Clasificado: "/></p:column>
+                            <p:column>
+                                <p:inputTextarea id="clasificado" value="#{pubWebController.clasificado.clasificado}" cols="40" required="true">
+                                    <p:ajax update="@form"/>
+                                </p:inputTextarea>
+                            </p:column>
+                            <p:column><p:message for="clasificado"/></p:column>
+                            <p:column><p:watermark value="Escriba exactamente lo que quiere que se imprima en el clasificado" for="clasificado"/></p:column>
+                        </p:row>
+                        <p:row id="rimg">
+                            <p:column><h:outputLabel  value="Imagenes: "/></p:column>
+                            <p:column>
+                                <p:commandButton disabled="#{!pubWebController.cargarImgs}" id="img1" title="Cargar" value="Cargar" icon="ui-icon-arrowthickstop-1-n" oncomplete="dlg_img.show()"/>
+                            </p:column>
+                            <p:column><p:message for="img1"/></p:column>
+                        </p:row>
+                        <p:row id="mimg">
+                            <p:column><h:outputLabel  value="Número de imagenes cargadas: "/></p:column>
+                            <p:column>
+                                <h:outputLabel  id="num_imgs" value="#{fn:length(pubWebController.clasificado.imagenes)}"/>
+                            </p:column>
+                            <p:column><p:message for="num_imgs"/></p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <br/>
+                    <!--<span class="titulo">Imagenes</span> 
+                    <br/>
+                    <p:carousel id="smallCarousel" value="{pubWebController.clasificado.imagenes}"  rendered="{not empty pubWebController.clasificado.imagenes}" var="imagen" numVisible="1">    
+                        <h:panelGrid columns="1" style="width:100%" cellpadding="5" >  
+                            <p:graphicImage width="100" height="100" value="{pubWebController.image}">
+                                <f:param name="id" value="{imagen.consecutivo}"/>
+                            </p:graphicImage>    
+                        </h:panelGrid>  
+                    </p:carousel> -->
+                    
+                    <br/>
+                    <p:commandButton value="Guardar" type="button" onclick="confirmation.show()"/>
+                    
+                    <p:confirmDialog id="confirm" message="#{pubWebController.clasificado}" severity="info"
+                                     header="Así se publicará su clasificado: "  widgetVar="confirmation" width="400" height="100"  >  
+                        <p:commandButton id="confirmbtn2" value="Si, Estoy de acuerdo"  oncomplete="confirmation.hide()"  ajax="false"
+                                         action="#{pubWebController.procesar}"/>  
+                        <p:commandButton id="declinebtn" value="No" onclick="confirmation.hide()" type="button" />  
+                    </p:confirmDialog>
+                </h:form>
+                
+                <p:dialog widgetVar="dlg_img" modal="true" width="400" height="300">
+                    <h:form id="form1" enctype="multipart/form-data">
+                        <p:panel header="Cargar Imagen - Tamaño máximo 500k">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Cargar"/>
+                                <p:fileUpload fileUploadListener="#{pubWebController.cargarImg}" 
+                                              mode="advanced" update=":form" auto="true"
+                                                allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="500000"
+                                                label="Seleccionar" oncomplete="dlg_img.hide()"/> 
+                            </p:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
 </html>

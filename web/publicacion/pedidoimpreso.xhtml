@@ -85,12 +85,7 @@
                     </sec:ifAnyGranted>
 
                     <br/>
-                    <sec:ifAnyGranted roles="ROLE_USER">
-                        <p:commandButton value="Habilitar para Pago" action="#{pubImpresoController.habilitarPago}" ajax="false"/>
-                    </sec:ifAnyGranted>
-                    <sec:ifAnyGranted roles="MASTER, ASESOR PAGOS">
-                        <p:commandButton value="Guardar Pedido" action="#{pubImpresoController.guardarPedido}" ajax="false"/>
-                    </sec:ifAnyGranted>
+                    <p:commandButton value="Guardar Pedido" action="#{pubImpresoController.guardarPedido}" ajax="false"/>
                 </h:form>
                 </div>
             </ui:define>

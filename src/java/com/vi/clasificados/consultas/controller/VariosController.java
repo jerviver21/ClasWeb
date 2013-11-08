@@ -53,13 +53,15 @@ public class VariosController {
         InputStream inputStream = contextClassLoader.getResourceAsStream("images/a0.png");
         StreamedContent defaultFileContent = new DefaultStreamedContent(inputStream, "image/png");
         
+        
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String imageID = externalContext.getRequestParameterMap().get("id");
         if(imageID == null){
             return defaultFileContent;
         }
         System.out.println("---> "+imageID);
-        return service.find(Long.parseLong(imageID)).getImagenes().getImagen();
+        //return service.find(Long.parseLong(imageID)).getImagenes().getImagen();
+        return null;
     }
 
     /**

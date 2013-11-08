@@ -32,7 +32,7 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean(name="publicacionController")
 @SessionScoped
 public class PublicacionController {
-    //Objetos para procesar la información del clasificado
+    //Objetos para procesarImpreso la información del clasificado
     private Clasificado clasificadoDetalle;
     private Clasificado clasificado;
     private TipoClasificado tipoClasificado;
@@ -171,7 +171,7 @@ public class PublicacionController {
                 FacesUtil.addMessage(FacesUtil.ERROR, "Debe seleccionar al menos un medio de publicación");
                 return null;          
             }*/
-            System.out.println("---> "+clasificado.getExtImg1()+" - "+clasificado.getImg1());
+            //System.out.println("---> "+clasificado.getExtImg1()+" - "+clasificado.getImg1());
             //List<Clasificado> clasificados = publicacionService.procesarClasificado(clasificado);
             //pedido.getClasificados().addAll(clasificados);
             pedido.setValorTotal(publicacionService.calcularTotalPedido(pedido.getClasificados()));
@@ -200,9 +200,9 @@ public class PublicacionController {
     //Carga de imagen, página publicacion.xhtml
     public void cargarImg(FileUploadEvent event){
         try {
-            clasificado.setImg1(event.getFile().getInputstream());
-            clasificado.setExtImg1(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
-            clasificado.setImgCargada(true);
+            //clasificado.setImg1(event.getFile().getInputstream());
+            //clasificado.setExtImg1(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
+            //clasificado.setImgCargada(true);
         } catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al cargar el archivo");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
@@ -254,7 +254,7 @@ public class PublicacionController {
     
     public String habilitarPago(){
          try {
-            pedido = pedidoService.habilitarPago(pedido);
+            pedido = pedidoService.guardarPedido(pedido);
             FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
             iniciarPedido();
         }catch (Exception e) {
