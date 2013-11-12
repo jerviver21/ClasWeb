@@ -9,7 +9,7 @@
     <ui:define name="contenido">
         <div id="holder_contenido">
         <h:form id="form" >
-            <div id="left_col2">
+            <div id="left_col3">
 
                 <h:panelGrid columns="1">
                     <p:spacer height="10"/>
@@ -34,54 +34,27 @@
                     </h:outputLink>
                 </p:outputPanel>
             </div>
-            <div id="center_col2">
+            <div id="right_col3">
                 
                 <br/>
                 <span class="titulo">Resultados</span>
                 <br/>
-                <p:dataGrid var="clasificado" value="#{variosController.clasificados}" columns="1"  
-                    rows="5" paginator="true"  
+                <p:dataTable var="clasificado" value="#{variosController.clasificados}"
+                    rows="12" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     paginatorAlwaysVisible="false">  
                     
-                    <p:panel header="#{clasificado.subtipo1.dato}" style="width: 98%; height: 100px; overflow-y: auto">
-                        <p:outputPanel>
-                            <p:graphicImage width="100" height="100" rendered="#{clasificado.imagenes ne null}" value="#{variosController.image}">
-                                <f:param name="id" value="#{clasificado.id}"/>
-                            </p:graphicImage>
-                            <h:outputText value="#{clasificado.clasificado}"/>
-                        </p:outputPanel>
-                    </p:panel>
-
-                    
-
-                </p:dataGrid> 
-            </div>
-            <div id="right_col2">
-                <p:outputPanel rendered="#{publicidadController.renderLD1Otr}">
-                    <h:outputLink value="#{publicidadController.bannerLD1Otr.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD1Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD1Otr.width}" height="#{publicidadController.bannerLD1Otr.heigh}" rendered="#{publicidadController.bannerLD1Otr.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLD1Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD1Otr.width}" height="#{publicidadController.bannerLD1Otr.heigh}" rendered="#{publicidadController.bannerLD1Otr.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>   
-                </p:outputPanel>
-                
-                <p:spacer height="25"/>
-                
-                <p:outputPanel rendered="#{publicidadController.renderLD2Otr}">
-                    <h:outputLink value="#{publicidadController.bannerLD2Otr.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD2Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD2Otr.width}" height="#{publicidadController.bannerLD2Otr.heigh}" rendered="#{publicidadController.bannerLD2Otr.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLD2Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD2Otr.width}" height="#{publicidadController.bannerLD2Otr.heigh}" rendered="#{publicidadController.bannerLD2Otr.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
-                
-                <p:spacer height="25"/>
-                
-                <p:outputPanel rendered="#{publicidadController.renderLD3Otr}">
-                    <h:outputLink value="#{publicidadController.bannerLD3Otr.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD3Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD3Otr.width}" height="#{publicidadController.bannerLD3Otr.heigh}" rendered="#{publicidadController.bannerLD3Otr.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLD3Otr.imagen.urlFuente}" width="#{publicidadController.bannerLD3Otr.width}" height="#{publicidadController.bannerLD3Otr.heigh}" rendered="#{publicidadController.bannerLD3Otr.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
+                    <p:column headerText="Imagen" width="150">
+                        <p:graphicImage width="150" height="100" rendered="#{clasificado.imagenes ne null}" value="#{variosController.image}">
+                            <f:param name="id" value="#{clasificado.id}"/>
+                        </p:graphicImage>
+                    </p:column>
+                    <p:column headerText="Clasificado">
+                        <h:outputText value="#{clasificado.clasificado}"/>
+                        <br/>
+                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                    </p:column>
+                </p:dataTable> 
             </div>
         </h:form>
         </div>
