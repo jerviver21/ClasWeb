@@ -33,19 +33,11 @@ public class DetalleController {
     ComboLocator comboLocator;
     
     //Imagenes
-    private StreamedContent image1;
-    private StreamedContent image2;
-    private StreamedContent image3;
-    private StreamedContent image4;
     private int pagelinks = 0;
     
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        image1 = null;
-        image2 = null;
-        image3 = null;
-        image4 = null;
     }
     
     
@@ -53,19 +45,8 @@ public class DetalleController {
         init();
         this.clas1 = clasService.findWithImgs(clasificado.getId());
         pagelinks = this.clas1.getImagenes().size();
-        if(getPagelinks() >= 1){
-            image1 = this.clas1.getImagenes().get(0).getPrimeImg();
-        }
-        if(getPagelinks() >= 2){
-            image2 = this.clas1.getImagenes().get(1).getPrimeImg();
-        }
-        if(getPagelinks() >= 3){
-            image3 = this.clas1.getImagenes().get(2).getPrimeImg();
-        }
-        if(getPagelinks() >= 4){
-            image4 = this.clas1.getImagenes().get(3).getPrimeImg();
-        }
         this.usuario = usrService.findByUser(clasificado.getPedido().getUsuario());
+        System.out.println("Ingreso a mostrar clasificado: "+this.clas1.getImagenes().size());
         return "/consultas/detalle.xhtml";
     }
     
@@ -76,13 +57,13 @@ public class DetalleController {
         
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String imageID = externalContext.getRequestParameterMap().get("id");
-        
+        System.out.println("Detalle: Consulta imagen: "+imageID);
         if(imageID == null){
             return defaultFileContent;
         }
         
         ImgClasificadoTO imgTO = clas1.getImagenes().get(Integer.parseInt(imageID));
-        System.out.println("Varios: Ingreso por: "+imageID+" - "+imgTO.getRutaImg());
+        System.out.println("Detalle: Ingreso por: "+imageID+" - "+imgTO.getRutaImg());
         return imgTO.getPrimeImg();
     }
 
@@ -107,33 +88,6 @@ public class DetalleController {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the image1
-     */
-    public StreamedContent getImage1() {
-        return image1;
-    }
-
-    /**
-     * @return the image2
-     */
-    public StreamedContent getImage2() {
-        return image2;
-    }
-
-    /**
-     * @return the image3
-     */
-    public StreamedContent getImage3() {
-        return image3;
-    }
-
-    /**
-     * @return the image4
-     */
-    public StreamedContent getImage4() {
-        return image4;
-    }
 
     /**
      * @return the pagelinks

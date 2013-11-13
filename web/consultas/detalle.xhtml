@@ -28,16 +28,9 @@
                 </div>
                 <div id="right_col4">
                     <h:form id="form" prependId="false">   
-                        <!--<p:carousel itemStyleClass="carrusel" pageLinks="{detalleController.pagelinks}" autoPlayInterval="4000" numVisible="1" effect="easeInStrong" vertical="true" circular="true">  
-                            <p:graphicImage  width="450" height="350" value="{detalleController.image1}" rendered="{detalleController.image1 ne null}"/>  
-                            <p:graphicImage  width="450" height="350" value="{detalleController.image2}" rendered="{detalleController.image2 ne null}"/>
-                            <p:graphicImage  width="450" height="350" value="{detalleController.image3}" rendered="{detalleController.image3 ne null}"/>
-                            <p:graphicImage  width="450" height="350" value="{detalleController.image4}" rendered="{detalleController.image4 ne null}"/>
-                        </p:carousel> --> 
-                        
-                        
-                        <p:galleria  value="#{detalleController.clas1.imagenes}" var="image" panelWidth="450" panelHeight="350" showCaption="true">  
-                            <p:graphicImage width="450" height="350" value="#{detalleController.image}" title="Imagen #{image.consecutivo}">
+
+                        <p:galleria  value="#{detalleController.clas1.imagenes}" var="image" panelWidth="450" panelHeight="350" >  
+                            <p:graphicImage width="450" height="350" value="#{detalleController.image}" title="Imagen #{image.consecutivo}" cache="false">
                                 <f:param name="id" value="#{image.consecutivo}"/>
                             </p:graphicImage>  
                         </p:galleria> 

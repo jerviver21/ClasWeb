@@ -56,7 +56,6 @@ public class VariosController {
         
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String imageID = externalContext.getRequestParameterMap().get("id");
-        System.out.println("Varios: Ingreso por: "+imageID);
         if(imageID == null){
             return defaultFileContent;
         }
@@ -64,7 +63,6 @@ public class VariosController {
         
         ImgClasificadoTO imgTO = clasificado.getImagenes().get(0);
         image = imgTO.getPrimeImg();
-        System.out.println("Varios: Cargado: "+imgTO.getRutaImg()+" - Consecutivo: "+imageID);
         return image;
     }
     
