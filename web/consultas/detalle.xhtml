@@ -30,7 +30,7 @@
                     <h:form id="form" prependId="false">   
 
                         <p:galleria  value="#{detalleController.clas1.imagenes}" var="image" panelWidth="450" panelHeight="350" >  
-                            <p:graphicImage width="450" height="350" value="#{detalleController.image}" title="Imagen #{image.consecutivo}" cache="false">
+                            <p:graphicImage width="450" height="350" value="#{image.rutaImg}" title="Imagen #{image.consecutivo}" cache="false">
                                 <f:param name="id" value="#{image.consecutivo}"/>
                             </p:graphicImage>  
                         </p:galleria> 

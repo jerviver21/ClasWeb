@@ -46,26 +46,9 @@ public class DetalleController {
         this.clas1 = clasService.findWithImgs(clasificado.getId());
         pagelinks = this.clas1.getImagenes().size();
         this.usuario = usrService.findByUser(clasificado.getPedido().getUsuario());
-        System.out.println("Ingreso a mostrar clasificado: "+this.clas1.getImagenes().size());
         return "/consultas/detalle.xhtml";
     }
     
-    public StreamedContent getImage()throws Exception{
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = contextClassLoader.getResourceAsStream("a1.png");
-        StreamedContent defaultFileContent = new DefaultStreamedContent(inputStream, "image/png");
-        
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        String imageID = externalContext.getRequestParameterMap().get("id");
-        System.out.println("Detalle: Consulta imagen: "+imageID);
-        if(imageID == null){
-            return defaultFileContent;
-        }
-        
-        ImgClasificadoTO imgTO = clas1.getImagenes().get(Integer.parseInt(imageID));
-        System.out.println("Detalle: Ingreso por: "+imageID+" - "+imgTO.getRutaImg());
-        return imgTO.getPrimeImg();
-    }
 
     /**
      * @return the clasificado

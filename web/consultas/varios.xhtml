@@ -45,9 +45,7 @@
                     paginatorAlwaysVisible="false">  
                     
                     <p:column headerText="Imagen" width="150">
-                        <p:graphicImage width="150" height="100" rendered="#{clasificado.imagenes ne null}" value="#{variosController.image}">
-                            <f:param name="id" value="#{clasificado.id}"/>
-                        </p:graphicImage>
+                        <p:graphicImage width="150" height="100" rendered="#{clasificado.imagenes ne null}" value="#{clasificado.rutaImagenes.pathImg0}"/>
                     </p:column>
                     <p:column headerText="Clasificado">
                         <h:outputText value="#{clasificado.clasificado}"/>

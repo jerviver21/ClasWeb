@@ -94,7 +94,6 @@ public class PubWebController {
         tipos = FacesUtil.getSelectsItem(mapaTipos);
         tiposPublicacion = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_TIPOPUBIMP));
         pedido = new Pedido(FacesUtil.getUsuario());
-        clasificado.setFechaIni(new Date());
         entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
         monedas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_MONEDAS));
     }
@@ -107,6 +106,7 @@ public class PubWebController {
     
     public void iniciarClasificado(){
         modoEdicion=false;
+        cargarImgs = true;
         int idTipo = clasificado.getTipo().getId();
         clasificado = new Clasificado();
         clasificado.setTipo(new TipoClasificado(idTipo));
@@ -202,28 +202,7 @@ public class PubWebController {
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
         }  
     }
-    
-    //Método que permite renderizar la imagen
-    /*public StreamedContent getImage()throws Exception{
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = contextClassLoader.getResourceAsStream("images/a0.png");
-        StreamedContent defaultFileContent = new DefaultStreamedContent(inputStream, "image/png");
-        
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        String imageID = externalContext.getRequestParameterMap().get("id");
-        if(imageID == null){
-            return defaultFileContent;
-        }
-        ImgClasificadoTO imgTO = clasificado.getImagenes().get(Integer.parseInt(imageID));
-        System.out.println("-------> "+imgTO.getConsecutivo()+"."+imgTO.getExtension()+ "   -   "+imgTO.getPrimeImg().getStream().available());
-        image = imgTO.getPrimeImg();
-        return image;
-    }
-    
-     public void setImage(StreamedContent image)
-     {
-         this.image = image;
-     }*/
+
     
     //Eventos de la página pedidoweb.xhtml
     public String editar(Clasificado clasificado){
