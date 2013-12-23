@@ -3,19 +3,13 @@ package com.vi.clasificados.consultas.controller;
 
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosService;
-import com.vi.clasificados.to.ImgClasificadoTO;
 import com.vi.locator.ComboLocator;
 import com.vi.usuarios.dominio.Users;
 import com.vi.usuarios.services.UsuariosServicesLocal;
-import java.io.InputStream;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name="detalleController")
 @SessionScoped
@@ -44,7 +38,7 @@ public class DetalleController {
     public String mostrarClasificado(Clasificado clasificado){
         init();
         this.clas1 = clasService.findWithImgs(clasificado.getId());
-        pagelinks = this.clas1.getImagenes().size();
+        pagelinks = this.clas1.getImgs().size();
         this.usuario = usrService.findByUser(clasificado.getPedido().getUsuario());
         return "/consultas/detalle.xhtml";
     }

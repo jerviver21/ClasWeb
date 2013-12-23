@@ -2,12 +2,12 @@ package com.vi.clasificados.publicacion.controller;
 
 import com.vi.clasificados.dominio.Clasificado; 
 import com.vi.clasificados.dominio.DetallePrecioClasificado;
+import com.vi.clasificados.dominio.ImgClasificado;
 import com.vi.clasificados.dominio.Pedido;
 import com.vi.clasificados.dominio.TipoClasificado;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.PublicacionService;
 import com.vi.clasificados.services.TipoClasificadoService;
-import com.vi.clasificados.to.ImgClasificadoTO;
 import com.vi.comun.util.FechaUtils;
 import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
@@ -185,14 +185,13 @@ public class PubWebController {
     //Método de cargar imagenes
     public void cargarImg(FileUploadEvent event){
         try {
-            ImgClasificadoTO datosImg = new ImgClasificadoTO();
-            datosImg.setConsecutivo(clasificado.getImagenes().size());
+            ImgClasificado datosImg = new ImgClasificado();
             datosImg.setExtension(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
             datosImg.setImg(event.getFile().getInputstream());
-            clasificado.getImagenes().add(datosImg);
-            if(tipoWeb == TIPOGRATIS && clasificado.getImagenes().size() >= 1){
+            clasificado.getImgs().add(datosImg);
+            if(tipoWeb == TIPOGRATIS && clasificado.getImgs().size() >= 1){
                 cargarImgs = false;
-            }else if((tipoWeb == TIPO15 || tipoWeb == TIPO25) && clasificado.getImagenes().size() >= 4){
+            }else if((tipoWeb == TIPO15 || tipoWeb == TIPO25) && clasificado.getImgs().size() >= 4){
                 cargarImgs = false;
             }else{
                 cargarImgs = true;

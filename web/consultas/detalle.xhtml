@@ -29,9 +29,9 @@
                 <div id="right_col4">
                     <h:form id="form" prependId="false">   
 
-                        <p:galleria  value="#{detalleController.clas1.imagenes}" var="image" panelWidth="450" panelHeight="350" >  
-                            <p:graphicImage width="450" height="350" value="#{image.rutaImg}" title="Imagen #{image.consecutivo}" cache="false">
-                                <f:param name="id" value="#{image.consecutivo}"/>
+                        <p:galleria  value="#{detalleController.clas1.imgs}" var="image" panelWidth="450" panelHeight="350" >  
+                            <p:graphicImage width="450" height="350" value="#{image.url}" title="Imagen #{image.id}" cache="false">
+                                <f:param name="id" value="#{image.id}"/>
                             </p:graphicImage>  
                         </p:galleria> 
                         

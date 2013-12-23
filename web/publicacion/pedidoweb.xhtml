@@ -34,7 +34,7 @@
                             </h:outputText> 
                         </p:column>
                         <p:column headerText="Nro. imagenes">
-                            <h:outputText value="#{fn:length(item.imagenes)}"/> 
+                            <h:outputText value="#{fn:length(item.imgs)}"/> 
                         </p:column>
                         <p:column headerText="Clasificado" footerText="TOTAL:">
                             <p:commandLink id="clasificado" action="#{pubWebController.editar(item)}" value="#{item.clasificadoFrac}"/>
