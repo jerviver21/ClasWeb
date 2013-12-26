@@ -18,3 +18,11 @@ function validarCatchap() {
     }
     
 }
+
+function overImg(comp){
+    document.getElementById(comp).src = "/images/"+comp+"2.png";
+}
+
+function outImg(comp){
+    document.getElementById(comp).src = "/images/"+comp+"1.png";
+}

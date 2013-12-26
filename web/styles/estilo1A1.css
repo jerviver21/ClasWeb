@@ -123,6 +123,7 @@ body {
     width: 99%;
     margin: 0 auto;
     font-size: 18px;
+    background-color: #549859;
 }
 
 #contenido {
@@ -133,6 +134,7 @@ body {
         position: relative;
         text-align: center;
         padding-bottom: 25px;
+        
 }
 
 
