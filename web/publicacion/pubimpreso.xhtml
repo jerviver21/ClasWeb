@@ -26,9 +26,9 @@
                         <p:row>
                             <p:column><h:outputLabel  value="Medio de Publicación: " /></p:column>
                             <p:column>
-                                <h:selectOneMenu id="tipo_pub" value="#{pubImpresoController.clasificado.tipoPublicacion.id}">
+                                <h:selectOneMenu id="tipo_pub" value="#{pubImpresoController.clasificado.subtipoPublicacion.id}">
                                     <p:ajax update="@form"/>
-                                    <f:selectItems  value="#{pubImpresoController.tiposPublicacion}"/>
+                                    <f:selectItems  value="#{pubImpresoController.subtiposPublicacion}"/>
                                 </h:selectOneMenu>
                             </p:column>
                             <p:column><p:watermark value="Seleccione..." for="tipo_pub"/></p:column>

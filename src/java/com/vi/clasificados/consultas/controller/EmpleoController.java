@@ -1,22 +1,18 @@
 
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
-import com.vi.clasificados.dominio.ImagenesPublicidad;
 import com.vi.clasificados.services.ClasificadosService;
-import com.vi.clasificados.services.PublicidadService;
+import com.vi.clasificados.services.ConsultasService;
 import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name="empleoController")
 @SessionScoped
@@ -41,7 +37,7 @@ public class EmpleoController {
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        clasificados = service.getFiltro(ClasificadosCachingLocator.EMPLEO, tipoOferta, area, rangoSalarial);
+        clasificados = service.consultar(ConsultasService.EMPLEO, tipoOferta, area, rangoSalarial);
         
         tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_TIPO));
         areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_AREA));
@@ -49,8 +45,8 @@ public class EmpleoController {
     }
     
     public String cambiarFiltro() {
-        clasificados = service.getFiltro(ClasificadosCachingLocator.EMPLEO, tipoOferta, area, rangoSalarial);
-        return null;
+        clasificados = service.consultar(ConsultasService.EMPLEO, tipoOferta, area, rangoSalarial);
+        return "/consultas/empleo.xhtml";
     }
     
 

@@ -1,11 +1,12 @@
 
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosService;
+import com.vi.clasificados.services.ConsultasService;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,13 +32,13 @@ public class VariosController {
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        clasificados = service.getFiltro(ClasificadosCachingLocator.VARIOS, getTipo());
+        clasificados = new ArrayList<Clasificado>();
         tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VAR_TIPO));
     }
     
-    public String cambiarFiltro() {
-        clasificados = service.getFiltro(ClasificadosCachingLocator.VARIOS, getTipo());
-        return null;
+    public String consultar() {
+        clasificados = service.consultar(ConsultasService.VARIOS, getTipo());
+        return "/consultas/varios.xhtml";
     }
 
     /**
@@ -47,12 +48,6 @@ public class VariosController {
         return clasificados;
     }
 
-    /**
-     * @param clasificados the clasificados to set
-     */
-    public void setClasificados(List<Clasificado> clasificados) {
-        this.clasificados = clasificados;
-    }
 
     /**
      * @return the tipo

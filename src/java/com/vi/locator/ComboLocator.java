@@ -110,7 +110,7 @@ public class ComboLocator {
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM currencies ");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == COMB_ID_TIPOPUBIMP){
-                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM tipo_publicacion WHERE id <= 3 ");
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM subtipo_publicacion WHERE id_tipo_publicacion=1 ");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == PARAMETROS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT nombre, valor FROM parametro");

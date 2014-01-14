@@ -4,6 +4,7 @@ import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.dominio.DetallePrecioClasificado;
 import com.vi.clasificados.dominio.ImgClasificado;
 import com.vi.clasificados.dominio.Pedido;
+import com.vi.clasificados.dominio.SubtipoPublicacion;
 import com.vi.clasificados.dominio.TipoClasificado;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.PublicacionService;
@@ -33,11 +34,11 @@ import org.primefaces.event.FileUploadEvent;
 @SessionScoped
 public class PubWebController {
     //Tipos de clasificados WEB
-    private  final int TIPOGRATIS = 4;
-    private  final int TIPO15 = 5;
-    private  final int TIPO25 = 6;
+    private  final int SUBTIPOGRATIS = 4;
+    private  final int SUBTIPO15 = 5;
+    private  final int SUBTIPO25 = 6;
 
-    private int tipoWeb = TIPOGRATIS;
+    private int subtipoWeb = SUBTIPOGRATIS;
     private boolean cargarImgs = true;
     
     //Objetos para procesarImpreso la información del clasificado
@@ -55,7 +56,7 @@ public class PubWebController {
     private List<SelectItem> subtipos5;
     private List<SelectItem> entidades;
     private List<SelectItem> monedas;
-    private List<SelectItem> tiposPublicacion;
+    private List<SelectItem> subtiposPublicacion;
     
     //Objetos para los titulos de los subtipos de cada tipo
     private String nsubtipo1;
@@ -92,7 +93,7 @@ public class PubWebController {
         mapaSubtipos = tipoService.getSubtipos();
         seleccionarSubtipos(clasificado.getTipo().getId());
         tipos = FacesUtil.getSelectsItem(mapaTipos);
-        tiposPublicacion = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_TIPOPUBIMP));
+        subtiposPublicacion = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_TIPOPUBIMP));
         pedido = new Pedido(FacesUtil.getUsuario());
         entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
         monedas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_MONEDAS));
@@ -114,8 +115,8 @@ public class PubWebController {
     }
     
     //Eventos de la página tipoWeb.xhtml
-    public String seleccionarTipoWeb(int tipo){
-        tipoWeb = tipo;
+    public String seleccionarSubtipoWeb(int tipo){
+        clasificado.setSubtipoPublicacion(new SubtipoPublicacion(tipo));
         return "/publicacion/pubweb.xhtml";
     }
     
@@ -169,7 +170,7 @@ public class PubWebController {
     
     public String procesar(){
         try {
-            publicacionService.procesarweb(clasificado, tipoWeb);
+            publicacionService.procesarweb(clasificado);
             if(!modoEdicion){
                 pedido.getClasificados().add(clasificado);
             }
@@ -189,9 +190,9 @@ public class PubWebController {
             datosImg.setExtension(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
             datosImg.setImg(event.getFile().getInputstream());
             clasificado.getImgs().add(datosImg);
-            if(tipoWeb == TIPOGRATIS && clasificado.getImgs().size() >= 1){
+            if(subtipoWeb == SUBTIPOGRATIS && clasificado.getImgs().size() >= 1){
                 cargarImgs = false;
-            }else if((tipoWeb == TIPO15 || tipoWeb == TIPO25) && clasificado.getImgs().size() >= 4){
+            }else if((subtipoWeb == SUBTIPO15 || subtipoWeb == SUBTIPO25) && clasificado.getImgs().size() >= 4){
                 cargarImgs = false;
             }else{
                 cargarImgs = true;
@@ -293,8 +294,8 @@ public class PubWebController {
         return nsubtipo5;
     }
 
-    public List<SelectItem> getTiposPublicacion() {
-        return tiposPublicacion;
+    public List<SelectItem> getSubtiposPublicacion() {
+        return subtiposPublicacion;
     }
 
     public Pedido getPedido() {
@@ -321,20 +322,20 @@ public class PubWebController {
         return detallePrecio;
     }  
 
-    public int getTipoWeb() {
-        return tipoWeb;
+    public int getSubtipoWeb() {
+        return subtipoWeb;
     }
     
-    public int getTIPOGRATIS() {
-        return TIPOGRATIS;
+    public int getSUBTIPOGRATIS() {
+        return SUBTIPOGRATIS;
     }
 
-    public int getTIPO15() {
-        return TIPO15;
+    public int getSUBTIPO15() {
+        return SUBTIPO15;
     }
 
-    public int getTIPO25() {
-        return TIPO25;
+    public int getSUBTIPO25() {
+        return SUBTIPO25;
     }
 
     /**

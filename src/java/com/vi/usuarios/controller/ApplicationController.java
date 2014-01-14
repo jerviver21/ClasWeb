@@ -76,6 +76,7 @@ public class ApplicationController {
         themes.put("Cupertino", "cupertino"); 
         themes.put("Redmond", "redmond"); 
         themes.put("Glass-X", "glass-x"); 
+        themes.put("Aristo", "aristo"); 
         
         
         Map mPlans = new HashMap();

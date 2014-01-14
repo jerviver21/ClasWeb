@@ -4,9 +4,9 @@
  */
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosService;
+import com.vi.clasificados.services.ConsultasService;
 import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
@@ -51,7 +51,6 @@ public class InmobiliarioController {
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        clasificados = service.getFiltro(ClasificadosCachingLocator.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
 
         tiposOfertas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TIPO));
         tiposInmuebles = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLE));
@@ -67,8 +66,8 @@ public class InmobiliarioController {
     }
     
     public String cambiarFiltro() {
-        clasificados = service.getFiltro(ClasificadosCachingLocator.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
-        return null;
+        clasificados = service.consultar(ConsultasService.INMOBILIARIO, getTipoOferta(), getTipoInmueble(), getUbicacion(), getArea(), getRangoPrecio());
+        return "/consultas/inmobiliario.xhtml";
     }
 
     /**

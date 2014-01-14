@@ -17,22 +17,13 @@
                     <p:outputLabel value="Tipo de anuncio"/>
                     <p:selectOneMenu id="sub1" value="#{variosController.tipo}">
                         <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODOS" itemValue="0"/>
                         <f:selectItems  value="#{variosController.tipos}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
-                    <p:commandButton value="Buscar" action="#{variosController.cambiarFiltro}" update="@form"/>
+                    <p:commandButton value="Buscar" action="#{variosController.consultar}" update="@form"/>
                     <p:spacer height="25"/>
                 </h:panelGrid>
                 
-                
-                
-                <p:outputPanel rendered="#{publicidadController.renderLIOtr}">
-                    <h:outputLink value="#{publicidadController.bannerLIOtr.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLIOtr.imagen.urlFuente}" width="#{publicidadController.bannerLIOtr.width}" height="#{publicidadController.bannerLIOtr.heigh}" rendered="#{publicidadController.bannerLIOtr.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash" value="#{publicidadController.bannerLIOtr.imagen.urlFuente}" width="#{publicidadController.bannerLIOtr.width}" height="#{publicidadController.bannerLIOtr.heigh}" rendered="#{publicidadController.bannerLIOtr.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
             </div>
             <div id="right_col3">
                 

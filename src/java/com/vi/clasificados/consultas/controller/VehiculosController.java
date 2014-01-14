@@ -1,14 +1,13 @@
 
 package com.vi.clasificados.consultas.controller;
 
-import com.vi.clasificados.locator.ClasificadosCachingLocator;
 import com.vi.clasificados.dominio.Clasificado;
 import com.vi.clasificados.services.ClasificadosService;
+import com.vi.clasificados.services.ConsultasService;
 import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -38,7 +37,7 @@ public class VehiculosController {
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        clasificados = service.getFiltro(ClasificadosCachingLocator.VEHICULOS, getTipo(), getMarca(), getPrecio());
+        clasificados = service.consultar(ConsultasService.VEHICULOS, getTipo(), getMarca(), getPrecio());
         
         tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VEH_TIPOV));
         marcas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VEH_MARCA));
@@ -46,8 +45,8 @@ public class VehiculosController {
     }
     
     public String cambiarFiltro() {
-        clasificados = service.getFiltro(ClasificadosCachingLocator.VEHICULOS, getTipo(), getMarca(), getPrecio());
-        return null;
+        clasificados = service.consultar(ConsultasService.VEHICULOS, getTipo(), getMarca(), getPrecio());
+        return "/consultas/vehiculos.xhtml";
     }
 
     /**

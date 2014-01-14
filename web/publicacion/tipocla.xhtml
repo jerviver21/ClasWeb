@@ -14,9 +14,19 @@
             <ui:define name="contenido">
                 <div style="height: 450px">
                 <h:form id="form">
-                    <h:link outcome="/publicacion/pubimpreso.xhtml" value="Publique en el diario Impreso"/>
-                    <p:spacer width="50" height="20"/>
-                    <h:link outcome="/publicacion/tipoweb.xhtml" value="Publique en el portal WEB"/>
+                    
+                    <br/>
+                    <span class="titulo">Quiero publicar en:</span>
+                    <br/>
+                    <br/>
+                    
+                    <h:link outcome="/publicacion/pubimpreso.xhtml">
+                        <p:graphicImage value="/images/impreso.png"/>
+                    </h:link>
+                    <p:spacer width="10"/>
+                    <h:link outcome="/publicacion/tipoweb.xhtml">
+                        <p:graphicImage value="/images/portalweb.png"/>
+                    </h:link>
                 </h:form>
                 </div>
             </ui:define>

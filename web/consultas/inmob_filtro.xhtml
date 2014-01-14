@@ -9,7 +9,13 @@
     <ui:define name="contenido">
         <div id="holder_contenido">
         <h:form id="form" >
-            <div id="left_col3">
+            <div id="left_col5">
+                
+                <span class="titulo">Vivienda</span>
+                <br/>
+                <span class="titulo">Seleccione sus criterios de búsqueda</span>
+                <br/><br/>
+                <p:panel>
                 <h:panelGrid columns="1">
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{inmobiliarioController.tipoOferta}" valueChangeListener="#{inmobiliarioController.cambiarRangoPrecios}">
@@ -47,31 +53,12 @@
                         <f:selectItems  value="#{inmobiliarioController.rangosPrecios}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
-                    <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" update="@form"/>
+                    <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" ajax="false"/>
                     <p:spacer height="25"/>
                 </h:panelGrid>
-
+                </p:panel>
             </div>
-            <div id="right_col3">
-                
-                <br/>
-                <span class="titulo">Resultados</span>
-                <br/>
-                <p:dataTable var="clasificado" value="#{inmobiliarioController.clasificados}"
-                    rows="12" paginator="true"  
-                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    paginatorAlwaysVisible="false">  
-                    
-                    <p:column headerText="Imagen" width="150">
-                        <p:graphicImage width="150" height="100" value="#{clasificado.urlImg0}"/>
-                    </p:column>
-                    <p:column headerText="Clasificado">
-                        <h:outputText value="#{clasificado.clasificado}"/>
-                        <br/>
-                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
-                    </p:column>
-                </p:dataTable> 
-            </div>
+            
         </h:form>
         </div>
    </ui:define>

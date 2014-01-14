@@ -52,7 +52,7 @@ public class ClasificadosController {
         setClasificados(clasificadosService.getClasificados(usr, ClasificadoEstados.PEDIDOXPAGAR));
         estados = FacesUtil.getSelectsItem(ClasificadoEstados.getEstados());
         estadosEditables = FacesUtil.getSelectsItem(ClasificadoEstados.getEstadosEditables());
-        tiposPub =FacesUtil.getSelectsItem(tipoPubService.findAllTipos());
+        tiposPub =FacesUtil.getSelectsItem(tipoPubService.findAllSubtipos());
         tiposPub.add(new SelectItem(0, "Select"));
         clasFiltro = clasificados;
     }
@@ -77,7 +77,7 @@ public class ClasificadosController {
            clasFiltro = new ArrayList<Clasificado>();
         }
         for(Clasificado clas:clasificados){
-            if(clas.getTipoPublicacion().getId() == tipo){
+            if(clas.getSubtipoPublicacion().getId() == tipo){
                 clasFiltro.add(clas);
             }
         }

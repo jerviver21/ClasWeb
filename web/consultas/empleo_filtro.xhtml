@@ -1,0 +1,56 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+<ui:composition template="../#{applicationController.plan1}">
+    <ui:define name="contenido">
+        <div id="holder_contenido">
+        <h:form id="form" >
+            <div id="left_col5">
+                
+                <span class="titulo">Empleo</span>
+                <br/>
+                <span class="titulo">Seleccione sus criterios de búsqueda</span>
+                <br/>
+                <br/>
+                <p:panel>
+                    <h:panelGrid columns="1">
+                        <p:spacer height="10"/>
+
+                        <p:outputLabel value="Tipo de Oferta"/>
+                        <p:selectOneMenu id="sub1" value="#{empleoController.tipoOferta}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{empleoController.tipos}"/>
+                        </p:selectOneMenu>
+                        <p:spacer height="10"/>
+
+                        <p:outputLabel value="Área o profesión"/>
+                        <p:selectOneMenu id="sub2" value="#{empleoController.area}">
+                            <p:ajax update="@form"/>
+                            <f:selectItems  value="#{empleoController.areas}"/>
+                        </p:selectOneMenu>
+                        <p:spacer height="10"/>
+
+                        <p:outputLabel value="Rango salarial"/>
+                        <p:selectOneMenu id="sub3" value="#{empleoController.rangoSalarial}">
+                            <p:ajax update="@form"/>
+                            <f:selectItem  itemLabel="TODOS LOS SALARIOS" itemValue="0"/>
+                            <f:selectItems  value="#{empleoController.rangos}"/>
+                        </p:selectOneMenu>
+                        <p:spacer height="10"/>
+                        <p:commandButton value="Buscar" action="#{empleoController.cambiarFiltro}" ajax="false"/>
+
+                        <p:spacer height="25"/>
+                    </h:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+        </div>
+   </ui:define>
+  </ui:composition>
+</f:view>
+</html>
+

@@ -251,6 +251,15 @@ body {
         text-align: center;
 }
 
+#left_col5 {
+	width: 99%;
+        margin: 0 auto;
+        float: left;
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 15px;
+}
+
 #carrusel {
 	width: 64%;
         margin: 0 auto;

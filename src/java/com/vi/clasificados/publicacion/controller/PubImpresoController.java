@@ -45,7 +45,7 @@ public class PubImpresoController {
     private List<SelectItem> subtipos5;
     private List<SelectItem> entidades;
     private List<SelectItem> monedas;
-    private List<SelectItem> tiposPublicacion;
+    private List<SelectItem> subtiposPublicacion;
     
     //Objetos para los titulos de los subtipos de cada tipo
     private String nsubtipo1;
@@ -80,7 +80,7 @@ public class PubImpresoController {
         mapaSubtipos = tipoService.getSubtipos();
         seleccionarSubtipos(clasificado.getTipo().getId());
         tipos = FacesUtil.getSelectsItem(mapaTipos);
-        tiposPublicacion = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_TIPOPUBIMP));
+        subtiposPublicacion = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_TIPOPUBIMP));
         pedido = new Pedido(FacesUtil.getUsuario());
         minDate = FechaUtils.getFechaMasPeriodo(new Date(), 2, Calendar.DATE);
         clasificado.setFechaIni(minDate);
@@ -189,7 +189,7 @@ public class PubImpresoController {
     public String borrar(Clasificado clasificado){
         for(int i = 0; i < pedido.getClasificados().size() ; i++){
             Clasificado c = pedido.getClasificados().get(i);
-            if(c.getTipoPublicacion().equals(clasificado.getTipoPublicacion()) 
+            if(c.getSubtipoPublicacion().equals(clasificado.getSubtipoPublicacion()) 
                     && c.getClasificado().equals(clasificado.getClasificado()) 
                     && c.getFechaIni().equals(clasificado.getFechaIni())
                     && c.getFechaFin().equals(clasificado.getFechaFin())
@@ -284,8 +284,8 @@ public class PubImpresoController {
         return nsubtipo5;
     }
 
-    public List<SelectItem> getTiposPublicacion() {
-        return tiposPublicacion;
+    public List<SelectItem> getSubtiposPublicacion() {
+        return subtiposPublicacion;
     }
 
     public Pedido getPedido() {
