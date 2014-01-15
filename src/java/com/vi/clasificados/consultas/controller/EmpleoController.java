@@ -37,8 +37,6 @@ public class EmpleoController {
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
-        clasificados = service.consultar(ConsultasService.EMPLEO, tipoOferta, area, rangoSalarial);
-        
         tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_TIPO));
         areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_AREA));
         rangos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.EMP_RANGO));

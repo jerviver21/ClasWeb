@@ -36,9 +36,7 @@ public class VehiculosController {
     
     @PostConstruct
     public void init(){
-        comboLocator = ComboLocator.getInstance();
-        clasificados = service.consultar(ConsultasService.VEHICULOS, getTipo(), getMarca(), getPrecio());
-        
+        comboLocator = ComboLocator.getInstance();        
         tipos = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VEH_TIPOV));
         marcas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VEH_MARCA));
         precios = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.VEH_RANGO));
