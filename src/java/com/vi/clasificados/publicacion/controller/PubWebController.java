@@ -26,6 +26,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
 
 /**
  * @author Jerson Viveros
@@ -82,9 +86,6 @@ public class PubWebController {
     //Otros objetos necesarios
     ComboLocator comboLocator;
     
-    //Imagenes
-    //private StreamedContent image;
-    
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
@@ -97,6 +98,9 @@ public class PubWebController {
         pedido = new Pedido(FacesUtil.getUsuario());
         entidades = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_ENTIDAD));
         monedas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.COMB_ID_MONEDAS));
+        
+        
+        
     }
     
     public void iniciarPedido(){
@@ -125,6 +129,16 @@ public class PubWebController {
         Integer idTipo = (Integer) event.getNewValue();
         seleccionarSubtipos(idTipo);
         System.out.println("Tipo cambiado!");
+    }
+    
+    //Eventos desde la página tipoCla.xhtml
+    public String redirectTipoWeb(){
+        return "/publicacion/tipoweb.xhtml";
+    }
+    
+    //Eventos desde la página tipoCla.xhtml
+    public String redirectTipoCla(){
+        return "/publicacion/tipocla.xhtml";
     }
     
     /*
@@ -351,4 +365,5 @@ public class PubWebController {
     public void setCargarImgs(boolean cargarImgs) {
         this.cargarImgs = cargarImgs;
     }
+
 }

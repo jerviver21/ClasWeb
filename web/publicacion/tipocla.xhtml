@@ -14,19 +14,28 @@
             <ui:define name="contenido">
                 <div style="height: 450px">
                 <h:form id="form">
-                    
-                    <br/>
-                    <span class="titulo">Quiero publicar en:</span>
-                    <br/>
-                    <br/>
-                    
-                    <h:link outcome="/publicacion/pubimpreso.xhtml">
-                        <p:graphicImage value="/images/impreso.png"/>
-                    </h:link>
-                    <p:spacer width="10"/>
-                    <h:link outcome="/publicacion/tipoweb.xhtml">
-                        <p:graphicImage value="/images/portalweb.png"/>
-                    </h:link>
+                 
+                    <h:panelGrid columns="2"> 
+                        <p:fieldset legend="Diario Impreso" style="width: 190px; height: 130px">  
+                           <p:panelGrid columns="2">
+                                <p:graphicImage value="/images/iconoCheck.png"/>
+                                <h:outputText value="Su clasificado será publicado en nuestro Diario Impreso" />  
+                                <f:facet name="footer">
+                                    <p:commandButton action="#{pubImpresoController.redirectPubImpreso}" value="Publique"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:fieldset> 
+                        <p:fieldset legend="Portal WEB" style="width: 190px; height: 130px">  
+                            <p:panelGrid columns="2">
+                                <p:graphicImage value="/images/iconoCheck.png"/>
+                                <h:outputText value="Su clasificado será publicado en nuestro Portal WEB" /> 
+                                <f:facet name="footer">
+                                    <p:commandButton action="#{pubWebController.redirectTipoWeb}" value="Publique"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:fieldset> 
+                    </h:panelGrid>
+
                 </h:form>
                 </div>
             </ui:define>

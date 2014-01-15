@@ -227,6 +227,12 @@ public class PubImpresoController {
         return "/publicacion/pedidoimpreso.xhtml";
     }
     
+    //Eventos desde la página tipoCla.xhtml
+    public String redirectPubImpreso(){
+        return "/publicacion/pubimpreso.xhtml";
+    }
+    
+    
     //------------------------------------------------ATRIBUTOS-----------------------------------------------------------------------------------
     public Clasificado getClasificado() {
         return clasificado;

@@ -31,6 +31,7 @@
                                     <f:selectItems  value="#{pubImpresoController.subtiposPublicacion}"/>
                                 </h:selectOneMenu>
                             </p:column>
+                            <p:column><p:message for="tipo_pub"/></p:column>
                             <p:column><p:watermark value="Seleccione..." for="tipo_pub"/></p:column>
                         </p:row>
                         
@@ -41,6 +42,7 @@
                             <p:ajax update="@form"/>
                             <f:selectItems  value="#{pubImpresoController.tipos}"/>
                             </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
                             <p:column><p:watermark value="Seleccione..." for="tipo"/></p:column>
                         </p:row>
                         
@@ -50,7 +52,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubImpresoController.subtipos1}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub1"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub1"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.subtipo2}">
                             <p:column><h:outputLabel  value="#{pubImpresoController.nsubtipo2}"/></p:column>
@@ -58,7 +61,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubImpresoController.subtipos2}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub2"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub2"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.subtipo3}">
                             <p:column><h:outputLabel  value="#{pubImpresoController.nsubtipo3}"/></p:column>
@@ -66,7 +70,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubImpresoController.subtipos3}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub3"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub3"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.subtipo4}">
                             <p:column><h:outputLabel  value="#{pubImpresoController.nsubtipo4}"/></p:column>
@@ -74,7 +79,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubImpresoController.subtipos4}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub4"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub4"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.subtipo5}">
                             <p:column><h:outputLabel  value="#{pubImpresoController.nsubtipo5}"/></p:column>
@@ -82,7 +88,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubImpresoController.subtipos5}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub5"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub5"/></p:column>
                         </p:row>
                         
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.valor}">

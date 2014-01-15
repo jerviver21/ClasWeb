@@ -14,11 +14,65 @@
             <ui:define name="contenido">
                 <div style="height: 450px">
                 <h:form id="form">
-                    <p:commandLink action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPOGRATIS)}" value="Gratis, Hasta 1 foto de 1 MB, 8 días y baja prioridad"/>
-                    <p:spacer width="50" height="20"/>
-                    <p:commandLink action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPO15)}" value="15 S/., Hasta 4 fotos de 1 MB, 15 días y prioridad media"/>
-                    <p:spacer width="50" height="20"/>
-                    <p:commandLink action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPO25)}" value="25 S/., Hasta 4 fotos de 1 MB, 30 días y prioridad máxima"/>
+                    
+  
+                    <h:panelGrid columns="3">  
+                        <p:panel id="left" style="width: 200px">  
+                                <span class="titulo">Plan Gratis</span>
+                                <br/>
+                                <p:panelGrid columns="2"> 
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="0 S/."/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="6 fotos"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="1 semana"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="Prioridad Baja"/>
+                                    <f:facet name="footer">
+                                        <p:commandButton action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPOGRATIS)}" value="Usar este Plan"/>
+                                    </f:facet>
+                                </p:panelGrid>  
+                            </p:panel>   
+
+
+                            <p:panel id="center" style="width: 200px"> 
+                                <span class="titulo">Plan Básico</span>
+                                <br/>
+                                <p:panelGrid columns="2">  
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="15 S/."/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="10 fotos"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="2 semana"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="Prioridad Media"/>
+                                    <f:facet name="footer">
+                                        <p:commandButton action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPO15)}" value="Usar este Plan"/>
+                                    </f:facet>
+                                </p:panelGrid>  
+                            </p:panel> 
+                        
+                            <p:panel id="right" style="width: 200px">  
+                                <span class="titulo">Plan Premium</span>
+                                <br/>
+                                <p:panelGrid columns="2">  
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="25 S/."/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="15 fotos"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="4 semana"/>
+                                    <p:graphicImage value="/images/iconoCheck.png"/>
+                                    <p:outputLabel value="Prioridad Muy Alta"/>
+                                    <f:facet name="footer">
+                                        <p:commandButton action="#{pubWebController.seleccionarSubtipoWeb(pubWebController.SUBTIPO25)}" value="Usar este Plan"/>
+                                    </f:facet>
+                                </p:panelGrid>  
+                            </p:panel>  
+                    </h:panelGrid>
+
                 </h:form>
                 </div>
             </ui:define>

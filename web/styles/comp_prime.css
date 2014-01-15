@@ -1,4 +1,6 @@
-
+.ui-dashboard{
+    margin: 0 auto;
+}
 
 .ui-datatable table {
     font-size: 12px;

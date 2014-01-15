@@ -21,6 +21,7 @@
                             <p:ajax update="@form"/>
                             <f:selectItems  value="#{pubWebController.tipos}"/>
                             </h:selectOneMenu></p:column>
+                            <p:column><p:message for="tipo"/></p:column>
                             <p:column><p:watermark value="Seleccione..." for="tipo"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo1}">
@@ -29,7 +30,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos1}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub1"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub1"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo2}">
                             <p:column><h:outputLabel  value="#{pubWebController.nsubtipo2}"/></p:column>
@@ -37,7 +39,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos2}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub2"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub2"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo3}">
                             <p:column><h:outputLabel  value="#{pubWebController.nsubtipo3}"/></p:column>
@@ -45,7 +48,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos3}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub3"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub3"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo4}">
                             <p:column><h:outputLabel  value="#{pubWebController.nsubtipo4}"/></p:column>
@@ -53,7 +57,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos4}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub4"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub4"/></p:column>
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo5}">
                             <p:column><h:outputLabel  value="#{pubWebController.nsubtipo5}"/></p:column>
@@ -61,7 +66,8 @@
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos5}"/>
                             </h:selectOneMenu></p:column>
-                            <p:column><p:message for="tipo"/></p:column>
+                            <p:column><p:message for="sub5"/></p:column>
+                            <p:column><p:watermark value="Seleccione..." for="sub5"/></p:column>
                         </p:row>
                         
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.valor}">
@@ -99,12 +105,14 @@
                                 <p:commandButton disabled="#{!pubWebController.cargarImgs}" id="img1" title="Cargar" value="Cargar" icon="ui-icon-arrowthickstop-1-n" oncomplete="dlg_img.show()"/>
                             </p:column>
                             <p:column><p:message for="img1"/></p:column>
+                            <p:column><p:message for="img1"/></p:column>
                         </p:row>
                         <p:row id="mimg">
                             <p:column><h:outputLabel  value="Número de imagenes cargadas: "/></p:column>
                             <p:column>
                                 <h:outputLabel  id="num_imgs" value="#{fn:length(pubWebController.clasificado.imgs)}"/>
                             </p:column>
+                            <p:column><p:message for="num_imgs"/></p:column>
                             <p:column><p:message for="num_imgs"/></p:column>
                         </p:row>
                     </p:panelGrid>
