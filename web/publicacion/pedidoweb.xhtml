@@ -15,8 +15,17 @@
 
             <ui:define name="contenido">
                 <div style="height: 450px">
+                <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+                    <f:facet name="start">  
+                        <h:graphicImage value="../images/ajaxloading.gif" />  
+                    </f:facet>  
+
+                    <f:facet name="complete">  
+                        <h:outputText value="" />  
+                    </f:facet>  
+                </p:ajaxStatus>
                 <h:form id="form" prependId="false">
-                    <p:growl id="msgs" />
+                    <p:messages id="msgs" />
                     <span class="titulo">Pedido</span>
                     <br/>
                     Datos de los Clasificados que se Publicaran:
@@ -46,7 +55,7 @@
 
                         <f:facet name="footer">  
                             <sec:ifAnyGranted roles="ROLE_USER">
-                                <p:outputPanel>  
+                                <p:outputPanel rendered="#{pubWebController.subtipoWeb ne pubWebController.SUBTIPOGRATIS}">  
                                     <h:outputLabel value="Seleccione el medio de pago:"/>
                                     <h:selectOneMenu id="entidad_pago" value="#{pubWebController.pedido.entidad.id}">
                                         <p:ajax update="@form"/>
@@ -69,7 +78,7 @@
                     </sec:ifAnyGranted>
 
                     <br/>
-                    <p:commandButton value="Guardar Pedido" action="#{pubWebController.guardarPedido}" ajax="false"/>
+                    <p:commandButton value="Guardar Pedido" action="#{pubWebController.guardarPedido}" update="@form"/>
                 </h:form>
                 </div>
             </ui:define>

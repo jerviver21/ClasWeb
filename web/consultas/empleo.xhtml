@@ -15,21 +15,21 @@
 
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{empleoController.tipoOferta}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{empleoController.tipos}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Área o profesión"/>
                     <p:selectOneMenu id="sub2" value="#{empleoController.area}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{empleoController.areas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Rango salarial"/>
                     <p:selectOneMenu id="sub3" value="#{empleoController.rangoSalarial}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItem  itemLabel="TODOS LOS SALARIOS" itemValue="0"/>
                         <f:selectItems  value="#{empleoController.rangos}"/>
                     </p:selectOneMenu>
@@ -48,14 +48,21 @@
                     rows="12" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     paginatorAlwaysVisible="false">  
-                    
-                    <p:column headerText="Imagen" width="150">
-                        <p:graphicImage width="150" height="100" value="#{clasificado.urlImg0}"/>
+                    <p:column headerText="Logo Empresarial" width="150">
+                        <p:graphicImage width="100" height="70" value="#{clasificado.urlImg0}"/>
                     </p:column>
-                    <p:column headerText="Clasificado">
-                        <h:outputText value="#{clasificado.clasificado}"/>
+                    <p:column headerText="Empresa" width="150">
+                        <h:outputText value="#{clasificado.nombreOfertante}"/>
+                    </p:column>
+                    <p:column headerText="Cargo" width="150">
+                        <h:outputText value="#{clasificado.tituloOferta}"/>
                         <br/>
-                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificadoEmpleo(clasificado)}" ajax="false"/>
+                    </p:column>
+                    <p:column headerText="Salario">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
                     </p:column>
                 </p:dataTable> 
             </div>

@@ -20,7 +20,7 @@ public class EmpleoController {
     private List<Clasificado> clasificados;
     
     private int tipoOferta = ClasificadosTipo.EMPOFERTA.getId();
-    private int area = 0;
+    private int area = 50;
     private int rangoSalarial = 0;
     
     private List<SelectItem> tipos;

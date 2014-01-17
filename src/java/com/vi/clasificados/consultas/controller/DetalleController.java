@@ -43,6 +43,14 @@ public class DetalleController {
         return "/consultas/detalle.xhtml";
     }
     
+    public String mostrarClasificadoEmpleo(Clasificado clasificado){
+        init();
+        this.clas1 = clasService.findWithImgs(clasificado.getId());
+        pagelinks = this.clas1.getImgs().size();
+        this.usuario = usrService.findByUser(clasificado.getPedido().getUsuario());
+        return "/consultas/detalle_empleo.xhtml";
+    }
+    
 
     /**
      * @return the clasificado

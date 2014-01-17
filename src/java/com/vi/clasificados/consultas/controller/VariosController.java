@@ -11,14 +11,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 @ManagedBean(name="variosController")
-@RequestScoped
+@SessionScoped
 public class VariosController {
     private List<Clasificado> clasificados;
-    private int tipo = 0;  
+    private int tipo = 102;  
     private List<SelectItem> tipos;
     
     

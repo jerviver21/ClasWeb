@@ -16,7 +16,7 @@
 
                     <p:outputLabel value="Tipo de anuncio"/>
                     <p:selectOneMenu id="sub1" value="#{variosController.tipo}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{variosController.tipos}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
@@ -41,7 +41,12 @@
                     <p:column headerText="Clasificado">
                         <h:outputText value="#{clasificado.clasificado}"/>
                         <br/>
-                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
                     </p:column>
                 </p:dataTable> 
             </div>

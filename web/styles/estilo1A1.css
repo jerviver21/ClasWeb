@@ -150,13 +150,14 @@ body {
 
 #holder { 
     width: 1000px;
-    height: 750px;
+    height: 800px;
     margin: 0 auto;
     background-color: white;
 }
 
 #holder_contenido{
-    height: 750px;
+    height: 800px;
+    overflow-y: scroll;
 }
 
 /* Los diferentes contenidos tienen diferentes presentaciones */

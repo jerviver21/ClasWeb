@@ -15,14 +15,14 @@
 
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{vehiculosController.tipo}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{vehiculosController.tipos}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Marca"/>
                     <p:selectOneMenu id="sub2" value="#{vehiculosController.marca}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItem  itemLabel="TODAS LAS MARCAS" itemValue="0"/>
                         <f:selectItems  value="#{vehiculosController.marcas}"/>
                     </p:selectOneMenu>
@@ -30,7 +30,7 @@
 
                     <p:outputLabel value="Rango de Precios"/>
                     <p:selectOneMenu id="sub3" value="#{vehiculosController.precio}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{vehiculosController.precios}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
@@ -54,7 +54,12 @@
                     <p:column headerText="Clasificado">
                         <h:outputText value="#{clasificado.clasificado}"/>
                         <br/>
-                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                    </p:column>
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
                     </p:column>
                 </p:dataTable> 
             </div>

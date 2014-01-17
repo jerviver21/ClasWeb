@@ -43,6 +43,7 @@
                     <p:outputLabel value="Área en metros cuadrados"/>
                     <p:selectOneMenu id="sub4" value="#{inmobiliarioController.area}">
                         <p:ajax update="@form"/>
+                        <f:selectItem  itemLabel="TODAS LAS AREAS" itemValue="0"/>
                         <f:selectItems  value="#{inmobiliarioController.areas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>

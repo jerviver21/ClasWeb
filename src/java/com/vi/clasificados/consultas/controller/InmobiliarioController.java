@@ -31,7 +31,7 @@ public class InmobiliarioController {
     private int tipoInmueble = ClasificadosTipo.IMBDEPARTAMENTO.getId();
     private int ubicacion = 0;
     private int area = 0;
-    private int rangoPrecio = 0;
+    private int rangoPrecio = 118;
    
     
     private List<SelectItem> tiposOfertas;

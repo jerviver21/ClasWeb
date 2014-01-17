@@ -13,14 +13,14 @@
                 <h:panelGrid columns="1">
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{inmobiliarioController.tipoOferta}" valueChangeListener="#{inmobiliarioController.cambiarRangoPrecios}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{inmobiliarioController.tiposOfertas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Tipo de Inmueble"/>
                     <p:selectOneMenu id="sub2" value="#{inmobiliarioController.tipoInmueble}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{inmobiliarioController.tiposInmuebles}"/>
                     </p:selectOneMenu>
 
@@ -28,7 +28,7 @@
 
                     <p:outputLabel value="Ubicación"/>
                     <p:selectOneMenu id="sub3" value="#{inmobiliarioController.ubicacion}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItem  itemLabel="TODAS LAS UBICACIONES" itemValue="0"/>
                         <f:selectItems  value="#{inmobiliarioController.ubicaciones}"/>
                     </p:selectOneMenu>
@@ -36,14 +36,15 @@
 
                     <p:outputLabel value="Área en metros cuadrados"/>
                     <p:selectOneMenu id="sub4" value="#{inmobiliarioController.area}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
+                        <f:selectItem  itemLabel="TODAS LAS AREAS" itemValue="0"/>
                         <f:selectItems  value="#{inmobiliarioController.areas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Rango de Precios"/>
                     <p:selectOneMenu id="sub5" value="#{inmobiliarioController.rangoPrecio}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{inmobiliarioController.rangosPrecios}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
@@ -58,7 +59,7 @@
                 <span class="titulo">Resultados</span>
                 <br/>
                 <p:dataTable var="clasificado" value="#{inmobiliarioController.clasificados}"
-                    rows="12" paginator="true"  
+                    rows="10" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     paginatorAlwaysVisible="false">  
                     
@@ -68,7 +69,12 @@
                     <p:column headerText="Clasificado">
                         <h:outputText value="#{clasificado.clasificado}"/>
                         <br/>
-                        <p:commandLink value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                    </p:column>
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
                     </p:column>
                 </p:dataTable> 
             </div>

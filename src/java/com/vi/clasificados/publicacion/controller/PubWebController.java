@@ -13,6 +13,7 @@ import com.vi.comun.util.FechaUtils;
 import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
 import com.vi.util.FacesUtil;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,13 +24,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DashboardColumn;
-import org.primefaces.model.DashboardModel;
-import org.primefaces.model.DefaultDashboardColumn;
-import org.primefaces.model.DefaultDashboardModel;
 
 /**
  * @author Jerson Viveros
@@ -120,7 +119,7 @@ public class PubWebController {
     
     //Eventos de la página tipoWeb.xhtml
     public String seleccionarSubtipoWeb(int tipo){
-        clasificado.setSubtipoPublicacion(new SubtipoPublicacion(tipo));
+        subtipoWeb = tipo;
         return "/publicacion/pubweb.xhtml";
     }
     
@@ -184,6 +183,7 @@ public class PubWebController {
     
     public String procesar(){
         try {
+            clasificado.setSubtipoPublicacion(new SubtipoPublicacion(subtipoWeb));
             publicacionService.procesarweb(clasificado);
             if(!modoEdicion){
                 pedido.getClasificados().add(clasificado);
@@ -204,9 +204,11 @@ public class PubWebController {
             datosImg.setExtension(event.getFile().getFileName().replaceAll( ".*\\.(.*)", "$1"));
             datosImg.setImg(event.getFile().getInputstream());
             clasificado.getImgs().add(datosImg);
-            if(subtipoWeb == SUBTIPOGRATIS && clasificado.getImgs().size() >= 1){
+            if(subtipoWeb == SUBTIPOGRATIS && clasificado.getImgs().size() >= 6){
                 cargarImgs = false;
-            }else if((subtipoWeb == SUBTIPO15 || subtipoWeb == SUBTIPO25) && clasificado.getImgs().size() >= 4){
+            }else if((subtipoWeb == SUBTIPO15) && clasificado.getImgs().size() >= 10){
+                cargarImgs = false;
+            }else if((subtipoWeb == SUBTIPO25) && clasificado.getImgs().size() >= 15){
                 cargarImgs = false;
             }else{
                 cargarImgs = true;
@@ -231,11 +233,16 @@ public class PubWebController {
             pedido = pedidoService.guardarPedido(pedido);
             FacesUtil.addMessage(FacesUtil.INFO, pedido.getMensajePago());
             iniciarPedido();
+        }catch (UnknownHostException e) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            session.invalidate();
+            FacesUtil.addMessage(FacesUtil.ERROR, "En el momento no podemos, conectarnos con el servidor, intente más tarde");
+            Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
         }catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR, "Error al procesar el clasificado");
             Log.getLogger().log(Level.SEVERE, e.getMessage(), e);
         }
-        return "/publicacion/informacion.xhtml";
+        return null;
     }
     
     //Eventos desde la página mis_clasificados.xhtml
