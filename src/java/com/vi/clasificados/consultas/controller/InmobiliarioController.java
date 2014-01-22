@@ -35,10 +35,12 @@ public class InmobiliarioController {
    
     
     private List<SelectItem> tiposOfertas;
-    private List<SelectItem> tiposInmuebles;
+    private List<SelectItem> tiposInmueblesVentas;
+    private List<SelectItem> tiposInmueblesAlquiler;
     private List<SelectItem> ubicaciones;
     private List<SelectItem> areas;
-    private List<SelectItem> rangosPrecios;
+    private List<SelectItem> rangosPreciosVentas;
+    private List<SelectItem> rangosPreciosAlquiler;
     
     
     
@@ -48,21 +50,26 @@ public class InmobiliarioController {
     //Otros objetos necesarios
     ComboLocator comboLocator;
     
+    //Variables de renderizacion
+    private boolean renderVenta = true;
+    
     @PostConstruct
     public void init(){
         comboLocator = ComboLocator.getInstance();
 
         tiposOfertas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TIPO));
-        tiposInmuebles = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLE));
+        tiposInmueblesVentas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLEV));
+        tiposInmueblesAlquiler = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLEA));
         ubicaciones = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_UBICACION));
         areas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_AREA));
-        rangosPrecios = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOV));
+        rangosPreciosVentas = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOV));
+        rangosPreciosAlquiler = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOA));
     }
     
     public void cambiarRangoPrecios(ValueChangeEvent event) {
-        rangosPrecios = (((Integer) event.getNewValue()) == ClasificadosTipo.IMBALQUILER.getId()) ?
-                FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOA))
-                :FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_RANGOV));
+        int valor = (Integer) event.getNewValue();
+        renderVenta = (valor == ClasificadosTipo.IMBALQUILER.getId().intValue()) ? false :true;
+        System.out.println(valor+ " == "+ClasificadosTipo.IMBALQUILER.getId()+" ¿Renderizamos la Venta? "+ renderVenta);
     }
     
     public String cambiarFiltro() {
@@ -164,8 +171,8 @@ public class InmobiliarioController {
     /**
      * @return the tiposInmuebles
      */
-    public List<SelectItem> getTiposInmuebles() {
-        return tiposInmuebles;
+    public List<SelectItem> getTiposInmueblesVentas() {
+        return tiposInmueblesVentas;
     }
 
     /**
@@ -185,8 +192,43 @@ public class InmobiliarioController {
     /**
      * @return the rangosPrecios
      */
-    public List<SelectItem> getRangosPrecios() {
-        return rangosPrecios;
+    public List<SelectItem> getRangosPreciosVentas() {
+        return rangosPreciosVentas;
+    }
+
+    /**
+     * @return the renderVenta
+     */
+    public boolean isRenderVenta() {
+        return renderVenta;
+    }
+
+    /**
+     * @param renderVenta the renderVenta to set
+     */
+    public void setRenderVenta(boolean renderVenta) {
+        this.renderVenta = renderVenta;
+    }
+
+    /**
+     * @return the tiposInmueblesAlquiler
+     */
+    public List<SelectItem> getTiposInmueblesAlquiler() {
+        return tiposInmueblesAlquiler;
+    }
+
+    /**
+     * @param tiposInmueblesAlquiler the tiposInmueblesAlquiler to set
+     */
+    public void setTiposInmueblesAlquiler(List<SelectItem> tiposInmueblesAlquiler) {
+        this.tiposInmueblesAlquiler = tiposInmueblesAlquiler;
+    }
+
+    /**
+     * @return the rangosPreciosAlquiler
+     */
+    public List<SelectItem> getRangosPreciosAlquiler() {
+        return rangosPreciosAlquiler;
     }
     
 }

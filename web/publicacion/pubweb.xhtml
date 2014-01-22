@@ -27,7 +27,7 @@
                         </p:row>
                         <p:row rendered="#{pubWebController.tipoClasificado.campos.subtipo1}">
                             <p:column><h:outputLabel  value="#{pubWebController.nsubtipo1}"/></p:column>
-                            <p:column><h:selectOneMenu id="sub1" value="#{pubWebController.clasificado.subtipo1.id}">
+                            <p:column><h:selectOneMenu id="sub1" value="#{pubWebController.clasificado.subtipo1.id}" valueChangeListener="#{pubWebController.cambiarOpcion}">
                                 <p:ajax update="@form"/>
                                 <f:selectItems  value="#{pubWebController.subtipos1}"/>
                             </h:selectOneMenu></p:column>
@@ -168,9 +168,9 @@
                         <p:commandButton id="declinebtn" value="No" onclick="confirmation.hide()" type="button" />  
                     </p:confirmDialog>
                 </h:form>
-                <p:dialog widgetVar="dlg_img" modal="true" showEffect="fade" hideEffect="explode" width="400" height="300">
+                <p:dialog widgetVar="dlg_img" modal="true" showEffect="fade" hideEffect="explode" width="780" height="300">
                     <h:form id="form1" enctype="multipart/form-data">
-                        <p:panel header="Cargar Imagen - Tamaño máximo 500k">
+                        <p:panel header="Cargar Imagen - Tamaño máximo 1M">
                             <p:panelGrid columns="2">
                                 <h:outputLabel value="Cargar"/>
                                 <p:fileUpload fileUploadListener="#{pubWebController.cargarImg}" 

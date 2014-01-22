@@ -9,6 +9,7 @@ import com.vi.clasificados.dominio.TipoClasificado;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.clasificados.services.PublicacionService;
 import com.vi.clasificados.services.TipoClasificadoService;
+import com.vi.clasificados.utils.ClasificadosTipo;
 import com.vi.comun.util.FechaUtils;
 import com.vi.comun.util.Log;
 import com.vi.locator.ComboLocator;
@@ -127,7 +128,17 @@ public class PubWebController {
     public void cambiarTipo(ValueChangeEvent event) {
         Integer idTipo = (Integer) event.getNewValue();
         seleccionarSubtipos(idTipo);
-        System.out.println("Tipo cambiado!");
+    }
+    
+    public void cambiarOpcion(ValueChangeEvent event) {
+        if(clasificado.getTipo().getId() == ClasificadosTipo.INMOBILIARIO.getId()){
+            Integer idTipoOferta = (Integer) event.getNewValue();//Define si es venta o alquiler
+            if(idTipoOferta == ClasificadosTipo.IMBVENTA.getId()){
+                subtipos2 = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLEV));
+            }else{
+                subtipos2 = FacesUtil.getSelectsItem(comboLocator.getDataForCombo(ComboLocator.IMB_TINMUEBLEA));
+            }
+        }
     }
     
     //Eventos desde la página tipoCla.xhtml
@@ -156,10 +167,14 @@ public class PubWebController {
                     nsubtipo1 = subtipos.get(subtipo).get(0).getNombre();
                     subtipos1 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
                     clasificado.setSubtipo1(new TipoClasificado());
+                    if(clasificado.getTipo().getId() == ClasificadosTipo.INMOBILIARIO.getId()){
+                        clasificado.setSubtipo1(new TipoClasificado(ClasificadosTipo.IMBALQUILER.getId()));
+                    }
                     break;
                 case 2:
                     nsubtipo2 = subtipos.get(subtipo).get(0).getNombre();
-                    subtipos2 = FacesUtil.getSelectsItem(subtipos.get(subtipo));
+                    List opciones = subtipos.get(subtipo);
+                    subtipos2 = FacesUtil.getSelectsItem(opciones);
                     clasificado.setSubtipo2(new TipoClasificado());
                     break;
                 case 3:
@@ -180,6 +195,8 @@ public class PubWebController {
             }
         }
     }
+    
+    
     
     public String procesar(){
         try {
