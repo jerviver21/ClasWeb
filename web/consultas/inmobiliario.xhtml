@@ -9,7 +9,7 @@
     <ui:define name="contenido">
         <div id="holder_contenido">
         <h:form id="form" >
-            <div id="left_col2">
+            <div id="left_col3">
                 <h:panelGrid columns="1">
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{inmobiliarioController.tipoOferta}" valueChangeListener="#{inmobiliarioController.cambiarRangoPrecios}">
@@ -19,16 +19,21 @@
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Tipo de Inmueble"/>
-                    <p:selectOneMenu id="sub2" value="#{inmobiliarioController.tipoInmueble}">
+                    <p:selectOneMenu id="sub21" value="#{inmobiliarioController.tipoInmueble}" rendered="#{inmobiliarioController.renderVenta}">
                         <p:ajax update="@form"/>
-                        <f:selectItems  value="#{inmobiliarioController.tiposInmuebles}"/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposInmueblesVentas}"/>
+                    </p:selectOneMenu>
+                   
+                    <p:selectOneMenu id="sub22" value="#{inmobiliarioController.tipoInmueble}" rendered="#{!inmobiliarioController.renderVenta}">
+                        <p:ajax update="@form"/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposInmueblesAlquiler}"/>
                     </p:selectOneMenu>
 
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Ubicación"/>
                     <p:selectOneMenu id="sub3" value="#{inmobiliarioController.ubicacion}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItem  itemLabel="TODAS LAS UBICACIONES" itemValue="0"/>
                         <f:selectItems  value="#{inmobiliarioController.ubicaciones}"/>
                     </p:selectOneMenu>
@@ -36,79 +41,52 @@
 
                     <p:outputLabel value="Área en metros cuadrados"/>
                     <p:selectOneMenu id="sub4" value="#{inmobiliarioController.area}">
-                        <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODAS LAS ÁREAS" itemValue="0"/>
+                        <p:ajax/>
+                        <f:selectItem  itemLabel="TODAS LAS AREAS" itemValue="0"/>
                         <f:selectItems  value="#{inmobiliarioController.areas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Rango de Precios"/>
-                    <p:selectOneMenu id="sub5" value="#{inmobiliarioController.rangoPrecio}">
+                    <p:selectOneMenu id="sub51" value="#{inmobiliarioController.rangoPrecio}" rendered="#{inmobiliarioController.renderVenta}">
                         <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODOS LOS PRECIOS" itemValue="0"/>
-                        <f:selectItems  value="#{inmobiliarioController.rangosPrecios}"/>
+                        <f:selectItems  value="#{inmobiliarioController.rangosPreciosVentas}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:selectOneMenu id="sub52" value="#{inmobiliarioController.rangoPrecio}" rendered="#{!inmobiliarioController.renderVenta}">
+                        <p:ajax update="@form"/>
+                        <f:selectItems  value="#{inmobiliarioController.rangosPreciosAlquiler}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
                     <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" update="@form"/>
                     <p:spacer height="25"/>
                 </h:panelGrid>
-                
-                <p:outputPanel rendered="#{publicidadController.renderLIImb}">
-                    <h:outputLink value="#{publicidadController.bannerLIImb.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 1}"/>
-                    </h:outputLink>
-                    <p:media player="flash"  value="#{publicidadController.bannerLIImb.imagen.urlFuente}" width="#{publicidadController.bannerLIImb.width}" height="#{publicidadController.bannerLIImb.heigh}" rendered="#{publicidadController.bannerLIImb.imagen.tipoFuente.id eq 2}">
-                        <!--<f:param name="flashvars" value="clickTag=http://ads.us.e-planning.net/ei/3/8ba9/0877bd56502f0323%3fct%3d1%26pb%3dac7fc9212b18d00a%26fi%3d5702a9097d561726%26rnd%3d481213130652&amp;bannerId=691245" /> -->
-                    </p:media>
-                </p:outputPanel>
+
             </div>
-            <div id="center_col2">
+            <div id="right_col3">
                 
                 <br/>
                 <span class="titulo">Resultados</span>
                 <br/>
-                
-                <p:dataGrid var="clasificado" value="#{inmobiliarioController.clasificados}" columns="1"  
-                    rows="6" paginator="true"  
+                <p:dataTable var="clasificado" value="#{inmobiliarioController.clasificados}"
+                    rows="10" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    rowsPerPageTemplate="9,12,10"
                     paginatorAlwaysVisible="false">  
                     
-                    <p:panel header="#{clasificado.subtipo2.dato} - #{clasificado.subtipo3.dato}" style="width: 98%; height: 100px; overflow-y: auto">
-                        <p:outputPanel>
-                            <h:outputText value="#{clasificado.clasificado}"/>
-                        </p:outputPanel>
+                    <p:column headerText="Imagen" width="150">
+                        <p:graphicImage width="150" height="100" value="#{clasificado.urlImg0}"/>
+                    </p:column>
+                    <p:column headerText="Clasificado">
+                        <h:outputText value="#{clasificado.clasificado}"/>
                         <br/>
-                        <p:outputLabel value="#{clasificado.moneda.simbolo}" style="color: blue;"/>
-                        <p:outputLabel value="#{clasificado.valorOferta}" style="color: blue;"/>
-                    </p:panel>
-
-                    
-
-                </p:dataGrid> 
-
-            </div>
-            <div id="right_col2">
-                <p:outputPanel rendered="#{publicidadController.renderLD1Imb}">
-                    <h:outputLink value="#{publicidadController.bannerLD1Imb.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD1Imb.imagen.imagen}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLD1Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD1Imb.width}" height="#{publicidadController.bannerLD1Imb.heigh}" rendered="#{publicidadController.bannerLD1Imb.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
-                <p:spacer height="25"/>
-                <p:outputPanel rendered="#{publicidadController.renderLD2Imb}">
-                    <h:outputLink value="#{publicidadController.bannerLD2Imb.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLD2Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD2Imb.width}" height="#{publicidadController.bannerLD2Imb.heigh}" rendered="#{publicidadController.bannerLD2Imb.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
-                <p:spacer height="25"/>
-                <p:outputPanel rendered="#{publicidadController.renderLD3Imb}">
-                    <h:outputLink value="#{publicidadController.bannerLD3Imb.imagen.urlAterrizaje}">
-                    <p:graphicImage value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 1}"/>
-                    <p:media player="flash"  value="#{publicidadController.bannerLD3Imb.imagen.urlFuente}" width="#{publicidadController.bannerLD3Imb.width}" height="#{publicidadController.bannerLD3Imb.heigh}" rendered="#{publicidadController.bannerLD3Imb.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificado(clasificado)}" ajax="false"/> 
+                    </p:column>
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
+                    </p:column>
+                </p:dataTable> 
             </div>
         </h:form>
         </div>

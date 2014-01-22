@@ -36,7 +36,7 @@ public class ApplicationController {
     private String plan1 = "plantillaA1.xhtml";
     private String plan2 = "plantillaC1.xhtml";
     private String plan3 = "plantillaB2.xhtml";
-    private String theme = "casablanca";
+    private String theme = "south-street";
     private String url;
     
     
@@ -76,6 +76,7 @@ public class ApplicationController {
         themes.put("Cupertino", "cupertino"); 
         themes.put("Redmond", "redmond"); 
         themes.put("Glass-X", "glass-x"); 
+        themes.put("Aristo", "aristo"); 
         
         
         Map mPlans = new HashMap();

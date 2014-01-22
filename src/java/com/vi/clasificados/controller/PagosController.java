@@ -5,6 +5,7 @@
 package com.vi.clasificados.controller;
 
 import com.vi.clasificados.dominio.Pedido;
+import com.vi.clasificados.services.PagoService;
 import com.vi.clasificados.services.PedidoService;
 import com.vi.comun.exceptions.ValidacionException;
 import com.vi.comun.util.Log;
@@ -32,7 +33,9 @@ public class PagosController {
     private Users usuario;
     
     @EJB
-    PedidoService service;
+    PagoService service;
+    @EJB
+    PedidoService pedidoService;
     
     @EJB
     UsuariosServicesLocal usrService;
@@ -52,7 +55,7 @@ public class PagosController {
     
     public String consultarPago(){
         try {
-           pedido = service.findByNro(codPago);
+           pedido = pedidoService.findByNro(codPago);
            if(pedido == null){
                FacesUtil.addMessage(FacesUtil.ERROR, "No existe un pago con el código "+codPago);
                verDetalle = false;

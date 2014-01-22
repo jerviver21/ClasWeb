@@ -7,15 +7,22 @@
      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=8, IE=9, IE=10"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title id="title">Paideia Software</title>
         <link href="#{labels.contexto}/styles/#{applicationController.estiloA1}" rel="stylesheet" type="text/css" />
         <script lang="JavaScript" type="text/JavaScript" src="#{labels.contexto}/scripts/funciones.js"></script>
+        
         <f:view id="view1" locale="{generalController.locale}" />
+        </f:facet>
      </h:head>
      <h:body>
         <div id="holder">																																																																																																																																																																																																																																																																											
             <!--Encabezado-->
             <div id="top1">
+                <h:link outcome="/publicacion/tipocla.xhtml" value="(Publique Aquí)"/>
+                <p:spacer width="10"/>
                 <h:link outcome="/general/bienvenida.xhtml" value="Ingreso"/>
                 <p:spacer width="10"/>
                 <h:link outcome="/registro/registro.xhtml" value="Registrese"/>
@@ -32,24 +39,20 @@
                 </h:form>
             </div>
             <div id="top3">
-                <h:link outcome="/consultas/inicio.xhtml">
-                    <p:graphicImage value="/images/ini2.png"/>
+                <h:link outcome="/consultas/inicio.xhtml" onmouseout="outImg('ini')" onmouseover="overImg('ini')">
+                    <p:graphicImage id="ini" value="/images/ini1.png"/>
                 </h:link>
-                <h:link outcome="/consultas/inmobiliario.xhtml">
-                    <p:graphicImage value="/images/imb3.png"/>
+                <h:link outcome="/consultas/inmob_filtro.xhtml" onmouseout="outImg('viv')" onmouseover="overImg('viv')">
+                    <p:graphicImage id="viv" value="/images/viv1.png"/>
                 </h:link>
-                <h:link outcome="/consultas/empleo.xhtml">
-                    <p:graphicImage value="/images/emp2.png"/>
+                <h:link outcome="/consultas/empleo_filtro.xhtml" onmouseout="outImg('emp')" onmouseover="overImg('emp')">
+                    <p:graphicImage id="emp" value="/images/emp1.png"/>
                 </h:link>
-                <h:link outcome="/consultas/vehiculos.xhtml">
-                    <p:graphicImage value="/images/veh2.png"/>
+                <h:link outcome="/consultas/veh_filtro.xhtml" onmouseout="outImg('veh')" onmouseover="overImg('veh')">
+                    <p:graphicImage id="veh" value="/images/veh1.png"/>
                 </h:link>
-                <h:link outcome="/consultas/varios.xhtml">
-                    <p:graphicImage value="/images/var2.png"/>
-                </h:link>
-                <p:spacer width="20"/>
-                <h:link outcome="/publicacion/publicacion.xhtml">
-                    <p:graphicImage value="/images/pub2.png"/>
+                <h:link outcome="/consultas/varios_filtro.xhtml" onmouseout="outImg('var')" onmouseover="overImg('var')">
+                    <p:graphicImage id="var" value="/images/var1.png"/>
                 </h:link>
             </div>
             <!-- Fin Encabezado -->

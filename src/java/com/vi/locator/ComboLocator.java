@@ -21,6 +21,7 @@ public class ComboLocator {
     public static int COMB_ID_IDIOMA = 5;
     public static int COMB_ID_TIPOPUB = 6;
     public static int COMB_ID_ENTIDAD = 7;
+    public static int COMB_ID_TIPOPUBIMP = 23;
     public static int COMB_ID_MONEDAS = 20;
     public static int COMB_ID_ESTADOS_PEDIDOS = 22;
     
@@ -36,7 +37,8 @@ public class ComboLocator {
     
     //SUBTIPOS -INMUEBLES
     public static int IMB_TIPO = 11;
-    public static int IMB_TINMUEBLE = 12;
+    public static int IMB_TINMUEBLEV = 12;
+    public static int IMB_TINMUEBLEA = 24;
     public static int IMB_UBICACION = 13;
     public static int IMB_AREA = 14;
     public static int IMB_RANGOV = 15;
@@ -108,6 +110,9 @@ public class ComboLocator {
             }else if(TABLA == COMB_ID_MONEDAS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM currencies ");
                 getCache().put(TABLA, resultado);
+            }else if(TABLA == COMB_ID_TIPOPUBIMP){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, nombre FROM subtipo_publicacion WHERE id_tipo_publicacion=1 ");
+                getCache().put(TABLA, resultado);
             }else if(TABLA == PARAMETROS){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT nombre, valor FROM parametro");
                 getCache().put(TABLA, resultado);
@@ -123,7 +128,10 @@ public class ComboLocator {
             }else if(TABLA == IMB_TIPO){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 1");
                 getCache().put(TABLA, resultado);
-            }else if(TABLA == IMB_TINMUEBLE){
+            }else if(TABLA == IMB_TINMUEBLEV){
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 2 AND nombre = 'TIPO DE INMUEBLE'");
+                getCache().put(TABLA, resultado);
+            }else if(TABLA == IMB_TINMUEBLEA){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 2");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == IMB_UBICACION){
@@ -133,10 +141,10 @@ public class ComboLocator {
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 4");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == IMB_RANGOV){
-                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 5");
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND nombre = 'RANGO PRECIOS'");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == IMB_RANGOA){
-                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND subtipo = 6");
+                resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=1 AND nombre = 'RANGO PRECIOS ALQUILER'");
                 getCache().put(TABLA, resultado);
             }else if(TABLA == VEH_TIPOV){
                 resultado = getCommonFacade().getReferenceTableForCombo("SELECT id, dato FROM tipo_clasificado WHERE id_padre=3 AND subtipo = 1");

@@ -1,0 +1,52 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <h:link outcome="/publicacion/pedidoimpreso.xhtml" value="Volver a pedido"/>
+                    <br/>
+                    <span class="titulo">Detalle del Precio del Clasificado:</span>
+                    <br/>
+                    
+                    <p:dataTable value="#{pubImpresoController.detallePrecio}" var="item">
+                        <p:column headerText="Tipo de Precio">
+                            <h:outputText value="#{item.precio.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Nro de días">
+                            <h:outputText value="#{item.numDias}"/>
+                        </p:column>
+                        <p:column headerText="Nro Palabras">
+                            <h:outputText value="#{item.numPalabras}"/>
+                        </p:column>
+                        <p:column headerText="Precio por Palabra por Dia">
+                            <h:outputText value="#{item.precio.precio}"/> 
+                        </p:column>
+                        <p:column headerText="Precio por Dia">
+                            <h:outputText value="#{item.precio.precio}"/> 
+                        </p:column>
+                        <p:column headerText="Total">
+                            <h:outputText value="#{item.precioTotal}"/> 
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
+</html>

@@ -42,7 +42,8 @@ public class RegistroController {
         try {
             usuarioRegistrar.setPwd(SpringUtils.getPasswordEncoder().encodePassword(usuarioRegistrar.getClave(), null));
             service.registrar(usuarioRegistrar, "USUARIOS",  true );
-            FacesUtil.addMessage(FacesUtil.INFO,"Enviamos su nro de usuario a su email "+usuarioRegistrar.getUsr()+", consultelo y activelo!");
+            //FacesUtil.addMessage(FacesUtil.INFO,"Enviamos su nro de usuario a su email "+usuarioRegistrar.getUsr()+", consultelo y activelo!");
+            FacesUtil.addMessage(FacesUtil.INFO,"Usuario registrado, en un ambiente de producción se enviaría un mail al usuario para verificar identidad!");
             setLinkIngreso(true);
         } catch (Exception e) {
             FacesUtil.addMessage(FacesUtil.ERROR,"Error al crear el usuario!");

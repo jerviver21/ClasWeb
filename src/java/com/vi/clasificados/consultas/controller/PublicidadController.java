@@ -56,7 +56,7 @@ public class PublicidadController {
     
     @PostConstruct
     public void init(){
-        setBannerSuperior(pService.getBanner(PublicidadService.BANNER_SUPERIOR));
+        /*setBannerSuperior(pService.getBanner(PublicidadService.BANNER_SUPERIOR));
         setBannerLIEmp(pService.getBanner(PublicidadService.BANNER_LIEmp));
         setBannerLIImb(pService.getBanner(PublicidadService.BANNER_LIImb));
         setBannerLIVeh(pService.getBanner(PublicidadService.BANNER_LIVeh));
@@ -90,7 +90,7 @@ public class PublicidadController {
         renderLD3Emp = bannerLD3Emp!=null?true:false;
         renderLD3Imb = bannerLD3Imb!=null?true:false;
         renderLD3Veh = bannerLD3Veh!=null?true:false;
-        renderLD3Otr = bannerLD3Otr!=null?true:false;
+        renderLD3Otr = bannerLD3Otr!=null?true:false;*/
     }
     
     public String redirect(){

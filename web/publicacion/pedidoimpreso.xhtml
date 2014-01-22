@@ -1,0 +1,96 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:sec="http://www.springframework.org/security/facelets/tags"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form" prependId="false">
+                    <p:growl id="msgs" />
+                    <span class="menu">
+                        <p:commandLink action="#{pubImpresoController.crearNuevo}" value="Agregar Clasificado"/>
+                    </span>
+                    <br/>
+                    <span class="titulo">Pedido</span>
+                    <br/>
+                    Datos de los Clasificados que se Publicaran:
+                    <br/>
+                    
+                    <p:dataTable value="#{pubImpresoController.pedido.clasificados}" var="item" 
+                                paginator="true"
+                                paginatorAlwaysVisible="false"
+                                rows="8"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                paginatorPosition="top">
+                        
+                        <p:column headerText="Medio de Publicación">
+                            <h:outputText value="#{item.tipoPublicacion.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Inicial">
+                            <h:outputText value="#{item.fechaIni}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Fecha Final">
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="Nro. días">
+                            <h:outputText value="#{item.numDias}"/> 
+                        </p:column>
+                        <p:column headerText="Clasificado" footerText="TOTAL:">
+                            <p:commandLink id="clasificado" action="#{pubImpresoController.editar(item)}" value="#{item.clasificadoFrac}"/>
+                            <p:tooltip for="clasificado" value="Click para editar el clasificado" showEffect="slide" hideEffect="slide" />  
+                        </p:column>
+                        <p:column headerText="Precio" footerText="#{pubImpresoController.pedido.valorTotal}">
+                            <p:commandLink id="precio" action="#{pubImpresoController.verDetalle(item)}" value="#{item.precio}"/>
+                            <p:tooltip for="precio" value="Click para ver el detalle del precio" showEffect="slide" hideEffect="slide" /> 
+                        </p:column>
+                        <p:column headerText="Borrar">
+                            <p:commandButton update="@form" actionListener="#{pubImpresoController.borrar(item)}" icon="ui-icon-trash"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">  
+                            <sec:ifAnyGranted roles="ROLE_USER">
+                                <p:outputPanel>  
+                                    <h:outputLabel value="Seleccione el medio de pago:"/>
+                                    <h:selectOneMenu id="entidad_pago" value="#{pubImpresoController.pedido.entidad.id}">
+                                        <p:ajax update="@form"/>
+                                        <f:selectItems  value="#{pubImpresoController.entidades}"/>
+                                    </h:selectOneMenu>
+                                </p:outputPanel>  
+                            </sec:ifAnyGranted>
+                        </f:facet>  
+                    </p:dataTable>
+                    
+                    <sec:ifAnyGranted roles="MASTER, ASESOR PAGOS">
+                        <p:panelGrid columns="3">  
+                            <h:outputLabel value="D.N.I. Cliente:"/>
+                            <p:inputText id="dni" value="#{pubImpresoController.pedido.dniCliente}" required="true" requiredMessage="Ingrese D.N.I. del Cliente"/>
+                            <p:message for="dni"/>
+                            <h:outputLabel value="Nombre Cliente:"/>
+                            <p:inputText id="nombre" value="#{pubImpresoController.pedido.nombreCliente}" required="true" requiredMessage="Ingrese Nombre del Cliente"/>
+                            <p:message for="nombre"/>
+                        </p:panelGrid>
+                    </sec:ifAnyGranted>
+
+                    <br/>
+                    <p:commandButton value="Guardar Pedido" action="#{pubImpresoController.guardarPedido}" ajax="false"/>
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
+</html>

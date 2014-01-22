@@ -9,28 +9,27 @@
     <ui:define name="contenido">
         <div id="holder_contenido">
         <h:form id="form" >
-            <div id="left_col2">
+            <div id="left_col3">
                 <h:panelGrid columns="1">
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Tipo de Oferta"/>
                     <p:selectOneMenu id="sub1" value="#{empleoController.tipoOferta}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{empleoController.tipos}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Área o profesión"/>
                     <p:selectOneMenu id="sub2" value="#{empleoController.area}">
-                        <p:ajax update="@form"/>
-                        <f:selectItem  itemLabel="TODAS LAS ÁREAS" itemValue="0"/>
+                        <p:ajax/>
                         <f:selectItems  value="#{empleoController.areas}"/>
                     </p:selectOneMenu>
                     <p:spacer height="10"/>
 
                     <p:outputLabel value="Rango salarial"/>
                     <p:selectOneMenu id="sub3" value="#{empleoController.rangoSalarial}">
-                        <p:ajax update="@form"/>
+                        <p:ajax/>
                         <f:selectItem  itemLabel="TODOS LOS SALARIOS" itemValue="0"/>
                         <f:selectItems  value="#{empleoController.rangos}"/>
                     </p:selectOneMenu>
@@ -39,65 +38,33 @@
                     
                     <p:spacer height="25"/>
                 </h:panelGrid>
-                
-                
-                
-                <p:outputPanel rendered="#{publicidadController.renderLIEmp}">
-                    <h:outputLink value="#{publicidadController.bannerLIEmp.imagen.urlAterrizaje}">
-                        <p:graphicImage value="#{publicidadController.bannerLIEmp.imagen.urlFuente}" width="#{publicidadController.bannerLIEmp.width}" height="#{publicidadController.bannerLIEmp.heigh}" rendered="#{publicidadController.bannerLIEmp.imagen.tipoFuente.id eq 1}"/>
-                        <p:media player="flash"  value="#{publicidadController.bannerLIEmp.imagen.urlFuente}" width="#{publicidadController.bannerLIEmp.width}" height="#{publicidadController.bannerLIEmp.heigh}" rendered="#{publicidadController.bannerLIEmp.imagen.tipoFuente.id eq 2}"/>
-                    </h:outputLink>
-                </p:outputPanel>
             </div>
-            <div id="center_col2">
+             <div id="right_col3">
                 
                 <br/>
                 <span class="titulo">Resultados</span>
                 <br/>
-
-                <p:dataGrid var="clasificado" value="#{empleoController.clasificados}" columns="1"  
-                    rows="6" paginator="true"  
+                <p:dataTable var="clasificado" value="#{empleoController.clasificados}"
+                    rows="12" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    rowsPerPageTemplate="9,12,10"
                     paginatorAlwaysVisible="false">  
-                    
-                    <p:panel header="#{clasificado.subtipo2.dato}" style="width: 98%; height: 100px; overflow-y: auto">
-                        <p:outputPanel>
-                            <h:outputText value="#{clasificado.clasificado}"/>
-                        </p:outputPanel>
+                    <p:column headerText="Logo Empresarial" width="150">
+                        <p:graphicImage width="100" height="70" value="#{clasificado.urlImg0}"/>
+                    </p:column>
+                    <p:column headerText="Empresa" width="150">
+                        <h:outputText value="#{clasificado.nombreOfertante}"/>
+                    </p:column>
+                    <p:column headerText="Cargo" width="150">
+                        <h:outputText value="#{clasificado.tituloOferta}"/>
                         <br/>
-                        <p:outputLabel value="#{clasificado.moneda.simbolo}" style="color: blue;"/>
-                        <p:outputLabel value="#{clasificado.valorOferta}" style="color: blue;"/>
-                    </p:panel>
-
-                    
-
-                </p:dataGrid> 
-            </div>
-            <div id="right_col2">
-
-                    <p:outputPanel rendered="#{publicidadController.renderLD1Emp}">
-                        <h:outputLink value="#{publicidadController.bannerLD1Emp.imagen.urlAterrizaje}">
-                            <p:graphicImage value="#{publicidadController.bannerLD1Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD1Emp.width}" height="#{publicidadController.bannerLD1Emp.heigh}" rendered="#{publicidadController.bannerLD1Emp.imagen.tipoFuente.id eq 1}"/>
-                            <p:media player="flash" value="#{publicidadController.bannerLD1Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD1Emp.width}" height="#{publicidadController.bannerLD1Emp.heigh}" />
-                        </h:outputLink>
-                    </p:outputPanel>
-                    <p:spacer height="25"/>
-                    <p:outputPanel rendered="#{publicidadController.renderLD2Emp}">
-                        <h:outputLink value="#{publicidadController.bannerLD2Emp.imagen.urlAterrizaje}">
-                            <p:graphicImage value="#{publicidadController.bannerLD2Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD2Emp.width}" height="#{publicidadController.bannerLD2Emp.heigh}" rendered="#{publicidadController.bannerLD2Emp.imagen.tipoFuente.id eq 1}"/>
-                            <p:media player="flash" value="#{publicidadController.bannerLD2Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD2Emp.width}" height="#{publicidadController.bannerLD2Emp.heigh}" rendered="#{publicidadController.bannerLD2Emp.imagen.tipoFuente.id eq 2}"/>
-                        </h:outputLink>
-                    </p:outputPanel>
-                    <p:spacer height="25"/>
-                    <p:outputPanel rendered="#{publicidadController.renderLD3Emp}">
-                        <h:outputLink value="#{publicidadController.bannerLD3Emp.imagen.urlAterrizaje}">
-                            <p:graphicImage value="#{publicidadController.bannerLD3Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD3Emp.width}" height="#{publicidadController.bannerLD3Emp.heigh}" rendered="#{publicidadController.bannerLD3Emp.imagen.tipoFuente.id eq 1}"/>
-                            <p:media player="flash" value="#{publicidadController.bannerLD3Emp.imagen.urlFuente}" width="#{publicidadController.bannerLD3Emp.width}" height="#{publicidadController.bannerLD3Emp.heigh}" rendered="#{publicidadController.bannerLD3Emp.imagen.tipoFuente.id eq 2}"/>
-                        </h:outputLink>
-                    </p:outputPanel>
-
-
+                        <p:commandLink style="color: orange" value="Ver más" action="#{detalleController.mostrarClasificadoEmpleo(clasificado)}" ajax="false"/>
+                    </p:column>
+                    <p:column headerText="Salario">
+                        <h:outputText value="#{clasificado.valorOferta}"/>
+                        <p:spacer width="5"/>
+                        <h:outputText value="#{clasificado.moneda.simbolo}"/>
+                    </p:column>
+                </p:dataTable> 
             </div>
         </h:form>
         </div>

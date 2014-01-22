@@ -42,7 +42,7 @@
                         </f:facet>  
                         
                         <p:column headerText="Medio de Publicación">
-                            <h:outputText value="#{item.tipoPublicacion.nombre}"/>
+                            <h:outputText value="#{item.subtipoPublicacion.nombre}"/>
                         </p:column>
                         <p:column headerText="Estado">
                             <h:outputText value="#{item.estado.nombre}"/>
@@ -62,7 +62,7 @@
                         </p:column>
                         <p:column headerText="Operaciones">
                             <p:commandLink value="Cambiar Estado" action="#{clasificadoController.editar(item)}" rendered="#{item.editarEstado}"/>
-                            <p:commandLink value="Agregar a Pedido Actual" action="#{publicacionController.agregarClasificadoVencidoAPedido(item)}" rendered="#{item.agregarAPedido}"/>
+                            <!--<p:commandLink value="Agregar a Pedido Actual" action="{publicacionController.agregarClasificadoVencidoAPedido(item)}" rendered="{item.agregarAPedido}"/>-->
                         </p:column>
 
                     </p:dataTable>

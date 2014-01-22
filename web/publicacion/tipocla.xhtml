@@ -1,0 +1,46 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     >
+
+
+    <f:view>
+
+        <ui:composition template="../#{applicationController.plan2}">
+
+            <ui:define name="contenido">
+                <div style="height: 450px">
+                <h:form id="form">
+                 
+                    <h:panelGrid columns="2"> 
+                        <p:fieldset legend="Diario Impreso" style="width: 190px; height: 130px">  
+                           <p:panelGrid columns="2">
+                                <p:graphicImage value="/images/iconoCheck.png"/>
+                                <h:outputText value="Su clasificado será publicado en nuestro Diario Impreso" />  
+                                <f:facet name="footer">
+                                    <p:commandButton action="#{pubImpresoController.redirectPubImpreso}" value="Publique"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:fieldset> 
+                        <p:fieldset legend="Portal WEB" style="width: 190px; height: 130px">  
+                            <p:panelGrid columns="2">
+                                <p:graphicImage value="/images/iconoCheck.png"/>
+                                <h:outputText value="Su clasificado será publicado en nuestro Portal WEB" /> 
+                                <f:facet name="footer">
+                                    <p:commandButton action="#{pubWebController.redirectTipoWeb}" value="Publique"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:fieldset> 
+                    </h:panelGrid>
+
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </f:view>
+
+</html>

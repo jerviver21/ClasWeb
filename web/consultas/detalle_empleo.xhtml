@@ -1,0 +1,44 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     >
+    <f:view>
+        <ui:composition template="../#{applicationController.plan1}">
+            <ui:define name="contenido">
+                <h:form>
+                <div id="holder_contenido">
+                        <p:graphicImage value="#{clasificado.urlImg0}"/>
+                    <br/>
+                    <span class="titulo">Empresa</span>
+                    <br/>
+                        <h:outputText value="#{detalleController.clas1.nombreOfertante}"/>
+                    <br/>
+                    <br/>
+                    <span class="titulo">Cargo</span>
+                    <br/>
+                        <h:outputText value="#{detalleController.clas1.tituloOferta}"/>
+                    <br/>
+                    <br/>
+                    <span class="titulo">Descripción del Cargo</span>
+                    <br/>
+                    <p:outputPanel>
+                        <h:outputText value="#{detalleController.clas1.clasificado}"/>
+                    </p:outputPanel>
+                    <br/>
+                    <br/>
+                    <span class="titulo">Datos de Contacto</span>
+                    <br/>
+                    <h:outputText value="#{detalleController.usuario.nombre}"/>
+                    <br/>
+                    <h:outputText value="#{detalleController.usuario.mail}"/>       
+                </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+
+</html>

@@ -123,6 +123,7 @@ body {
     width: 99%;
     margin: 0 auto;
     font-size: 18px;
+    background-color: #549859;
 }
 
 #contenido {
@@ -133,6 +134,7 @@ body {
         position: relative;
         text-align: center;
         padding-bottom: 25px;
+        
 }
 
 
@@ -148,13 +150,14 @@ body {
 
 #holder { 
     width: 1000px;
-    height: 750px;
+    height: 800px;
     margin: 0 auto;
     background-color: white;
 }
 
 #holder_contenido{
-    height: 750px;
+    height: 800px;
+    overflow-y: scroll;
 }
 
 /* Los diferentes contenidos tienen diferentes presentaciones */
@@ -205,6 +208,62 @@ body {
 	width: 20%;
         margin: 0 auto;
         background:#FFFFFF none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;
+}
+
+
+#left_col3 {
+	width: 24%;
+        margin: 0 auto;
+        background:#eaffed none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;  
+        padding-top: 25px;
+        padding-bottom: 25px;
+}
+
+#right_col3 {
+	width: 75%;
+        margin: 0 auto;
+        background:#FFFFFF none repeat 0%;
+        float: left;
+        position: relative;
+        text-align: center;
+}
+
+#left_col4 {
+	width: 25%;
+        margin: 0 auto;
+        float: left;
+        position: relative;
+        text-align: left;  
+        padding-top: 25px;
+        padding-bottom: 25px;
+}
+
+#right_col4 {
+	width: 64%;
+        margin: 0 auto;
+        float: left;
+        position: relative;
+        text-align: center;
+}
+
+#left_col5 {
+	width: 99%;
+        margin: 0 auto;
+        float: left;
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 15px;
+}
+
+#carrusel {
+	width: 64%;
+        margin: 0 auto;
         float: left;
         position: relative;
         text-align: center;

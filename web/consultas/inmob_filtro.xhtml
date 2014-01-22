@@ -1,0 +1,80 @@
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+<ui:composition template="../#{applicationController.plan1}">
+    <ui:define name="contenido">
+        <div id="holder_contenido">
+        <h:form id="form" >
+            <div id="left_col5">
+                
+                <span class="titulo">Vivienda</span>
+                <br/>
+                <span class="titulo">Seleccione sus criterios de búsqueda</span>
+                <br/><br/>
+                <p:panel>
+                <h:panelGrid id="pg1" columns="1">
+                    <p:outputLabel value="Tipo de Oferta"/>
+                    <p:selectOneMenu id="sub1" value="#{inmobiliarioController.tipoOferta}" valueChangeListener="#{inmobiliarioController.cambiarRangoPrecios}">
+                        <p:ajax update="@form"/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposOfertas}"/>
+                    </p:selectOneMenu>
+                    <p:spacer height="10"/>
+
+                    <p:outputLabel value="Tipo de Inmueble"/>
+                    <p:selectOneMenu id="sub21" value="#{inmobiliarioController.tipoInmueble}" rendered="#{inmobiliarioController.renderVenta}">
+                        <p:ajax/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposInmueblesVentas}"/>
+                    </p:selectOneMenu>
+                   
+                    <p:selectOneMenu id="sub22" value="#{inmobiliarioController.tipoInmueble}" rendered="#{!inmobiliarioController.renderVenta}">
+                        <p:ajax/>
+                        <f:selectItems  value="#{inmobiliarioController.tiposInmueblesAlquiler}"/>
+                    </p:selectOneMenu>
+
+                    <p:spacer height="10"/>
+
+                    <p:outputLabel value="Ubicación"/>
+                    <p:selectOneMenu id="sub3" value="#{inmobiliarioController.ubicacion}">
+                        <p:ajax/>
+                        <f:selectItem  itemLabel="TODAS LAS UBICACIONES" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.ubicaciones}"/>
+                    </p:selectOneMenu>
+                    <p:spacer height="10"/>
+
+                    <p:outputLabel value="Área en metros cuadrados"/>
+                    <p:selectOneMenu id="sub4" value="#{inmobiliarioController.area}">
+                        <p:ajax/>
+                        <f:selectItem  itemLabel="TODAS LAS AREAS" itemValue="0"/>
+                        <f:selectItems  value="#{inmobiliarioController.areas}"/>
+                    </p:selectOneMenu>
+                    <p:spacer height="10"/>
+
+                    <p:outputLabel id="lsub51" value="Rango de Precios Venta" rendered="#{inmobiliarioController.renderVenta}"/>
+                    <p:outputLabel id="lsub52" value="Rango de Precios Alquiler" rendered="#{!inmobiliarioController.renderVenta}"/>
+                    <p:selectOneMenu id="sub51" value="#{inmobiliarioController.rangoPrecio}" rendered="#{inmobiliarioController.renderVenta}">
+                        <p:ajax/>
+                        <f:selectItems  value="#{inmobiliarioController.rangosPreciosVentas}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:selectOneMenu id="sub52" value="#{inmobiliarioController.rangoPrecio}" rendered="#{!inmobiliarioController.renderVenta}">
+                        <p:ajax/>
+                        <f:selectItems  value="#{inmobiliarioController.rangosPreciosAlquiler}"/>
+                    </p:selectOneMenu>
+                    <p:spacer height="10"/>
+                    <p:commandButton value="Buscar" action="#{inmobiliarioController.cambiarFiltro}" ajax="false"/>
+                    <p:spacer height="25"/>
+                </h:panelGrid>
+                </p:panel>
+            </div>
+            
+        </h:form>
+        </div>
+   </ui:define>
+  </ui:composition>
+</f:view>
+</html>
+

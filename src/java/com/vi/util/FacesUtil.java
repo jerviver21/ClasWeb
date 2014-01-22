@@ -17,10 +17,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
-import org.primefaces.component.menuitem.MenuItem;
-import org.primefaces.component.submenu.Submenu;
-import org.primefaces.model.DefaultMenuModel;
-import org.primefaces.model.MenuModel;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
+import org.primefaces.model.menu.Submenu;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
@@ -127,61 +128,60 @@ public class FacesUtil {
     public static MenuModel getMenu(Set<Resource> recursos){
         String language = ((GeneralController)FacesUtil.getManagedBean("#{generalController}")).getLocale();
         String nombre;
-        Map<Long, Submenu> menus = new HashMap<Long, Submenu>();
+        Map<Long, DefaultSubMenu> menus = new HashMap<Long, DefaultSubMenu>();
+        Map<Long, Boolean> menuInModel = new HashMap<Long, Boolean>();
         MenuModel model = new DefaultMenuModel();
 
-        int contador = 100;
         for(Resource recurso: recursos){
             if(recurso.getIdioma() == null || (recurso.getIdioma() != null && !recurso.getIdioma().equals(language))){
                 continue;
             }
-            contador++;
-            MenuItem item = new MenuItem();
-            item.setId("rec_"+contador);
+            
+            DefaultMenuItem item = new DefaultMenuItem();
             nombre = recurso.getNombre();
             item.setValue(nombre);
             item.setUrl(recurso.getUrl());
             Menu menu = recurso.getMenu();
             if(menu.getId() == MENU_RAIZ){
-                model.addMenuItem(item);
+                model.addElement(item);
                 continue;
             }
 
-            Submenu submenu = menus.get(menu.getId());
+            DefaultSubMenu submenu = menus.get(menu.getId());
             if(submenu == null){
-                submenu = new Submenu();
-                submenu.setId("subm_"+contador);
+                submenu = new DefaultSubMenu();
                 nombre = menu.getNombre();
                 submenu.setLabel(nombre);
                 menus.put(menu.getId(), submenu);
+                menuInModel.put(menu.getId(), Boolean.FALSE);
             }
-            submenu.getChildren().add(item);
+            submenu.addElement(item);
 
             Menu menuPadre = menu.getMenuPadre();
             long  idMenuPadre = menuPadre.getId();
             
             
-            if(idMenuPadre == MENU_RAIZ ){
-                model.addSubmenu(submenu);   
+            if(idMenuPadre == MENU_RAIZ && !menuInModel.get(menu.getId())){
+                model.addElement(submenu);  
+                menuInModel.put(menu.getId(), Boolean.TRUE);
             }
 
             while (idMenuPadre != MENU_RAIZ){
-                Submenu submenuPadre = menus.get(idMenuPadre);
+                DefaultSubMenu submenuPadre = menus.get(idMenuPadre);
                 if(submenuPadre == null){
-                    submenuPadre = new Submenu();
-                    submenuPadre.setId("submp_"+contador);
+                    submenuPadre = new DefaultSubMenu();
                     nombre = menuPadre.getNombre();
                     submenuPadre.setLabel(nombre);
                     menus.put(idMenuPadre, submenuPadre);
                 }else{
                     break;
                 }
-                submenuPadre.getChildren().add(submenu);
+                submenuPadre.addElement(submenu);
                 menuPadre = menuPadre.getMenuPadre();
                 idMenuPadre = menuPadre.getId();
                 
                 if(idMenuPadre == MENU_RAIZ){
-                    model.addSubmenu(submenuPadre);
+                    model.addElement(submenuPadre);
                 }else{
                     submenu = submenuPadre;
                 }
