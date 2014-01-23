@@ -94,14 +94,14 @@
                         
                         <p:row rendered="#{pubImpresoController.tipoClasificado.campos.valor}">
                             <p:column>
-                                <h:outputLabel  value="PRECIO:" rendered="#{pubImpresoController.clasificado.tipo.id eq 1 or pubImpresoController.clasificado.tipo.id eq 3}"/>
+                                <h:outputLabel  value="PRECIO:" rendered="#{pubImpresoController.clasificado.tipo.id ne 2}"/>
                                 <h:outputLabel  value="SALARIO:" rendered="#{pubImpresoController.clasificado.tipo.id eq 2}" />
                             </p:column>
                             <p:column>
                                 <p:inputText id="valorof1" value="#{pubImpresoController.clasificado.valorOferta}">
                                     <p:ajax update="@form"/>
                                 </p:inputText>
-                                <p:watermark value="Digite el entero sin signos, puntos, ni comas" for="valorof1"/>
+                                <p:watermark value="Digite el número sin signos, puntos, ni comas" for="valorof1"/>
                             </p:column>
                             <p:column>
                                 <h:selectOneMenu id="moneda" value="#{pubImpresoController.clasificado.moneda.id}">

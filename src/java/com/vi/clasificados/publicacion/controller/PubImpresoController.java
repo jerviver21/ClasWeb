@@ -99,6 +99,7 @@ public class PubImpresoController {
         int idTipo = clasificado.getTipo().getId();
         clasificado = new Clasificado();
         clasificado.setTipo(new TipoClasificado(idTipo));
+        clasificado.setFechaIni(minDate);
         seleccionarSubtipos(idTipo);
     }
     
