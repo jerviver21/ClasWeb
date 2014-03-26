@@ -5,7 +5,7 @@
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view>
-<ui:composition template="../#{applicationController.plan3}">
+<ui:composition template="../#{applicationController.plan2}">
     <ui:define name="contenido">
         <h:form id="form" >
             <h:inputHidden id="id" value="#{recursosController.recurso.id}"/>
@@ -38,7 +38,6 @@
 
                 <f:facet name="footer">
                     <p:commandButton value="Guardar" update="@form"  action="#{recursosController.guardar}" ajax="true">
-                        <p:collector value="#{recursosController.recurso}" addTo="#{recursosController.recursos}"/>
                     </p:commandButton>
                 </f:facet>
             </p:panelGrid>

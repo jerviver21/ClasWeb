@@ -32,7 +32,7 @@ public class UsuariosController {
     private int gridFilasGrupos = 1;
     private int gridColumnasGrupos = 1;
     
-
+    Users sesion;
 
     @EJB
     UsuariosServicesLocal usersServices;
@@ -41,12 +41,14 @@ public class UsuariosController {
 
     @PostConstruct
     public void init(){
+        sesion = ((SessionController)FacesUtil.getManagedBean("#{sessionController}")).getUsuario();
+        
         setUsuario(new Users());
         usuario.setPwd("");
         locator = ComboLocator.getInstance();
-        setGrupos(gruposServices.findAll());
+        setGrupos(gruposServices.findByLicencia(sesion.getLicencia()));
         if(usuarios == null){
-            setUsuarios(usersServices.findAll());
+            setUsuarios(usersServices.findUsersByLicencia(sesion.getLicencia()));
         }
         
         if(!grupos.isEmpty()){
@@ -75,7 +77,7 @@ public class UsuariosController {
             usuario.setPwd(SpringUtils.getPasswordEncoder().encodePassword(usuario.getPwd(), null));
             System.out.println("EAntes de guardar: "+getUsuario().getId());
             usersServices.edit(getUsuario());
-            setUsuarios(usersServices.findAll());
+            setUsuarios(usersServices.findUsersByLicencia(sesion.getLicencia()));
             FacesUtil.addMessage(FacesUtil.INFO, "Usuario guardado con exito");
         }catch (LlaveDuplicadaException e){
             FacesUtil.addMessage(FacesUtil.ERROR, e.getMessage());
