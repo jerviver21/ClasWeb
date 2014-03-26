@@ -10,9 +10,9 @@
     <f:view>
 
         <ui:composition template="../#{applicationController.plan3}">
-
             <ui:define name="contenido">
-                <h:form id="formId" prependId="false">
+                <div style="height: 450px">
+                <h:form id="formId">
                     
                     
                     <p:messages id="msgs" />
@@ -36,10 +36,8 @@
                         <p:commandButton value="#{labels.boton_enviar}" action="#{reportesController.generar}" ajax="false"/>
                     </p:panel>
 
-                    <p:commandLink value="#{labels.descargar}" ajax="false" title="Download" actionListener="#{reportesController.descargar}" rendered="#{reportesController.renderDownload}">
-                          <p:fileDownload value="#{reportesController.file}"/>
-                    </p:commandLink>
                 </h:form>
+                </div>
             </ui:define>
         </ui:composition>
     </f:view>
